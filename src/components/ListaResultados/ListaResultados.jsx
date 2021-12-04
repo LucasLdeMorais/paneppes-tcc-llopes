@@ -16,7 +16,7 @@ export default function ListaResultados({resultados, handleClickItemLista}){
                 <ListItemButton 
                     onClick={(event) => {
                         event.preventDefault()
-                        handleClickItemLista(resultado)
+                        handleClickItemLista(resultado.resource[0])
                     }} 
                     key={"sr" + resultados.indexOf(resultado)}
                 >
