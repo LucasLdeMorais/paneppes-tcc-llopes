@@ -10,8 +10,9 @@ import axios from "axios"
 
 export default function App() {
   const [resultadoPesquisaResource, setResultadoPesquisaResource] = useState(false)
-  const [resultadoPesquisaSparqlFrom, setResultadoPesquisaSparqlFrom] = useState(false)
-  const [resultadoPesquisaSparqlTo, setResultadoPesquisaSparqlTo] = useState(false)
+  // const [resultadoPesquisaSparql, setResultadoPesquisaSparql] = useState(false)
+  const [resultadoPesquisaSparqlFrom, setResultadoPesquisaSparqlFrom] = useState([])
+  const [resultadoPesquisaSparqlTo, setResultadoPesquisaSparqlTo] = useState([])
   const [loading, setLoading] = useState(false);
 
   // "nodes": [
@@ -39,16 +40,16 @@ export default function App() {
   // ]
 
 
-  useEffect(() => { 
-    console.log(resultadoPesquisaSparqlFrom)
-    console.log(resultadoPesquisaSparqlTo)
+  useEffect(() => {
+    console.log(resultadoPesquisaSparqlFrom[0])
+    console.log(resultadoPesquisaSparqlTo[0])
   })
 
   return (
     <div className="App">
         <Container component="article" maxWidth="sm">
           <BarraPesquisa aoEnviar={handleSubmitResource}/>
-          { loading ? <CircularProgress style={{marginLeft: "50%", marginTop: "0"}}/> : 
+          { loading && !(resultadoPesquisaResource) ? <CircularProgress style={{marginLeft: "50%", marginTop: "0"}}/> : 
             <ListaResultados resultados={resultadoPesquisaResource} handleClickItemLista={handleClickItemLista}/>
           }
         </Container>
@@ -64,32 +65,14 @@ export default function App() {
     })
   }
 
-
   function handleClickItemLista(itemLista) {
     pesquisaSparql(itemLista)
   }
 
-  // async function pesquisaResource(palavraChave) {
-  //   try {
-  //     setResultadoPesquisaResource(false)
-  //     setLoading(true)
-  //     let resposta = await axios.get('http://lookup.dbpedia.org/api/search', {
-  //       params: {
-  //         format: "JSON",
-  //         query: palavraChave
-  //       }
-  //     })
-  //     setResultadoPesquisaResource(resposta.data.docs)
-  //     setLoading(false)
-  //   } catch(e){
-  //     console.log(e)
-  //   }
-  // }
-
-  // Para o PesquisaSparqlV2
-  //  function handleClickItemLista(itemLista) {
-  //   pesquisaSparql(itemLista).finally((result) => {
-  //     setResultadoPesquisaSparql(result)
+  // function handleClickItemLista(itemLista) {
+  //   pesquisaSparql(itemLista).then((resultado) => {
+  //     const PesquisaSparql = resultado
+  //     setResultadoPesquisaSparql(PesquisaSparql)
   //   })
   // }
 
