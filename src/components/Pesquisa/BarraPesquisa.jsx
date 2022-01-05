@@ -3,7 +3,7 @@ import SearchTwoTones from "@material-ui/icons/SearchTwoTone"
 import TextField from "@material-ui/core/TextField"
 import IconButton from "@material-ui/core/IconButton"
 
-export default function BarraPesquisa({aoEnviar}){
+export default function BarraPesquisa({aoEnviar, handleRecarregarGrafo}){
     const listaExemplos = ["Berlim", "Nintendo", "Isaac Asimov", "Sonic", "Super Mario Bros",
         "Pluto", "Mickey Mouse", "Caim", "Nero", "Capadocia", "Hermes Trismegistus" ]
     
@@ -13,17 +13,16 @@ export default function BarraPesquisa({aoEnviar}){
 
 
     return <form onSubmit={(event) => {
-            event.preventDefault()
-            aoEnviar(conteudoPesquisa)
-        }}>
+        event.preventDefault()
+        aoEnviar(conteudoPesquisa)
+    }}>
         <IconButton type="submit" sx={{ color: "action.active", mr: 1, my: 1.5 }}>
-                <SearchTwoTones/>
+            <SearchTwoTones/>
         </IconButton>
         <div style={{width: "90%", float: "right"}}>
-            <TextField 
-                onChange={(event) => {
-                    setConteudoPesquisa(event.target.value);
-                }}
+            <TextField onChange={(event) => {
+                setConteudoPesquisa(event.target.value);
+            }}
                 placeholder={`Ex.: ${exemplo}`}
                 id="pesquisa" 
                 variant="standard" 

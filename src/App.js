@@ -1,11 +1,13 @@
-import { React, useState, useEffect } from "react"
+import { React, useState } from "react"
 import BarraPesquisa from './components/Pesquisa/BarraPesquisa';
 import ListaResultados from "./components/ListaResultados/ListaResultados";
+// TODO utilizar a pesquisaSparql desacoplada 
 // import pesquisaSparql from "./pesquisaSparql"
 import pesquisaResource from "./pesquisaResource";
-import { Container, CircularProgress } from "@material-ui/core"
-import ForceGraph3D from "react-force-graph-3d";
+import { Container, CircularProgress, Button } from "@material-ui/core"
+import RefreshTwoTone from "@material-ui/icons/RefreshTwoTone"
 import axios from "axios"
+import ForceGraph2D from "react-force-graph-2d";
 
 export default function App() {
   const [resultadoPesquisaResource, setResultadoPesquisaResource] = useState(false)
@@ -16,12 +18,6 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [grafo, setGrafo] = useState({ nodes: [], links: [] })
 
-  useEffect(() => {
-    console.log({"To": resultadoPesquisaSparqlTo,"From": resultadoPesquisaSparqlFrom})
-
-    console.log(grafo)
-  });
-
   return (
     <div className="App">
         <Container component="article" maxWidth="sm">
@@ -29,19 +25,29 @@ export default function App() {
           { loading && !(resultadoPesquisaResource) ? <CircularProgress style={{marginLeft: "50%", marginTop: "0"}}/> : 
             <ListaResultados resultados={resultadoPesquisaResource} handleClickItemLista={handleClickItemLista}/>
           }
-          { grafo.nodes !== [] ?
-            <ForceGraph3D
-              graphData={grafo}
-              nodeLabel="name"
-              linkDirectionalArrowLength={3.5}
-              linkDirectionalArrowRelPos={1}
-              linkCurvature={0.25}
-              onNodeDragEnd={ node => {
+          <br></br>
+          <Button variant="contained" endIcon={<RefreshTwoTone/>} onClick={handleRecarregarGrafo} width="50%">
+            Recarregar Grafo
+          </Button>
+          {  grafo.nodes !== [] ?
+            <ForceGraph2D
+              graphData = { grafo }
+              nodeLabel = "name"
+              linkDirectionalArrowLength = { 3.5 }
+              linkDirectionalArrowRelPos = { 1 }
+              linkCurvature = { 0.25 }
+              onNodeDragEnd = { node => {
                 node.fx = node.x;
                 node.fy = node.y;
                 node.fz = node.z;
               }}
-            /> : <CircularProgress style={{marginLeft: "50%", marginTop: "0"}}/>
+              onNodeClick={ node => {
+                handleClickNode(node)
+              }}
+            /> : <></>
+
+            // TODO <Grafo data={grafo} handleClickNode={handleClickNode}/>
+
           }
         </Container>
     </div>
@@ -51,6 +57,9 @@ export default function App() {
     if(palavraChave === false)
       return
     setLoading(true)
+
+    // TODO setVisibilityGrafo(false)
+
     pesquisaResource(palavraChave).then((resultado) => {
       const Resource = resultado
       setResultadoPesquisaResource(Resource)
@@ -58,13 +67,31 @@ export default function App() {
     })
   }
 
-  function handleClickItemLista(itemLista) {
-    setItemListaSelecionado(itemLista)
-    pesquisaSparql(itemLista).then( gerarGrafo() )
-    
+  async function handleClickNode(node) {
+    if(node.tag === "Root")
+      return
+    setItemListaSelecionado(node.resource)
+    await pesquisaSparql(node.resource)
   }
-  
 
+  async function handleClickItemLista(itemLista) {
+    setItemListaSelecionado(itemLista)
+
+    // TODO setResultadoPesquisaResourceVisibility(false)
+
+    await pesquisaSparql(itemListaSelecionado).then( () =>{
+        gerarGrafo()
+    })
+  }
+
+  async function handleRecarregarGrafo(){
+    await pesquisaSparql(itemListaSelecionado).then( () =>{
+        gerarGrafo()
+    })
+  }
+
+  // TODO utilizar a pesquisaSparql desacoplada 
+  //
   // function handleClickItemLista(itemLista) {
   //   pesquisaSparql(itemLista).then((resultado) => {
   //     const PesquisaSparql = resultado
@@ -73,10 +100,9 @@ export default function App() {
   // }
 
   async function pesquisaSparql(itemLista) {
-    await pesquisaSparqlFrom(itemLista).then( () => { 
-      pesquisaSparqlTo(itemLista)
-    })
-    gerarGrafo()
+    await pesquisaSparqlFrom(itemLista).then(  
+      await pesquisaSparqlTo(itemLista)
+    )
   }
 
   async function pesquisaSparqlFrom(itemLista) {
@@ -92,8 +118,9 @@ export default function App() {
     const url = base + "?" + defaultGraphUri + "&" + query + "&" + format + "&" + timeout + "&" + signalVoid + "&" + signalUnconnected
     
     try {
-      let resposta = await axios.get(url)
-      setResultadoPesquisaSparqlFrom(resposta.data.results.bindings)
+      await axios.get(url).then( resposta => {
+        setResultadoPesquisaSparqlFrom(resposta.data.results.bindings)
+      })
     } catch(e) {
       console.log(e)
     }
@@ -112,31 +139,33 @@ export default function App() {
     const url = base + "?" + defaultGraphUri + "&" + query + "&" + format + "&" + timeout + "&" + signalVoid + "&" + signalUnconnected
     
     try {
-      let resposta = await axios.get(url)
-      setResultadoPesquisaSparqlTo(resposta.data.results.bindings)
+      await axios.get(url).then( resposta => {
+        setResultadoPesquisaSparqlTo(resposta.data.results.bindings)
+      })
     } catch(e) {
       console.log(e)
     }
   }
 
+  //TODO Desacoplar geração do grafo
+
   function gerarGrafo() {
-    if(resultadoPesquisaSparqlFrom === [] || resultadoPesquisaSparqlTo === []) {
+    if(resultadoPesquisaSparqlFrom === [] || resultadoPesquisaSparqlTo === [])
       return
-    }
 
     let id = 0
-
     let nodes = []
     let links = []
 
     nodes.push({
       "id": id++,
       "name": `${itemListaSelecionado}`,
-      "val": 2 //tamanho
+      "val": 2, //tamanho
+      "color": "#8c92ac",
+      "tag": "Root"
     })
-    resultadoPesquisaSparqlFrom.map((elemento) => {
-      console.log(elemento.page.value)
-      console.log(`id:${id}`)
+
+    resultadoPesquisaSparqlFrom.forEach((elemento) => {
       links.push({
         "source": id,
         "target": 0
@@ -144,11 +173,14 @@ export default function App() {
       nodes.push({
         "id": id++,
         "name": `${elemento.page.value}`,
-        "val": 2 //tamanho
+        "resource": `${elemento.ResourceFrom.value}`,
+        "val": 2, //tamanho
+        "color": "#1ea2a4",
+        "tag": "From"
       })
-      console.log(`id:${id}`)
     })
-    resultadoPesquisaSparqlTo.map((elemento) => {
+
+    resultadoPesquisaSparqlTo.forEach((elemento) => {
       links.push({
         "source": 0,
         "target": id
@@ -156,10 +188,13 @@ export default function App() {
       nodes.push({
         "id": id++,
         "name": `${elemento.page.value}`,
-        "val": 2 //tamanho
+        "resource": `${elemento.ResourceTo.value}`,
+        "val": 2, //tamanho
+        "color": "#e35259",
+        "tag": "To"
       })
     })
-    
+
     setGrafo({
       "nodes": nodes,
       "links": links

@@ -11,7 +11,7 @@ export default async function pesquisaSparql(resource) {
   const defaultSignalUnconnected = "on"
   const defaultSignalVoid = "on"
 
-  async function pesquisaSparql(base, defaultGraphUri, query, format, timeout, signalVoid, signalUnconnected) {
+  const __pesquisaSparqlApi = async (base, defaultGraphUri, query, format, timeout, signalVoid, signalUnconnected) => {
     defaultGraphUri = encodeURIComponent(defaultGraphUri).replaceAll("%3D", "=")
     query = encodeURIComponent(query).replaceAll("%2B","+").replaceAll("%3D", "=")
     format = encodeURIComponent(format).replaceAll("%2D", "-")
@@ -19,15 +19,16 @@ export default async function pesquisaSparql(resource) {
     const url = base + "?default-graph-uri=" + defaultGraphUri + "&" + query + "&format=" + format +
       "&timeout=" + timeout + "&signal_void=" + signalVoid + "&signal_unconnected=" + signalUnconnected
     try {
-      let resposta = await axios.get(url)
-      return resposta.data.results.bindings
+      await Promise.resolve(axios.get(url)).then( resposta => {
+        return resposta.data.results.bindings
+      })
     } catch(e) {
       console.log(e)
     }
   }
 
   return {
-    pesquisaSparqlFrom: pesquisaSparql(baseUrl, graphUri, queryFrom, dataFormat, defaultTimeout, defaultSignalVoid, defaultSignalUnconnected),
-    pesquisaSparqlTo: pesquisaSparql(baseUrl, graphUri, queryTo, dataFormat, defaultTimeout, defaultSignalVoid, defaultSignalUnconnected)
+    pesquisaSparqlFrom: __pesquisaSparqlApi(baseUrl, graphUri, queryFrom, dataFormat, defaultTimeout, defaultSignalVoid, defaultSignalUnconnected),
+    pesquisaSparqlTo: __pesquisaSparqlApi(baseUrl, graphUri, queryTo, dataFormat, defaultTimeout, defaultSignalVoid, defaultSignalUnconnected)
   }
 }
