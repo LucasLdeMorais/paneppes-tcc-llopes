@@ -3,7 +3,7 @@ import SearchTwoTones from "@material-ui/icons/SearchTwoTone"
 import TextField from "@material-ui/core/TextField"
 import IconButton from "@material-ui/core/IconButton"
 
-export default function BarraPesquisa({aoEnviar, handleRecarregarGrafo}){
+export default function BarraPesquisa({aoEnviar}){
     const listaExemplos = ["Berlim", "Nintendo", "Isaac Asimov", "Sonic", "Super Mario Bros",
         "Pluto", "Mickey Mouse", "Caim", "Nero", "Capadocia", "Hermes Trismegistus" ]
     
@@ -21,6 +21,7 @@ export default function BarraPesquisa({aoEnviar, handleRecarregarGrafo}){
         </IconButton>
         <div style={{width: "90%", float: "right"}}>
             <TextField onChange={(event) => {
+                event.preventDefault()
                 setConteudoPesquisa(event.target.value);
             }}
                 placeholder={`Ex.: ${exemplo}`}

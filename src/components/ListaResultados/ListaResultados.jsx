@@ -2,17 +2,21 @@ import { React } from "react"
 import { List, ListItemText, ListSubheader, ListItemButton } from "@material-ui/core"
 
 export default function ListaResultados({resultados, handleClickItemLista}){
-
-    if(resultados) {
-        return <List 
-            sx={{ width: '100%', bgcolor: 'background.paper', maxHeight: "15em", overflow: "hidden", overflowY: "scroll" }}
+    return resultados ? <div>
+        <List style={{position: "absolute", display: "block"}} sx={{ 
+                width: '36%', 
+                bgcolor: 'background.paper', 
+                maxHeight: "15em",
+                overflow: "hidden", 
+                overflowY: "scroll", 
+                zIndex: 1000
+            }}
             subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
-                  Resultados
+                    Resultados
                 </ListSubheader>
-              }
-        >
-            { resultados ? resultados.map((resultado) => (
+            }
+            > { resultados ? resultados.map((resultado) => (
                 <ListItemButton 
                     onClick={(event) => {
                         event.preventDefault()
@@ -27,6 +31,5 @@ export default function ListaResultados({resultados, handleClickItemLista}){
                 </ListItemButton>
             )) : null }
         </List>
-    }
-    return <></>
+    </div> : <></>
 }
