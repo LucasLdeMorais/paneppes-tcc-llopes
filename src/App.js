@@ -1,4 +1,4 @@
-import { React, useState } from "react"
+import { React, useState, useEffect } from "react"
 import BarraPesquisa from './components/Pesquisa/BarraPesquisa';
 import ListaResultados from "./components/ListaResultados/ListaResultados";
 import RecursosGrafo from "./components/RecursosGrafo/RecursosGrafo"
@@ -20,6 +20,11 @@ export default function App() {
   const [loadingLista, setLoadingLista] = useState(false)
   const [loadingGrafo, setLoadingGrafo] = useState(false)
   const [grafo, setGrafo] = useState({ nodes: [], links: [] })
+
+  useEffect ( () => {
+    console.log(grafo)
+    console.log(grafo)
+  })
 
   return (
     <div className="App">
