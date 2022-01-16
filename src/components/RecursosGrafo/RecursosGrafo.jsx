@@ -21,8 +21,8 @@ export default function RecursosGrafo({handleRecarregarGrafo, handleOnlyTo, hand
         <Button size="small" variant="contained" endIcon={<CompareArrowsTwoTone/>} onClick={(event) => {handleAllNodes(event)}} width="12%">
             Todos os links
         </Button>
-        <Typography variant="body1" component="div">As páginas cuja página selecionada referencia são representadas pela cor azul</Typography>
-        <Typography variant="body1" component="div">As páginas que referenciam a página selecionada são representadas pela cor vermelho</Typography>
+        <Typography variant="body1" component="div">As páginas cuja página selecionada referencia, são representadas pela cor azul</Typography>
+        <Typography variant="body1" component="div">As páginas que referenciam a página selecionada, são representadas pela cor vermelho</Typography>
         <Typography variant="caption" display="block">
             OBS.: Caso o grafo não apresente o resultado esperado, clique em "recarregar grafo"
         </Typography>
