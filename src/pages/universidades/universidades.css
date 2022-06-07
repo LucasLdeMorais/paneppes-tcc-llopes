@@ -1,0 +1,8 @@
+.universidades{
+    flex: 4;
+}
+
+.universidadesWidgets{
+    display: flex;
+    margin: 20px;
+}
