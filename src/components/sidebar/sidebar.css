@@ -6,6 +6,10 @@
   top: 50px;
 }
 
+.drawer {
+  width: "190px"
+}
+
 .sidebarWrapper {
   padding: 20px;
   color: #555;
