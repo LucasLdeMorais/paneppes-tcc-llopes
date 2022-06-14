@@ -10,7 +10,7 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
-import Universidades from "./pages/universidades/Universidades";
+import Universidades from "./pages/universidades/UniversidadesGrid";
 import { Box, Container } from "@mui/material";
 
 function App() {
