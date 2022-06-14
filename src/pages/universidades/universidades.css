@@ -2,7 +2,15 @@
     flex: 4;
 }
 
-.universidadesWidgets{
-    display: flex;
-    margin: 20px;
+.seletorAnos{
+    height: 50;
+    line-height: 60px;
+    width: fit-content;
+    min-width: 90px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px
+}
+.containerAnos > :nth-child(n+8){
+    margin-right: 0 !important
 }

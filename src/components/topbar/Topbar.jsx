@@ -1,28 +1,40 @@
 import React from "react";
 import "./topbar.css";
-import { Settings } from "@material-ui/icons";
-import { IconButton } from "@material-ui/core";
-import MenuIcon from '@mui/icons-material/Menu';
+import { 
+  Settings, 
+  Menu, 
+  ChevronLeft,
+  ChevronRight
+} from "@mui/icons-material";
+import { 
+  AppBar,
+  IconButton, 
+  Toolbar,
+  Typography
+} from "@mui/material";
 
-export default function Topbar(abreGaveta) {
+const Topbar = (props) => {
   return (
-    <div className="topbar">
-      <div className="topbarWrapper">
-        <div className="topMiddle">
-          <span className="logo">Painel FESEP</span>
-        </div>
-        <div className="topRight">
-          <div className="topbarIconContainer">
-            <IconButton onClick={abreGaveta}>
-              <MenuIcon />
-            </IconButton>
-          </div>
-          <div className="topbarIconContainer">
-            <Settings />
-            {/* <span className="topIconBadge">2</span> */}
-          </div>
-        </div>
-      </div>
-    </div>
+    <AppBar position="fixed" open={props.aberto}>
+      <Toolbar sx={{ pr: '24px' }}>
+        {/* { !props.aberto && <IconButton onClick={props.abreGaveta}>
+          <Menu style={{ color: 'white' }}/>
+        </IconButton>} */}
+        <IconButton onClick={props.abreGaveta}>
+          <Menu style={{ color: 'white' }}/>
+        </IconButton>
+        <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+              style={{ marginLeft: '10px' }}
+            >
+              Painel VisEPES
+            </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
+export default Topbar;

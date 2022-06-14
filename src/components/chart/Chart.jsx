@@ -7,12 +7,13 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Typography } from "@mui/material";
 
 export default function Chart({ title, data, dataKey, grid }) {
 
   return (
     <div className="chart">
-      <h3 className="chartTitle">{title}</h3>
+      <Typography component='h3' variant='h6'>Gráfico</Typography>
       <ResponsiveContainer width="100%" aspect={4 / 1}>
         <LineChart data={data}>
           <XAxis dataKey="name" stroke="#5550bd" />

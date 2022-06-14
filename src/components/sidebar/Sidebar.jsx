@@ -3,9 +3,12 @@ import {
   Drawer as MUIDrawer,
   ListItem,
   List,
+  Divider,
   ListItemIcon,
   ListItemText,
-  IconButton
+  IconButton,
+  Typography,
+  Box
 } from "@mui/material";
 import { 
   PermIdentity,
@@ -16,12 +19,12 @@ import {
   Info,
   Code,
   CurrencyExchange,
-  ChevronLeft
+  ChevronLeft,
+  ChevronRight
 } from "@mui/icons-material";
 import { withRouter } from "react-router-dom";
 
-const Sidebar = props => {
-  const [open, setOpen] = useState(true);
+const Sidebar = (props) => {
   const { history } = props;
   const itemsList = {
     principal: [{
@@ -39,51 +42,82 @@ const Sidebar = props => {
       icon: <PermIdentity />,
       onClick: () => history.push("/Parlamentares")
     }],
-    saberMais: [{},{}],
-    infoAdicionais: [{},{}]
+    saberMais: [{
+      text: "Emendas",
+      icon: <CurrencyExchange />,
+      onClick: () => history.push("/SaberMais/EmendasParlamentares")
+    },
+    {
+      text: "Financiamento do Ensino Superior",
+      icon: <AttachMoney />,
+      onClick: () => history.push("/SaberMais/Financiamento")
+    }],
+    infoAdicionais: [{
+      text: "Sobre o Painel",
+      icon: <Info />,
+      onClick: () => history.push("/Sobre")
+    },{
+      text: "Código-fonte",
+      icon: <Code />,
+      onClick: () => history.push("/CodigoFonte")
+    }]
   };
   
   return (
-    <MUIDrawer open={open} variant="persistent" className='drawer'>
-      <List>
-        <ListItem>
-          <ListItemIcon>
-            <IconButton onClick={props.handleFecharGaveta}>
-              <ChevronLeft />
-            </IconButton>
-          </ListItemIcon>
-          
-        </ListItem>
-        {itemsList.principal.map((item, index) => {
-          const { text, icon, onClick } = item;
-          return (
-            <ListItem button key={text} onClick={onClick}>
-              {icon && <ListItemIcon>{icon}</ListItemIcon>}
-              <ListItemText primary={text} />
-            </ListItem>
-          );
-        })}
-        <Divider />
-        {itemsList.saberMais.map((item, index) => {
-          const { text, icon, onClick } = item;
-          return (
-            <ListItem button key={text} onClick={onClick}>
-              {icon && <ListItemIcon>{icon}</ListItemIcon>}
-              <ListItemText primary={text} />
-            </ListItem>
-          );
-        })}
-        <Divider />
-        {itemsList.infoAdicionais.map((item, index) => {
-          const { text, icon, onClick } = item;
-          return (
-            <ListItem button key={text} onClick={onClick}>
-              {icon && <ListItemIcon>{icon}</ListItemIcon>}
-              <ListItemText primary={text} />
-            </ListItem>
-          );
-        })}
-      </List>
+    <MUIDrawer open={props.aberto} variant="temporary" className='drawer' sx={{
+      display: { xs: 'none', sm: 'block' },
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '224px' },
+    }}>
+      <Box>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <IconButton onClick={props.fechaGaveta}>
+                <ChevronLeft />
+              </IconButton>
+            </ListItemIcon>
+            <ListItemText primary='Fechar'/>
+          </ListItem>
+          <ListItem key={'principal'}>
+            <ListItemText primary={'Painéis'}/>
+          </ListItem>
+          {itemsList.principal.map((item, index) => {
+            const { text, icon, onClick } = item;
+            return (
+              <ListItem button key={text} onClick={onClick}>
+                {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                <ListItemText secondary={text} />
+              </ListItem>
+            );
+          })}
+          <Divider />
+          <ListItem key={'paraSaberMais'}>
+            <ListItemText primary={'Para saber mais'} />
+          </ListItem>
+          {itemsList.saberMais.map((item, index) => {
+            const { text, icon, onClick } = item;
+            return (
+              <ListItem button key={text} onClick={onClick}>
+                {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                <ListItemText secondary={text} />
+              </ListItem>
+            );
+          })}
+          <Divider />
+          <ListItem key={'infoAdicionais'}>
+            <ListItemText primary={'Informações adicionais'} />
+          </ListItem>
+          {itemsList.infoAdicionais.map((item, index) => {
+            const { text, icon, onClick } = item;
+            return (
+              <ListItem button key={text} onClick={onClick}>
+                {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                <ListItemText secondary={text}/>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
     </MUIDrawer>
   );
 };

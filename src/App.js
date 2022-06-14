@@ -11,14 +11,14 @@ import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Universidades from "./pages/universidades/Universidades";
-
-const larguraGaveta = 240;
+import { Box, Container } from "@mui/material";
 
 function App() {
   const [aberto, setAberto] = useState(false);
 
   const handleAbrirGaveta = () => {
     setAberto(true);
+    console.log('Abrir:', aberto)
   };
 
   const handleFecharGaveta = () => {
@@ -27,36 +27,38 @@ function App() {
 
   return (
     <Router>
-      <Topbar abreGaveta={handleAbrirGaveta}/>
-      <div className="container">
-        <Sidebar aberto={aberto} fechaGaveta={handleFecharGaveta} larguraGaveta={larguraGaveta}/>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/Universidades">
-            <Universidades />
-          </Route>
-          <Route path="/users">
-            <UserList />
-          </Route>
-          <Route path="/user/:userId">
-            <User />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
-          </Route>
-          <Route path="/products">
-            <ProductList />
-          </Route>
-          <Route path="/product/:productId">
-            <Product />
-          </Route>
-          <Route path="/newproduct">
-            <NewProduct />
-          </Route>
-        </Switch>
-      </div>
+      <Box sx={{ display: 'flex' }}>
+        <Topbar aberto={aberto} abreGaveta={handleAbrirGaveta} />
+        <Sidebar aberto={aberto} fechaGaveta={handleFecharGaveta} />
+        <Container component="main" sx={{ flexGrow: 1, p: 3 }} style={{marginTop: '20px'}}>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/Universidades">
+              <Universidades />
+            </Route>
+            <Route path="/users">
+              <UserList />
+            </Route>
+            <Route path="/user/:userId">
+              <User />
+            </Route>
+            <Route path="/newUser">
+              <NewUser />
+            </Route>
+            <Route path="/products">
+              <ProductList />
+            </Route>
+            <Route path="/product/:productId">
+              <Product />
+            </Route>
+            <Route path="/newproduct">
+              <NewProduct />
+            </Route>
+          </Switch>
+        </Container>
+      </Box>
     </Router>
   );
 }
