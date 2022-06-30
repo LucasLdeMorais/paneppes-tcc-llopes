@@ -1,11 +1,22 @@
 import "./home.css";
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Breadcrumbs, Container, Grid, Link, Paper, Typography } from "@mui/material";
 import EmendasPorAno from "../../components/graficos/emendasPorAno/EmendasPorAno";
+import { NavigateNext } from "@mui/icons-material";
 
 export default function Home() {
   return (
     <Container className='container'>
-      <Grid container spacing={2} >
+      <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNext fontSize="small"/>} style={{marginBottom:20}}>
+        <Link 
+            component='h2' 
+            variant="subtitle1" 
+            underline="hover" 
+            color="inherit" 
+            href="/">
+            Principal
+        </Link>
+      </Breadcrumbs>
+      <Grid container spacing={2} className='gridPrincipal'>
         <Grid item xs={12}>
           <Paper className='painelGrafico' elevation={3}>
             <Typography component='h3' variant='h6' style={{marginBottom:10}}>Gráfico</Typography>
