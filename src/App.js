@@ -10,8 +10,11 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
-import Universidades from "./pages/universidades/UniversidadesGrid";
+import Universidades from "./pages/universidades/Universidades";
+import EmendasParlamentares from "./pages/emendasParlamentares/EmendasParlamentares";
 import { Box, Container } from "@mui/material";
+import Parlamentares from "./pages/parlamentares/Parlamentares";
+import FinanciamentoUniversidadesFederais from "./pages/financiamentoUniversidadesFederais/FinanciamentoUniversidadesFederais";
 
 function App() {
   const [aberto, setAberto] = useState(false);
@@ -38,14 +41,14 @@ function App() {
             <Route path="/Universidades">
               <Universidades />
             </Route>
-            <Route path="/users">
-              <UserList />
+            <Route path="/Parlamentares">
+              <Parlamentares />
             </Route>
-            <Route path="/user/:userId">
-              <User />
+            <Route path="/SaberMais/EmendasParlamentares">
+              <EmendasParlamentares />
             </Route>
-            <Route path="/newUser">
-              <NewUser />
+            <Route path="/SaberMais/FinanciamentoUniversidadesFederais">
+              <FinanciamentoUniversidadesFederais />
             </Route>
             <Route path="/products">
               <ProductList />

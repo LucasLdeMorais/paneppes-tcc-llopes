@@ -1,22 +1,17 @@
-import Chart from "../../components/chart/Chart";
-import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import "./home.css";
-import { userData } from "../../dummyData";
-import WidgetSm from "../../components/widgetSm/WidgetSm";
-import WidgetLg from "../../components/pieChart/GraficoTorta";
 import { Container, Grid, Paper, Typography } from "@mui/material";
-import GraficoTorta from './../../components/pieChart/GraficoTorta';
+import EmendasPorAno from "../../components/graficos/emendasPorAno/EmendasPorAno";
 
 export default function Home() {
   return (
-    <Container>
-      <Grid>
-        <Paper>
-          <GraficoTorta />
-        </Paper>
-        <Paper>
-          <Chart data={userData} title="User Analytics" grid dataKey="Active User"/>
-        </Paper>
+    <Container className='container'>
+      <Grid container spacing={2} >
+        <Grid item xs={12}>
+          <Paper className='painelGrafico' elevation={3}>
+            <Typography component='h3' variant='h6' style={{marginBottom:10}}>Gráfico</Typography>
+            <EmendasPorAno grid />
+          </Paper>
+        </Grid>
       </Grid>
     </Container>
   );

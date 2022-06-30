@@ -2,6 +2,11 @@
     flex: 4;
 }
 
+.container {
+    margin-top: 30px;
+    width: 100%
+}
+
 .homeWidgets{
     display: flex;
     margin: 20px;

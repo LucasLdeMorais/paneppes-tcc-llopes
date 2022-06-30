@@ -15,7 +15,7 @@
 }
 
 .painelGrafico {
-    height: 300px;
+    height: fit-content;
     padding: 20px
 }
 

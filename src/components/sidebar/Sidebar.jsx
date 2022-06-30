@@ -48,9 +48,9 @@ const Sidebar = (props) => {
       onClick: () => history.push("/SaberMais/EmendasParlamentares")
     },
     {
-      text: "Financiamento do Ensino Superior",
+      text: "Financiamento das Universidades Federais",
       icon: <AttachMoney />,
-      onClick: () => history.push("/SaberMais/Financiamento")
+      onClick: () => history.push("/SaberMais/FinanciamentoUniversidadesFederais")
     }],
     infoAdicionais: [{
       text: "Sobre o Painel",
@@ -66,7 +66,7 @@ const Sidebar = (props) => {
   return (
     <MUIDrawer open={props.aberto} variant="temporary" className='drawer' sx={{
       display: { xs: 'none', sm: 'block' },
-      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '224px' },
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '250px' },
     }}>
       <Box>
         <List>
