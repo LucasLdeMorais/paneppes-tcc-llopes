@@ -2,6 +2,7 @@ import "./home.css";
 import { Breadcrumbs, Container, Grid, Link, Paper, Typography } from "@mui/material";
 import EmendasPorAno from "../../components/graficos/emendasPorAno/EmendasPorAno";
 import { NavigateNext } from "@mui/icons-material";
+import Chart from './../../components/graficos/chart/Chart';
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
         <Grid item xs={12}>
           <Paper className='painelGrafico' elevation={3}>
             <Typography component='h3' variant='h6' style={{marginBottom:10}}>Gráfico</Typography>
-            <EmendasPorAno grid />
+            <Chart grid />
           </Paper>
         </Grid>
       </Grid>

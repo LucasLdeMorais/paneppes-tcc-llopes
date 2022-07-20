@@ -63,7 +63,7 @@ export default function Parlamentars(props) {
         </Paper>
         <Grid container spacing={2} >
             <Grid item xs={12}>
-                <Grid container spacing={2} justify="center" ClassName='containerAnos'>
+                <Grid container spacing={2} justify="center" className='containerAnos'>
                     {[2017, 2018, 2019, 2020, 2021].map((Ano, index) => (
                         <Grid item xs={1}>
                             <Paper className='seletorAnos'>

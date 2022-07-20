@@ -1,7 +1,5 @@
 import {
   PieChart,
-  Line,
-  XAxis,
   Pie,
   Tooltip,
   ResponsiveContainer,
@@ -11,27 +9,18 @@ import { Typography } from "@mui/material";
 
 export default function GraficoTorta() {
   const data01 = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
-    { name: 'Group E', value: 278 },
-    { name: 'Group F', value: 189 },
-  ];
-  
-  const data02 = [
-    { name: 'Group A', value: 2400 },
-    { name: 'Group B', value: 4567 },
-    { name: 'Group C', value: 1398 },
-    { name: 'Group D', value: 9800 },
-    { name: 'Group E', value: 3908 },
-    { name: 'Group F', value: 4800 },
+    { name: 'MAQUINAS E EQUIPAMENTOS ENERGETICOS', value: 402000 },
+    { name: 'MATERIAL DE PROTECAO E SEGURANCA', value: 320000 },
+    { name: 'MATERIAL DE EXPEDIENTE', value: 300000 },
+    { name: 'Group D', value: 200000 },
+    { name: 'Group E', value: 278000 },
+    { name: 'Group F', value: 189000 },
   ];
 
   return (
     <div className="chart">
       <Typography component='h3' variant='h6'>Gráfico Torta</Typography>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="75%">
         <PieChart width={400} height={400}>
           <Pie
             dataKey="value"
@@ -43,7 +32,6 @@ export default function GraficoTorta() {
             fill="#8884d8"
             label
           />
-          <Pie dataKey="value" data={data02} cx={500} cy={200} innerRadius={40} outerRadius={80} fill="#82ca9d" />
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>

@@ -2,8 +2,10 @@
     flex: 4;
 }
 
+.breadcrumbs {
+    margin-bottom: 20px !important;
+}
 .container {
-    margin-top: 30px;
     width: 100%
 }
 
