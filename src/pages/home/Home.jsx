@@ -21,7 +21,7 @@ export default function Home() {
         <Grid item xs={12}>
           <Paper className='painelGrafico' elevation={3}>
             <Typography component='h3' variant='h6' style={{marginBottom:10}}>Gráfico</Typography>
-            <Chart grid />
+            <EmendasPorAno grid />
           </Paper>
         </Grid>
       </Grid>
