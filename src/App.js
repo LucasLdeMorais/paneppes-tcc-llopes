@@ -35,6 +35,9 @@ function App() {
             <Route path="/Universidades">
               <Universidades />
             </Route>
+            <Route path="/Painel">
+              <Universidades />
+            </Route>
             <Route path="/Parlamentares">
               <Parlamentares />
             </Route>

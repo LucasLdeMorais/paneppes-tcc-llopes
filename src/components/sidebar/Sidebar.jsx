@@ -38,6 +38,11 @@ const Sidebar = (props) => {
       onClick: () => history.push("/Universidades")
     },
     {
+      text: "Painel Comparativo",
+      icon: <AccountBalance />,
+      onClick: () => history.push("/Painel")
+    },
+    {
       text: "Parlamentares",
       icon: <PermIdentity />,
       onClick: () => history.push("/Parlamentares")

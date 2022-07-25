@@ -10,35 +10,7 @@ import api from '../../services/api'
 import GraficoTorta from "../../components/pieChart/GraficoTorta";
 
 export default function Universidades(props) {
-  const [ universidade, setUniversidade ] = useState(null)
-  const [ listaUniversidades, setListaUniversidades ] = useState([])
-  const [ autocompleteAberto, setAutocompleteAberto ] = useState(null)
-  const [ anoSelecionado, setAnoSelecionado ] = useState(0)
-  const loading = autocompleteAberto && listaUniversidades.length === 0;
-
-    // useEffect(() => { setListaUniversidades([
-    //     {
-    //         _id: "62bfa47e475cf2cc4e1ff3ae",
-    //         uo: 26250,
-    //         sigla: "UFRR",
-    //         nome: "Universidade Federal de Roraima"
-    //     },
-    //     {
-    //         _id: "62bfa47e475cf2cc4e1ff3af",
-    //         uo: 26249,
-    //         sigla: "UFRRJ",
-    //         nome: "Universidade Federal Rural do Rio de Janeiro"
-    //     }
-    // ]) }, [setListaUniversidades])
-    useEffect(() => { console.log(anoSelecionado) }, [anoSelecionado])
-
-    function handleSetListaUniversidade(value) {
-        setListaUniversidades(value);
-    }
-
-    function handleSetAutocompleteAberto(value) {
-        setAutocompleteAberto(value);
-    }
+  const [ listaPaineis, setListaPaineis ] = useState([])
 
     return (
         <Container className='container'>
@@ -56,10 +28,10 @@ export default function Universidades(props) {
                     variant="subtitle1"
                     underline="hover"
                     color="inherit"
-                    href="/Universidades"
+                    href="/Painel"
                     aria-current="page"
                 >
-                    Universidades
+                    Painel Comparativo
                 </Link>
             </Breadcrumbs>
             <Paper className='paperAutocomplete'>
@@ -123,9 +95,8 @@ export default function Universidades(props) {
                                         event.preventDefault()
                                         if (Ano === anoSelecionado) {
                                             setAnoSelecionado(0)
-                                        } else {
-                                            setAnoSelecionado(Ano)
                                         }
+                                        setAnoSelecionado(Ano)
                                     }}>
                                         <CardContent style={{padding: 0, textAlign:'center'}}>
                                             <Typography component="h3" variant="h6">{Ano}</Typography>
@@ -145,9 +116,8 @@ export default function Universidades(props) {
                 </Grid>
                 <Grid item xs={8}>
                     <Paper className='painel' elevation={2}>
-                    <Typography variant="h6" component="h3" style={{marginBottom:10}}>Algo{anoSelecionado}</Typography>
-                    {/*                         
-                        <List style={{overflowY: "auto", height: '80%', width: "100%"}}>
+                        <Typography variant="h6" component="h3" style={{marginBottom:10}}>Emendas por Parlamentar no ano de {ano}</Typography>
+                        {/* <List style={{overflowY: "auto", height: '80%', width: "100%"}}>
                             {dadosEmendas.map((emenda, index) => (
                             <ListItem button style={{cursor: "default"}} key={index}>
                                 <ListItemText>{emenda.autor}</ListItemText>
@@ -162,10 +132,7 @@ export default function Universidades(props) {
                 </Grid>
                 <Grid item xs={12}>
                     <Paper className='painel' elevation={2}>
-                        {
-                            (anoSelecionado != 0)? <Typography variant="h6" component="h3" style={{marginBottom:10}}>Emendas no ano de {anoSelecionado}</Typography> :
-                            <Typography variant="h6" component="h3" style={{marginBottom:10}}>Emendas</Typography>
-                        }
+                        <Typography variant="h6" component="h3" style={{marginBottom:10}}>Emendas por Parlamentar no ano de {ano}</Typography>
                         <ListItem button style={{cursor: "default", textAlign: "left"}}>
                             <ListItemText style={{width: "120px"}}>Autor</ListItemText>
                             <ListItemText style={{width: "80px"}}>Valor pago</ListItemText>
