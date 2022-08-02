@@ -1,4 +1,4 @@
-import Chart from "../../components/graficos/chart/Chart";
+import Chart from "../../components/graficos/GraficosGrandes/chart/Chart";
 import "./universidades.css";
 import { dadosEmendas } from "../../dummyData";
 import { NavigateNext } from '@mui/icons-material'
@@ -7,7 +7,7 @@ import { Container, Grid, Paper, Autocomplete, TextField, Typography, Box,
     from "@mui/material";
 import React, { useEffect, useState } from "react";
 import api from '../../services/api'
-import GraficoTorta from "../../components/pieChart/GraficoTorta";
+import GraficoTorta from "../../components/graficos/GraficosPequenos/pieChart/GraficoTorta";
 
 export default function Universidades(props) {
   const [ universidade, setUniversidade ] = useState(null)
@@ -115,7 +115,7 @@ export default function Universidades(props) {
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={2} justify="center" className='containerAnos'>
-                        <Grid item xs={3.5}></Grid>
+                        <Grid item xs={3.5} ></Grid>
                         {[2015, 2016, 2017, 2018, 2019, 2020, 2021].map((Ano, index) => (
                             <Grid item xs={1} key={index}>
                                 <Paper className='seletorAnos' elevation={3}>
@@ -138,26 +138,16 @@ export default function Universidades(props) {
                 </Grid>
                 <Grid item xs={4}>
                     <Paper className='painel' elevation={2}>
-                        <Typography component="h3" variant="h6">Total da Despesa: 11.000.000</Typography>
-                        <Typography component="h3" variant="h6">Total da Emendas: 1.000.000</Typography>
-                        <GraficoTorta />
+                        {/* <Typography component="h3" variant="h6">Total da Despesa: 11.000.000</Typography>
+                        <Typography component="h3" variant="h6">Total da Emendas: 1.000.000</Typography> */}
+                        <Box>
+                            <GraficoTorta />
+                        </Box>
                     </Paper>
                 </Grid>
                 <Grid item xs={8}>
                     <Paper className='painel' elevation={2}>
-                    <Typography variant="h6" component="h3" style={{marginBottom:10}}>Algo{anoSelecionado}</Typography>
-                    {/*                         
-                        <List style={{overflowY: "auto", height: '80%', width: "100%"}}>
-                            {dadosEmendas.map((emenda, index) => (
-                            <ListItem button style={{cursor: "default"}} key={index}>
-                                <ListItemText>{emenda.autor}</ListItemText>
-                                <ListItemText>{emenda.pago}</ListItemText>
-                                <ListItemText>{emenda.ano}</ListItemText>
-                                <ListItemText>{emenda.naturezaDespesa.replace(RegExp("^(.*?)-"), "")}</ListItemText>
-                                <ListItemText>{emenda.acao.replace(RegExp("^(.*?)-"), "")}</ListItemText>
-                            </ListItem>
-                            ))}
-                        </List> */}
+                    <Typography variant="h6" component="h3" style={{marginBottom:10}}>Texto</Typography>
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>

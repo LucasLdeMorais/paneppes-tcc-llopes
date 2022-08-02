@@ -1,4 +1,4 @@
-import Chart from "../../components/graficos/chart/Chart";
+import Chart from "../../components/graficos/GraficosGrandes/chart/Chart";
 import "./parlamentares.css";
 import { userData } from "../../dummyData";
 import { NavigateNext } from '@mui/icons-material'

@@ -40,7 +40,7 @@ const Sidebar = (props) => {
     {
       text: "Painel Comparativo",
       icon: <AccountBalance />,
-      onClick: () => history.push("/Painel")
+      onClick: () => history.push("/PainelComparativo")
     },
     {
       text: "Parlamentares",

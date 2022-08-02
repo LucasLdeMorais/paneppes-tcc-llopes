@@ -1,0 +1,13 @@
+.painel {
+    height: 300px;
+    padding: 20px 0px 20px 20px;
+}
+
+.painelCriacao {
+    background-color: gray !important; 
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 300px;
+    padding: 20px 0px 20px 20px;
+}

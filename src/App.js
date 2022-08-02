@@ -5,6 +5,7 @@ import "./App.css";
 import Home from "./pages/home/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Universidades from "./pages/universidades/Universidades";
+import PainelComparativo from "./pages/painelComparativo/PainelComparativo";
 import EmendasParlamentares from "./pages/emendasParlamentares/EmendasParlamentares";
 import { Box, Container } from "@mui/material";
 import Parlamentares from "./pages/parlamentares/Parlamentares";
@@ -35,8 +36,8 @@ function App() {
             <Route path="/Universidades">
               <Universidades />
             </Route>
-            <Route path="/Painel">
-              <Universidades />
+            <Route path="/PainelComparativo">
+              <PainelComparativo />
             </Route>
             <Route path="/Parlamentares">
               <Parlamentares />

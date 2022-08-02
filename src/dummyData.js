@@ -144,3 +144,54 @@ export const dadosEmendas = [
       autor_id: "62c3a6e9152066fdca6928a1",
     }
   ];
+
+export const dadosUniversidades = [
+  {
+    _id: "62bfa47e475cf2cc4e1ff37f",
+    uo: 24456,
+    sigla: "UFAPE",
+    nome: "Universidade Federal do Agreste de Pernambuco"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff384",
+    uo: 24450,
+    sigla: "UFSB",
+    nome: "Universidade Federal do Sul da Bahia"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff385",
+    uo: 24449,
+    sigla: "UFCA",
+    nome: "Universidade Federal do Cariri"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff396",
+    uo: 26278,
+    sigla: "UFPEL",
+    nome: "Universidade Federal de Pelotas"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff398",
+    uo: 26276,
+    sigla: "UFMT",
+    nome: "Universidade Federal de Mato Grosso"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff39a",
+    uo: 26274,
+    sigla: "UFU",
+    nome: "Universidade Federal de Uberlândia"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff3a2",
+    uo: 26266,
+    sigla: "UNIPAMPA",
+    nome: "Universidade Federal do Pampa"
+},
+{
+    _id: "62bfa47e475cf2cc4e1ff3a4",
+    uo: 26263,
+    sigla: "UFLA",
+    nome: "Universidade Federal de Lavras"
+}
+  ];

@@ -7,8 +7,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Box } from "@mui/material";
 
-export default function Chart({ data, dataKey, grid }) {
+export default function Chart({ data, dataKey, grid, style}) {
   const dados = [
     {ano: 2015, EmendasRelator: 1000000, EmendasBancada: 2000000, EmendasIndividuais: 4500000, totalEmendas: 7500000},
     {ano: 2016, EmendasRelator: 1000000, EmendasBancada: 2000000, EmendasIndividuais: 4500000, totalEmendas: 6500000},
@@ -21,13 +22,13 @@ export default function Chart({ data, dataKey, grid }) {
   ];
 
   return (
-    <ResponsiveContainer width="100%"  aspect={4 / 1}>
-      <LineChart data={dados} >
-        <XAxis dataKey="ano" stroke="#5550bd" />
-        <Line type="monotone" dataKey={"totalEmendas"} stroke="#5550bd"/>
-        <Tooltip />
-        {grid && <CartesianGrid stroke="#e0dfdf" strokeDasharray="5 5" />}
-      </LineChart>
-    </ResponsiveContainer>
+      <ResponsiveContainer width="100%"  aspect={4 / 1}>
+        <LineChart data={dados} >
+          <XAxis dataKey="ano" stroke="#5550bd" />
+          <Line type="monotone" dataKey={"totalEmendas"} stroke="#5550bd"/>
+          <Tooltip />
+          {grid && <CartesianGrid stroke="#e0dfdf" strokeDasharray="5 5" />}
+        </LineChart>
+      </ResponsiveContainer>
   );
 }
