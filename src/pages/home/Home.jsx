@@ -2,7 +2,7 @@ import "./home.css";
 import { Breadcrumbs, Container, Grid, Link, Paper, Typography } from "@mui/material";
 import EmendasPorAno from "../../components/graficos/GraficosGrandes/emendasPorAno/EmendasPorAno";
 import { NavigateNext } from "@mui/icons-material";
-import Chart from './../../components/graficos/GraficosGrandes/chart/Chart';
+import Chart from '../../components/graficos/GraficosGrandes/chart/Chart';
 
 export default function Home() {
   return (

@@ -5,13 +5,12 @@ import { Container, Grid, Paper, Autocomplete, TextField, Typography, Box, IconB
     Link, Breadcrumbs, CardContent, CardActionArea, List, ListItem, ListItemText, CircularProgress, Tooltip, Select, MenuItem }
     from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { axios } from 'axios';
 import api from '../../services/api'
 import GraficoTorta from "../../components/graficos/GraficosPequenos/pieChart/GraficoTorta";
 import { useListState } from "@mantine/hooks";
-import PainelCriacao from './../../components/paineis/PainelCriacao';
+import PainelCriacao from '../../components/paineis/PainelCriacao';
 import Painel from "../../components/paineis/Painel";
-import GraficoComparativoAno from './../../components/graficos/GraficosGrandes/graficoComprativoAno/GraficoComparativoAno';
+import GraficoComparativoAno from '../../components/graficos/GraficosGrandes/graficoComprativoAno/GraficoComparativoAno';
 
 export default function PainelComparativo(props) {
     
@@ -34,6 +33,7 @@ export default function PainelComparativo(props) {
     ])
     const [ universidade, setUniversidade ] = useState(null)
     const [ listaUniversidades, setListaUniversidades ] = useListState([])
+    const [ emendas, setEmendas ] = useListState([])
     const [ universidadesSelecionadas, setUniversidadesSelecionadas ] = useListState([])
     const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
     const [ anoSelecionado, setAnoSelecionado ] = useState(0)
@@ -48,13 +48,15 @@ export default function PainelComparativo(props) {
     ]
 
     useEffect(()=> {
-        if (listaUniversidades.length === 0){
+        if (listaUniversidades.length === 0) {
             recuperaListaUniversidades()
         }
-    }, [])
+    }, [listaUniversidades, recuperaListaUniversidades, setListaUniversidades])
 
     async function recuperaListaUniversidades() {
-        await api.get('/universidades').then((response) => { setListaUniversidades.setState(response.data) })
+        const arr = []
+        await api.get('/universidades').then((response) => { setListaUniversidades.setState(...response.data) })
+        return arr
     }
 
     function handleSetAutocompleteAberto(value) {
@@ -62,10 +64,11 @@ export default function PainelComparativo(props) {
     }
 
     function handleSelecionarUniversidade(universidade) {
-        if(!(universidadesSelecionadas.includes(universidade))) {
+        if(!(universidadesSelecionadas.includes(universidade)) && universidade !== null) {
             setUniversidadesSelecionadas.append(universidade)
+            setEmendas.setState(getDadosEmendasUniversidades(universidadesSelecionadas))
+            console.log(emendas)
         }
-        console.log(universidadesSelecionadas)
     }
 
     function handleSelectComponente(tituloComponente) {
@@ -75,6 +78,22 @@ export default function PainelComparativo(props) {
             }
         })
         return <></>
+    }
+
+    async function getDadosEmendasUniversidade(universidade) {
+        const EmendasUniversidade = []
+        await api.get(`/emendas/uo?uo=${universidade.uo}`).then(res => {
+            EmendasUniversidade.push(...res.data.emendas)
+        })
+        return EmendasUniversidade
+    }
+      
+    async function getDadosEmendasUniversidades(universidades) {
+        const EmendasUniversidades = []
+        universidades.forEach((universidade) => {
+            EmendasUniversidades.push(getDadosEmendasUniversidade(universidade))
+        })
+        setEmendas.setState(EmendasUniversidades)
     }
 
     return (
@@ -108,14 +127,13 @@ export default function PainelComparativo(props) {
                         onOpen={ (event) => { setAutocompleteAberto(true)} }
                         onClose={ (event) => { setAutocompleteAberto(false)} }
                         onChange={(event, value) => {
-                            setUniversidade(value)
+                            universidadesSelecionadas.push(value)
                         }}
                         loading={ loading }
                         value={universidade}
                         options={listaUniversidades}
                         getOptionLabel={(option) => `${option.nome}`}
                         noOptionsText="vazio"
-                        filterOptions={(x) => x}
                         renderInput={(params) => <TextField {...params} 
                             label="Universidades Federais"
                             InputProps={{
@@ -140,7 +158,7 @@ export default function PainelComparativo(props) {
                 </Box>
                 <Painel tamanho={"grande"} grid dataKey="Active User" style={{height: "min-content", marginBottom: "50px"}} componente={
                     <Box style={{}}>
-                        <Chart data={{}} style={{marginTop: "10px"}}/>
+                        <GraficoComparativoAno data={emendas} universidades={listaUniversidades} style={{marginTop: "10px"}}/>
                     </Box>
                 } titulo={"Grafico"} />
                 {

@@ -27,7 +27,7 @@ import { NavigateNext } from '@mui/icons-material';
                 variant="subtitle1"
                 underline="hover"
                 color="inherit"
-                href="/Parlamentars"
+                href="/Parlamentares"
                 aria-current="page"
             >
                 Financiamento das Universidades Federais
@@ -37,7 +37,6 @@ import { NavigateNext } from '@mui/icons-material';
             <Box style={{width: '100%', height: '70vh'}}>
                 <Typography component='h3' variant='h6'>Financiamento das Universidades Federais</Typography>
                 <Typography component='h4' variant='subtitle2' sx={{ fontStyle: 'italic' }}>"Como é feito?"</Typography>
-                <img src=""></img>
                 <Typography component='p' variant="body1">Saber mais</Typography>
             </Box>
         </Paper>

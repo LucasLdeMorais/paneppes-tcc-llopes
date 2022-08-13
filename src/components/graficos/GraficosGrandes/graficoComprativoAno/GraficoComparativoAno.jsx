@@ -1,4 +1,5 @@
 import "./graficoComparativoAno.css";
+import { useEffect } from 'react';
 import {
   LineChart,
   Line,
@@ -6,27 +7,57 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  YAxis,
 } from "recharts";
-import { Box } from "@mui/material";
-import { axios } from 'axios';
+import { useListState } from '@mantine/hooks';
+  
 
-async function getData(vari) {
-  axios.get(`localhost:3333/universidades`)
-      .then(res => {
-        vari = res.data;
-      })
+
+function getEmendasTotaisPorAno(emendasParl) {
+  if (emendasParl.length === 0){
+    return null
+  }
+  const dadosObjeto = emendasParl.reduce((acc, curr) => {
+    acc[`${curr.uo}`] = curr.pago
+    acc[`ano`] = `${curr.ano}`
+    return acc
+  })
+  console.log(dadosObjeto)
+  return dadosObjeto
 }
 
-export default function GraficoComparativoAno({ data, dataKey, grid, style}) {
-  const dados = getData();
+export default function GraficoComparativoAno({ emendas, universidades, dataKey, grid, style}) {
+  // const [universidadesState, setUniversidadesState] = useListState(universidades)
+  const [data, setData] = useListState([])
+
+  useEffect(() => {
+    if ( data.length === 0 ) {
+      setData.setState(getEmendasTotaisPorAno(emendas))
+    }
+  })
 
   return (
       <ResponsiveContainer width="100%"  aspect={4 / 1}>
-        <LineChart data={dados} >
+        <LineChart data={() => {
+            if (data.length > 0){
+              return data
+            } else {
+              return [{
+                  ano: 2015
+                },
+                {
+                  ano: 2016
+                },
+                {
+                  ano: 2017
+                }
+              ]} 
+          }} >
           <XAxis dataKey="ano" stroke="#5550bd" />
+          <YAxis dataKey="pago" stroke="#5550bd" />
           {
-            data.map((universidade) => {
-              return <Line type="monotone" dataKey={universidade.nome} stroke="#5550bd"/>
+            universidades.map((universidade, index) => {
+              return <Line type="monotone" dataKey={universidade} stroke="#5550bd" key={index}/>
             })
           }
           <Tooltip />

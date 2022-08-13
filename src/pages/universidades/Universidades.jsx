@@ -86,7 +86,6 @@ export default function Universidades(props) {
                 ]}
                 getOptionLabel={(option) => `${option.nome}`}
                 noOptionsText="vazio"
-                filterOptions={(x) => x}
                 renderInput={(params) => <TextField {...params} 
                     label="Universidades Federais"
                     // InputProps={{
