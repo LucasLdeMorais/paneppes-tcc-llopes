@@ -1,0 +1,15 @@
+.chartTitle {
+    margin-bottom: 20px;
+}
+
+.container-grafico-partido {
+    width: max-content;
+    height: max-content;
+    padding-left: 0;
+    display: inline-block;
+}
+
+.grafico-emendas-partido {
+    height: 300px;
+    width: 430px
+}

@@ -1,6 +1,5 @@
-.painel {
-    height: 300px;
-    padding: 20px 0px 20px 20px;
+.paper-painel {
+    height: max-content;
 }
 
 .painelCriacao {
@@ -8,6 +7,20 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 300px;
-    padding: 20px 0px 20px 20px;
+    height: 360px;
+}
+
+.header-painel {
+    background-color: #1976d2;
+    min-height: 40px;
+    max-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    padding: 5px;
+}
+
+.conteudo-painel {
+    height: max-content;
+    padding: 5px;
 }

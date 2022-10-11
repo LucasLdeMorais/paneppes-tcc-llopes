@@ -1,0 +1,14 @@
+.chartTitle {
+    margin-bottom: 20px;
+}
+.container-grafico-emendas-natureza-despesa {
+    width: max-content;
+    height: max-content;
+    padding-left: 0;
+    display: inline-block;
+}
+
+.grafico-emendas-natureza-despesa {
+    height: 300px;
+    width: 430px;
+}

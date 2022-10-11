@@ -1,0 +1,11 @@
+.container-grafico-emendas-acao {
+    width: max-content;
+    height: max-content;
+    padding-left: 0;
+    display: inline-block;
+}
+
+.grafico-emendas-acao {
+    max-height: 300px;
+    max-width: 430px
+}

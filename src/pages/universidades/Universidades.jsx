@@ -1,4 +1,3 @@
-import Chart from "../../components/graficos/GraficosGrandes/chart/Chart";
 import "./universidades.css";
 import { dadosEmendas } from "../../dummyData";
 import { NavigateNext } from '@mui/icons-material'
@@ -6,8 +5,8 @@ import { Container, Grid, Paper, Autocomplete, TextField, Typography, Box,
     Link, Breadcrumbs, CardContent, CardActionArea, List, ListItem, ListItemText, CircularProgress, Tooltip }
     from "@mui/material";
 import React, { useEffect, useState } from "react";
-import api from '../../services/api'
-import GraficoTorta from "../../components/graficos/GraficosPequenos/pieChart/GraficoTorta";
+import EmendasPorAno from "../../components/graficos/GraficosGrandes/emendasPorAno/EmendasPorAno";
+import GraficoEmendasAcao from "../../components/graficos/GraficosPequenos/GraficoEmendasAcao/GraficoEmendasAcao";
 
 export default function Universidades(props) {
   const [ universidade, setUniversidade ] = useState(null)
@@ -109,7 +108,7 @@ export default function Universidades(props) {
                 <Grid item xs={12}>
                     <Paper className='painelGrafico' elevation={2}>
                         <Typography component='h3' variant='h6' style={{marginBottom:10}}>Gráfico</Typography>
-                        <Chart data={{}} title="User Analytics" grid dataKey="Active User"/>
+                        <EmendasPorAno />
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
@@ -140,7 +139,7 @@ export default function Universidades(props) {
                         {/* <Typography component="h3" variant="h6">Total da Despesa: 11.000.000</Typography>
                         <Typography component="h3" variant="h6">Total da Emendas: 1.000.000</Typography> */}
                         <Box>
-                            <GraficoTorta />
+                            <GraficoEmendasAcao />
                         </Box>
                     </Paper>
                 </Grid>

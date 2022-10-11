@@ -1,0 +1,24 @@
+#box-seletor-anos-painel-detalhes {
+    display: block;
+    width: 100%;
+}
+
+#box-graficos-painel-detalhes {
+    display: block;
+    padding-left: 10px;
+    width: max-content;
+    float: left;
+}
+
+#box-cards-painel-detalhes {
+    display: block;
+    margin-right: 2%;
+    margin-top: 3%;
+    float: inline-end;
+}
+
+#tabela-painel-detalhes {
+    width: 100%; 
+    text-align: center;
+    display: inline-block
+}

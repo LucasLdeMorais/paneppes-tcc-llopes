@@ -1,0 +1,62 @@
+.main-container {
+  min-height: max-content;
+  max-width: 1630px !important;
+  margin: 40px
+}
+
+.header-painel {
+  min-height: max-content;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: whitesmoke;
+}
+
+.painel {
+  border-radius: 15px;
+  min-height: max-content;
+}
+
+.painelGrafico {
+  min-height: 350px;
+  margin-bottom: 40px;
+  height: max-content;
+  width: 100%;
+}
+
+.painelAnos {
+  height: 20%;
+  width: 100%;
+  padding: 15px;
+}
+
+.painelDetalhes {
+  height: 360px;
+}
+
+.header-painel-detalhes {
+  background-color: #1976d2;
+  min-height: max-content;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: whitesmoke;
+}
+
+.seletorAnos{
+  margin: 17px;
+  height: 50;
+  line-height: 60px;
+  width: 100%;
+  min-width: fit-content;
+}
+
+.box-loading-grafico {
+  padding-left: 50%;
+  padding-top: 20%;
+}
+
+.box-grafico-vazio {
+  height: 50px; 
+  color: grey;
+  text-align: center;
+  margin-top: 10%;
+}

@@ -1,4 +1,3 @@
-import Chart from "../../components/graficos/GraficosGrandes/chart/Chart";
 import "./parlamentares.css";
 import { NavigateNext } from '@mui/icons-material'
 import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText } from "@mui/material";

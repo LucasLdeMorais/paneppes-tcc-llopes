@@ -28,7 +28,7 @@ function App() {
       <Box sx={{ display: 'flex' }}>
         <Topbar aberto={aberto} abreGaveta={handleAbrirGaveta} />
         <Sidebar aberto={aberto} fechaGaveta={handleFecharGaveta} />
-        <Container component="main" sx={{ flexGrow: 1, p: 3 }} style={{marginTop: '20px'}}>
+        <Container component="app" sx={{ flexGrow: 1, p: 3 }} style={{marginTop: '20px'}}>
           <Switch>
             <Route exact path="/">
               <Home />
