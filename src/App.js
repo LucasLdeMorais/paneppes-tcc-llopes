@@ -10,6 +10,7 @@ import EmendasParlamentares from "./pages/emendasParlamentares/EmendasParlamenta
 import { Box, Container } from "@mui/material";
 import Parlamentares from "./pages/parlamentares/Parlamentares";
 import FinanciamentoUniversidadesFederais from "./pages/financiamentoUniversidadesFederais/FinanciamentoUniversidadesFederais";
+import ParaSaberMais from './pages/paraSaberMais/ParaSaberMais';
 
 function App() {
   const [aberto, setAberto] = useState(false);
@@ -28,7 +29,7 @@ function App() {
       <Box sx={{ display: 'flex' }}>
         <Topbar aberto={aberto} abreGaveta={handleAbrirGaveta} />
         <Sidebar aberto={aberto} fechaGaveta={handleFecharGaveta} />
-        <Container component="app" sx={{ flexGrow: 1, p: 3 }} style={{marginTop: '20px'}}>
+        <Container component="div" sx={{ flexGrow: 1, p: 3 }} className={"container-application"} style={{marginTop: '20px'}}>
           <Switch>
             <Route exact path="/">
               <Home />
@@ -42,11 +43,8 @@ function App() {
             <Route path="/Parlamentares">
               <Parlamentares />
             </Route>
-            <Route path="/SaberMais/EmendasParlamentares">
-              <EmendasParlamentares />
-            </Route>
-            <Route path="/SaberMais/FinanciamentoUniversidadesFederais">
-              <FinanciamentoUniversidadesFederais />
+            <Route path="/SaberMais">
+              <ParaSaberMais />
             </Route>
           </Switch>
         </Container>

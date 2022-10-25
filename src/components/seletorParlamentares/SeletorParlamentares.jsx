@@ -7,13 +7,13 @@ import { Add, DeleteForever, Refresh, Remove } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { Paper } from '@mui/material';
 
-function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes, removerTudo, listaUniversidades, selecionarUniversidade, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
+function SeletorParlamentares({ loadingParlamentares, recarregarLista, temAcoes, removerTudo, listaParlamentares, selecionarParlamentar, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
 
-    //const loading = autocompleteAberto && listaUniversidades.length === 0;
+    //const loading = autocompleteAberto && listaParlamentares.length === 0;
     //const [valorAutocomplete, setValorAutocomplete] = useState({""});
     function onChange(event, newValue) {
         event.preventDefault();
-        temAcoes?  setValorAutocomplete(newValue) : selecionarUniversidade(newValue);
+        temAcoes?  setValorAutocomplete(newValue) : selecionarParlamentar(newValue);
         changeAutocompleteAberto(false)
     }
 
@@ -32,46 +32,46 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
         removerTudo()
     }
 
-    function handleSelecionarUniversidade(event, value) {
+    function handleSelecionarParlamentar(event, value) {
         event.preventDefault();
-        selecionarUniversidade(value)
+        selecionarParlamentar(value)
     }
 
     return <Box style={{width: "100%"}}>
-        <Paper className='paper-seletor-universidades'>
+        <Paper className='paper-seletor-parlamentares'>
             <Autocomplete
-                className={temAcoes? "autocomplete-acoes-seletor-universidades" : "autocomplete-sem-acoes-seletor-universidades"}
+                className={temAcoes? "autocomplete-acoes-seletor-parlamentares" : "autocomplete-sem-acoes-seletor-parlamentares"}
                 onOpen={(e) => handleSetAutocompleteAberto(e, true)}
                 onClose={(e) => handleSetAutocompleteAberto(e, false)}
                 value={ valorAutocomplete }
                 onChange={ (e, newValue) => onChange(e, newValue) }
-                loading={ loadingUniversidades }
-                options={ listaUniversidades }
-                getOptionLabel={(option) => `${option.nome} - ${option.sigla}`}
+                loading={ loadingParlamentares }
+                options={ listaParlamentares }
+                getOptionLabel={(option) => `${option.nome} - ${option.partido} - ${option.ufAutor}`}
                 noOptionsText="Vazio"
                 renderInput={(params) => <TextField {...params} 
-                    label="Universidades Federais"
+                    label="Parlamentares Federais"
                     InputProps={{
                         ...params.InputProps,
                         endAdornment: (
                         <React.Fragment>
-                            {loadingUniversidades ? <CircularProgress color="inherit" size={20} /> : null}
+                            {loadingParlamentares ? <CircularProgress color="inherit" size={20} /> : null}
                             {params.InputProps.endAdornment}
                         </React.Fragment>
                         ),
                     }}
                 />}
-                renderOption={(props, listaUniversidades) => (
-                    <Box component="li" {...props} key={listaUniversidades._id}>
-                        {listaUniversidades.nome} - {listaUniversidades.sigla}
+                renderOption={(props, listaParlamentares) => (
+                    <Box component="li" {...props} key={listaParlamentares._id}>
+                        {listaParlamentares.nome} - {listaParlamentares.partido} - {listaParlamentares.ufAutor}
                     </Box>
                 )}
             />
         </Paper>
-        <Box className="box-botoes-seletor-universidades">
+        <Box className="box-botoes-seletor-parlamentares">
             { temAcoes && <>
                 <Tooltip title={"Adicionar"}>
-                    <IconButton className="icon-button" onClick={(event) => { handleSelecionarUniversidade(event, valorAutocomplete) }}>
+                    <IconButton className="icon-button" onClick={(event) => { handleSelecionarParlamentar(event, valorAutocomplete) }}>
                         <Add></Add>
                     </IconButton>
                 </Tooltip>
@@ -90,4 +90,4 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
     </Box>
 }
 
-export default SeletorUniversidades;
+export default SeletorParlamentares;

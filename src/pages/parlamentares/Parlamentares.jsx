@@ -1,31 +1,92 @@
 import "./parlamentares.css";
 import { NavigateNext } from '@mui/icons-material'
 import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
+import { anos } from "../../constants";
+import { recuperaEmendasParlamentar, recuperaListaParlamentares } from "../../services/emendasService";
+import SeletorParlamentares from './../../components/seletorParlamentares/SeletorParlamentares';
+import ListaEmendasParlamentar from "../../components/listaEmendasParlamentar";
 
 export default function Parlamentars(props) {
-  const { parlamentar, setParlamentar } = useState(false)
-  const { autocompleteAberto, setAutocompleteAberto } = useState(false)
-  const { ano, setAno } = useState(0)
+  const [ parlamentar, setParlamentar ] = useState(false)
+  const [ listaParlamentares, setListaParlamentares ] = useState([])
+  const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
+  const [ anoSelecionado, setAnoSelecionado ] = useState(0)
+  const [ emendas, setEmendas ] = useState([])
+  const [ emendasAno, setEmendasAno ] = useState([])
+  const shouldGetListaParlamentares = useRef(true)
+  const loading = listaParlamentares.length === 0;
+  const [ shouldBeLoadingGrafico, setShouldBeLoadingGrafico ] = useState(false)
 
   useEffect(() => {
-      console.log('render')
+      if(shouldGetListaParlamentares.current) {
+        handleRecuperaListaParlamentares();
+        console.log("effect", listaParlamentares)
+      }
     }
   )
 
-  function handleSetParlamentar(value) {
-    handleSetAutocompleteAberto(true);
-    setParlamentar(value)
-    ;  
-  }
+  async function handleRecuperaListaParlamentares() {
+    try {
+        const data = await recuperaListaParlamentares();
+        if(data){
+            setListaParlamentares(data)
+            console.log("handleRecuperaListaParlamentares", data)
+            shouldGetListaParlamentares.current = false
+        }
+    } catch (e) {
+    console.log(e.message)
+    }
+}
 
-  function handleSetAutocompleteAberto(value) {
+function handleGetEmendasAno(emendas) {
+    let emendasAnoAux = {
+        pago: [],
+        empenhado: []
+    }
+    
+    anos.forEach(ano => {
+        let pagoAno = 0
+        let empenhadoAno = 0
+        emendas.forEach(emenda => {
+            if(emenda.ano === parseInt(ano)){
+                pagoAno += emenda.pago
+                empenhadoAno += emenda.empenhado
+            }
+        })
+        emendasAnoAux.pago.push(pagoAno)
+        emendasAnoAux.empenhado.push(empenhadoAno)
+    })
+    setEmendasAno(emendasAnoAux)
+}
+
+function handleSetAutocompleteAberto(value) {
     setAutocompleteAberto(value);
-  }
+}
+
+async function handleSetParlamentar(value) {
+    setShouldBeLoadingGrafico(true)
+    setParlamentar(value);
+    let emendasParlamentar;
+    emendasParlamentar = await recuperaEmendasParlamentar(value)
+    setEmendas(emendasParlamentar.emendas)
+    handleGetEmendasAno(emendasParlamentar.emendas)
+    setShouldBeLoadingGrafico(false)
+}
+
+function handleSetAnoSelecionado(Ano) {
+    console.log(Ano)
+    setAnoSelecionado(Ano)
+}
+
+function handleRecarregar() {
+    handleRecuperaListaParlamentares()   
+}
 
   return (
-    <Container className='container'>
-        <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNext fontSize="small"/>} className='breadcrumbs'>
+    <Container className='container-tela-parlamentares'>
+        <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNext fontSize="small"/>} className='breadcrumbs-parlamentares'>
             <Link 
                 component='h2' 
                 variant="subtitle1" 
@@ -45,62 +106,24 @@ export default function Parlamentars(props) {
                 Parlamentares
             </Link>
         </Breadcrumbs>
-        <Paper className='paperAutocomplete'>
-          <Autocomplete
-            id="combo-box-parlamentars"
-            open={autocompleteAberto}
-            onClose={() => {handleSetAutocompleteAberto(false)}}
-            value={parlamentar}
-            options={['UFRJ', 'UNIRIO']}
-            renderInput={(params) => <TextField {...params} label="Parlamentars Federais" />}
-            onChange={(event, value) => {
-              event.preventDefault();
-              handleSetParlamentar(value)
-            }}
-          />
-        </Paper>
         <Grid container spacing={2} >
             <Grid item xs={12}>
-                <Grid container spacing={2} justify="center" className='containerAnos'>
-                    {[2017, 2018, 2019, 2020, 2021].map((Ano, index) => (
-                        <Grid item xs={1}>
-                            <Paper className='seletorAnos'>
-                                <CardActionArea style={{height: 50, width: '100%', padding: '10px'}} onClick={(event) => {
-                                    event.preventDefault()
-                                    this.setAno(Ano)
-                                }}>
-                                    <CardContent style={{padding: 0, textAlign:'center'}}>
-                                        <Typography component="h3" variant="h6">{Ano}</Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Paper>
-                        </Grid>
-                    ))}
+                <Grid container spacing={2} justify="center" className='container-seletor-parlamentares'>
+                    <SeletorParlamentares loadingParlamentares={loading} listaParlamentares={listaParlamentares} selecionarParlamentar={handleSetParlamentar} valorAutocomplete={parlamentar} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetParlamentar} changeAutocompleteAberto={handleSetAutocompleteAberto} recarregar={handleRecarregar} />
                 </Grid>
-            </Grid>
+            </Grid> 
             <Grid item xs={12}>
-                <Paper className='painel' elevation={3}>
-                    <Typography variant="h6" component="h3" style={{marginBottom:10}}>Lista de emendas</Typography>
-                    <List style={{overflowY: "auto", height: '80%', width: "100%"}}>
-                        {[{nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}, 
-                        {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                        {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                        {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                        {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                        {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                        {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}].map((emenda, index) => (
-                        <ListItem button style={{cursor: "default"}}>
-                            <ListItemText>{emenda.nome}</ListItemText>
-                            <ListItemText>{emenda.valor}</ListItemText>
-                            <ListItemText>{emenda.motivo}</ListItemText>
-                        </ListItem>
-                        ))}
-                    </List>
+                <Paper className='painel-lista-emendas-parlamentares' elevation={3}>
+                    <Box style={{marginBottom:15, width: "100%"}}>
+                        <Typography variant="h6" component="h3" style={{float: "left", paddingTop: "10px"}}>Lista de emendas</Typography>
+                        <SeletorAnos anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado} styleBox={{marginLeft: "20px"}}/>
+                    </Box>
+                    <ListaEmendasParlamentar dadosEmendas={emendas} anoSelecionado={anoSelecionado}/>
                 </Paper>
             </Grid>
             <Grid item xs={8}>
                 <Paper className='painel' elevation={3}>
-                    <Typography variant="h6" component="h3" style={{marginBottom:10}}>Ranking de Emendas para Universidades Federais</Typography>
+                    <Typography variant="h6" component="h3" style={{marginBottom:10}}>Ranking de Emendas para Parlamentares Federais</Typography>
                     <List style={{overflowY: "auto", height: '80%', width: "100%"}}>
                         {[{nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}, 
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
@@ -109,7 +132,7 @@ export default function Parlamentars(props) {
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}].map((emenda, index) => (
-                        <ListItem button style={{cursor: "default"}}>
+                        <ListItem button style={{cursor: "default"}} key="item exemplo 2">
                             <ListItemText>{emenda.nome}</ListItemText>
                             <ListItemText>{emenda.valor}</ListItemText>
                             <ListItemText>{emenda.motivo}</ListItemText>

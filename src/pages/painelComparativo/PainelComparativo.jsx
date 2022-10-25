@@ -2,7 +2,6 @@ import './index.css';
 import { Box, Container } from '@mui/system';
 import { CircularProgress, Grid, Paper, Typography } from '@mui/material';
 import LinhaHorizontal from '../../components/graficos/GraficosGrandes/linhaHorizontal/LinhaHorizontal';
-import api from '../../services/api'
 import { anos } from '../../constants'
 import { recuperaEmendasUniversidade, recuperaListaUniversidades } from '../../services/emendasService/'
 import React, { useState, useEffect, useRef } from 'react';
@@ -10,6 +9,9 @@ import { useListState } from '@mantine/hooks';
 import SeletorUniversidades from '../../components/seletorUniversidades/SeletorUniversidades';
 import PainelSemUniversidadeSelecionada from '../../components/PainelComparativo/PainelSemUniversidadeSelecionada/PainelSemUniversidadeSelecionada';
 import PainelDetalhesUniversidade from '../../components/PainelComparativo/PainelDetalhesUniversidade/PainelDetalhesUniversidade';
+import { Link } from '@mui/material';
+import { Breadcrumbs } from '@mui/material';
+import { NavigateNext } from '@mui/icons-material';
   // TODO: Olhar no figma exemplos de dashboard
   // TODO: Fazer ajustes relacionados ao desempenho da aplicação em redes mais lentas
     // * CHECK! TODO: Baixar emendas de acordo com as universidades selecionadas 
@@ -17,8 +19,9 @@ import PainelDetalhesUniversidade from '../../components/PainelComparativo/Paine
   // TODO: Documentar todas as funções e só manter o que está sendo utilizado de fato
   // * CHECK! TODO: Colocar o display de paineis separado
   // * CHECK! TODO: Seletor de anos por painel com menu dropdown
+  // TODO: Gerar Cor junto com as Emendas da Universidade
 
-function App() {
+export default function PainelComparativo() {
   const [ listaUniversidades, setListaUniversidades ] = useListState([])
   const [ emendas, setEmendas ] = useListState([])
   const [ listaPaineis, updateListaPaineis ] = useListState([])
@@ -33,9 +36,10 @@ function App() {
   async function handleRecuperaListaUniversidades() {
     try {
       const data = await recuperaListaUniversidades()
-      setListaUniversidades.setState(data)
-      console.log("xana:",listaUniversidades.length)
-      shouldGetListaUniversidades.current = false
+      if(data){
+        setListaUniversidades.setState(data)
+        shouldGetListaUniversidades.current = false
+      }
     } catch (e) {
       console.log(e.message)
     }
@@ -43,7 +47,6 @@ function App() {
 
   async function handleRecuperaEmendasUniversidade(universidade) {
     try {
-      debugger
       if (emendas.includes(value => value.sigla === universidade.sigla)) {
         return
       }
@@ -102,7 +105,6 @@ function App() {
    * 
   */
    function calculaTotalAnosUniversidade(emendas, universidade, anos) {
-    debugger
     let pagoEmendasAno = []
     anos.forEach( ano => {
         let totalAno = 0
@@ -184,7 +186,6 @@ function App() {
    */
   async function handleAdicionarUniversidade(universidade) {
     try {
-      debugger
       if(listaUniversidades.length !== 0){
         // Caso nao tenha na lista,faz tudo
         if (!universidadesSelecionadas.find(element => element === universidade)) {
@@ -219,7 +220,6 @@ function App() {
     }
   }
 
-  // TODO: utilizar essa função de remoção da lista de universidadesSelecionadas no gráfico
   // * handleRemoverUniversidade
   /**
    * * Remove uma universidade do vetor de universidades selecionadas e suas respectivas emendas para fins de performance
@@ -251,6 +251,10 @@ function App() {
     }
   }
 
+  async function handleRecarregar(){
+    handleRecuperaListaUniversidades()
+  }
+
   function handleRemoverTudo() {
     try {
         setUniversidadesSelecionadas.setState([])
@@ -272,8 +276,30 @@ function App() {
   })
 
   return (<Container className='main-container' component={'main'}>
+      <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNext fontSize="small"/>} className='breadcrumbs'>
+        <Link
+          component='h2'
+          variant="subtitle1"
+          underline="hover"
+          color="inherit"
+          href="/"
+          className="link-breadcrumbs">
+            Principal
+        </Link>
+        <Link
+          component='h2'
+          variant="subtitle1"
+          underline="hover"
+          color="inherit"
+          href="/Universidades"
+          aria-current="page"
+          className="link-breadcrumbs"
+        >
+            Painel Comparativo
+        </Link>
+      </Breadcrumbs>
       <Box style={{width: "100%"}}>
-        <SeletorUniversidades loadingUniversidades={loadingUniversidades} listaUniversidades={listaUniversidades} handleRemoverTudo={handleRemoverTudo} handleSelecionarUniversidade={handleAdicionarUniversidade} valorAutocomplete={valorAutocomplete} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetValorAutocomplete} handleSetAutocompleteAberto={handleSetAutocompleteAberto}></SeletorUniversidades>
+        <SeletorUniversidades temAcoes loadingUniversidades={loadingUniversidades} listaUniversidades={listaUniversidades} recarregar={handleRecarregar} removerTudo={handleRemoverTudo} selecionarUniversidade={handleAdicionarUniversidade} valorAutocomplete={valorAutocomplete} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetValorAutocomplete} changeAutocompleteAberto={handleSetAutocompleteAberto}></SeletorUniversidades>
       </Box>
       <Grid container spacing={2} className='grid-principal'>
         <Grid item xs={12}>
@@ -299,10 +325,8 @@ function App() {
           listaPaineis.length > 0 ? listaPaineis.map((item, indice) => {
             return <PainelDetalhesUniversidade titulo={ item.titulo } handleRemover={handleRemoverUniversidade} indice={ indice } emendasUniversidade={
               emendas.find(emenda => emenda.siglaUniversidade === item.titulo).emendas} anos={anos} />
-          }) : <PainelSemUniversidadeSelecionada />
+          }) : <PainelSemUniversidadeSelecionada tamanho={"grande"} style={{height: "300px", backgroundColor: "#878787", padding: "20px"}}/>
         }
       </Grid>
     </Container>);
 }
-
-export default App;

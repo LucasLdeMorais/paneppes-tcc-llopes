@@ -1,6 +1,6 @@
 import Chart from "../../components/graficos/GraficosGrandes/chart/Chart";
 import "./painel.css";
-import { NavigateNext, AddTwoTone, CloseTwoTone } from '@mui/icons-material'
+import { NavigateNext, Add, Close } from '@mui/icons-material'
 import { Container, Grid, Paper, Autocomplete, TextField, Typography, Box, IconButton,
     Link, Breadcrumbs, CardContent, CardActionArea, List, ListItem, ListItemText, CircularProgress, Tooltip, Select, MenuItem }
     from "@mui/material";
@@ -153,7 +153,7 @@ export default function PainelComparativo(props) {
                         )}
                     />
                     <IconButton style={{float: "right", marginTop: "22px"}} onClick={() => { handleSelecionarUniversidade(universidade) }}>
-                        <AddTwoTone></AddTwoTone>
+                        <Add></Add>
                     </IconButton>
                 </Box>
                 <Painel tamanho={"grande"} grid dataKey="Active User" style={{height: "min-content", marginBottom: "50px"}} componente={

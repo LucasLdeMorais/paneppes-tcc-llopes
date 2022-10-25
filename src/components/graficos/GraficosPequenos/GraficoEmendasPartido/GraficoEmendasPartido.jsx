@@ -14,7 +14,7 @@ const options = {
   responsive: true,
   plugins: {
       legend: {
-          position: 'right',
+          position: 'bottom',
           display: true
       },
       tooltip: {
@@ -32,7 +32,7 @@ const optionsVazio = {
   responsive: true,
   plugins: {
       legend: {
-          position: 'bottom',
+          position: 'right',
           display: true
       },
       tooltip: {

@@ -13,7 +13,7 @@ indexAxis: 'x',
 responsive: true,
 plugins: {
     legend: {
-        position: 'right',
+        position: 'bottom',
         display: true
     },
     tooltip: {
@@ -108,7 +108,7 @@ export default function GraficoEmendasNatureza({emendasUniversidade, styleBox, s
   }, [emendasUniversidade, anoSelecionado]);
 
   return labels.length > 0 ? <Box className='container-grafico-emendas-natureza-despesa' style={styleBox}>
-    <Pie data={{labels: labels, datasets: datasets}} options={options} style={{maxHeight: "300px", maxWidth: "430px"}}/>
+    <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico}/>
   </Box> : <Box className='container-grafico-emendas-natureza-despesa' style={styleBox}>
     <Pie data={{labels: ["Sem Dados"], datasets: [{
         label: "# Pago em R$",

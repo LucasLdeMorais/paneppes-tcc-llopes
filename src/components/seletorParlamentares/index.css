@@ -1,0 +1,28 @@
+.autocomplete-acoes-seletor-parlamentares {
+    float: left;
+    width: 88%;
+    margin-right: 10px;
+    background-color: "white"
+}
+
+.autocomplete-sem-acoes-seletor-parlamentares {
+    float: left;
+    width: 95%;
+    margin-right: 10px;
+    background-color: "white"
+}
+
+.box-botoes-seletor-parlamentares {
+    float: right;
+}
+
+.box-botoes-seletor-parlamentares .icon-button {
+    margin-top: 8px
+}
+
+.paper-seletor-parlamentares {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: #fff;
+}

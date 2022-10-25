@@ -1,5 +1,5 @@
 import "./painel.css";
-import { CloseTwoTone } from '@mui/icons-material'
+import { Close } from '@mui/icons-material'
 import { Grid, Paper, Typography, IconButton, Box}
     from "@mui/material";
 import React from "react";
@@ -9,7 +9,7 @@ function handleTamanho(tamanho) {
         return 4
     }
     if ( tamanho === "medio" ) {
-        return 8
+        return 6
     }
     if ( tamanho === "grande" ) {
         return 12
@@ -27,7 +27,7 @@ const Painel = ({tamanho, componente, header, indice, removerItem, removivel, ti
                                 e.preventDefault();
                                 removerItem(indice);
                             }}>
-                            <CloseTwoTone/>
+                            <Close/>
                         </IconButton> : <></>
                     }
                 </Box> : <> {
@@ -35,7 +35,7 @@ const Painel = ({tamanho, componente, header, indice, removerItem, removivel, ti
                             e.preventDefault();
                             removerItem(indice);
                         }}>
-                        <CloseTwoTone/>
+                        <Close/>
                     </IconButton> : <></>
                 } </>
             }

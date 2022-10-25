@@ -1,10 +1,15 @@
-.app {
+.application {
     height: 100%;
     width: 100% !important; 
     max-width: 1350px !important;
+    
 }
 
-.container{
+body {
+    background-color: #f7f7f7;
+}
+
+.container-application{
     display: flex;
     margin-top: 10px;
 }
@@ -13,3 +18,7 @@
     text-decoration: none;
     color: inherit;
 }
+
+.link-breadcrumbs {
+    cursor: pointer;
+  }

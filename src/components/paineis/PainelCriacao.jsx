@@ -1,5 +1,5 @@
 import "./painel.css";
-import { AddTwoTone } from '@mui/icons-material'
+import { Add } from '@mui/icons-material'
 import { Grid, Paper, Typography, IconButton, Select, MenuItem}
     from "@mui/material";
 import React, { useState } from "react";
@@ -74,7 +74,7 @@ export default function PainelCriacao({ adicionarItem, listaComponentes }) {
                         componente: componente
                     });
                 }}>
-                <AddTwoTone/>
+                <Add/>
             </IconButton>
         </Paper>
     </Grid>

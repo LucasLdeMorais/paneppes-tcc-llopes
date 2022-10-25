@@ -2,33 +2,54 @@
     flex: 4;
 }
 
-.seletorAnos{
+.seletor-anos-universidades{
     height: 50;
     line-height: 60px;
     width: 100%;
     min-width: fit-content;
 }
 
-.painel {
+.container-seletor-anos-universidades {
+
+}
+
+.box-grafico-grande-vazio-universidades {
+    height: 350px;
+    width: 1104px;
+    color: grey
+}
+
+.texto-grafico-grande-vazio-universidades {
+    text-align: center;
+    padding-top: 15%;
+}
+
+.painel-grafico-pequeno-universidades {
+    min-height: 350px;
+    padding: 20px 0px 20px 20px;
+    overflow: auto;
+}
+.painel-lista-emendas-universidades {
     height: 300px;
     padding: 20px 0px 20px 20px;
 }
 
-.painelGrafico {
-    /* height: fit-content; */
-    /* padding: 20px */
+.painel-grafico-grande-universidades {
+    margin-bottom: 0px !important;
 }
 
-.container {
+.container-tela-universidades {
+    max-width: max-content !important;
     margin-top: 30px;
     width: 100%
 }
 
-.paperAutocomplete {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.listItem {
+.header-painel-grafico-grande-universidades {
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    background-color: #1976d2 ;
+    margin-bottom: 10px;
+    padding: 15px;
 }

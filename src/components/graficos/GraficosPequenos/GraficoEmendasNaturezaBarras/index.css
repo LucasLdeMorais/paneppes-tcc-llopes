@@ -3,6 +3,7 @@
     height: max-content;
     padding-left: 0;
     display: inline-block;
+    overflow: auto
 }
 
 .grafico-emendas-natureza-despesa {

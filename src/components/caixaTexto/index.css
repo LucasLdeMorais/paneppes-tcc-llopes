@@ -1,0 +1,56 @@
+.box-caixa-texto {
+    border-radius: 5px;
+    margin-bottom: 10px
+}
+
+.header-caixa-texto {
+    background-color: #1976d2;
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.header-caixa-texto :hover {
+    background-color: #125ea5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.header-caixa-texto-fechado {
+    background-color: #1976d2;
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+.header-caixa-texto-fechado :hover{
+    background-color: #125ea5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.icone-header-caixa-texto {
+    float: left; 
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.titulo-caixa-texto {
+    padding: 10px;
+}
+
+.box-corpo-caixa-texto {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

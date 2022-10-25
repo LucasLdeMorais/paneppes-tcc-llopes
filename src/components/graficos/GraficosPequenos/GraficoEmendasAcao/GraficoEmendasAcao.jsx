@@ -6,23 +6,44 @@ import { Box } from '@mui/system';
 import "./index.css";
 import { useListState } from '@mantine/hooks';
 import { useEffect } from 'react';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Square } from '@mui/icons-material';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 const options = {
-indexAxis: 'x',
-responsive: true,
-plugins: {
-    legend: {
-        position: 'right',
-        display: true
-    },
-    tooltip: {
-    },
-    title: {
-        display: true,
-        text: 'Valor de Emendas Pagas por Ação'
-    },
-},
+  indexAxis: 'x',
+  responsive: true,
+  plugins: {
+      legend: {
+          position: 'right',
+          display: false
+      },
+      tooltip: {
+      },
+      title: {
+          display: true,
+          text: 'Valor de Emendas Pagas por Ação'
+      },
+  },
+};
+
+const optionsVazio = {
+  indexAxis: 'x',
+  responsive: true,
+  plugins: {
+      legend: {
+          position: 'bottom',
+          display: true
+      },
+      tooltip: {
+          position: 'nearest',
+          display: false
+      },
+      title: {
+          display: true,
+          text: 'Valor de Emendas Pagas por Partido',
+      },
+  },
 };
 
 function randomPastelColorRGB(){
@@ -45,6 +66,7 @@ function getRgbString(rgb, translucido) {
 export default function GraficoEmendasAcao({emendasUniversidade, styleBox, styleGrafico, anoSelecionado}) {
   const [labels, updateLabels] = useListState([]);
   const [datasets, updateDatasets] = useListState([]);
+  const [legenda, setLegenda] = useListState([]);
 
   /**
    * 
@@ -62,6 +84,7 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
     let localLabels = [];
     let colors = [];
     let borderColors = [];
+    let localLegenda = [];
     
     emendasUniversidade.forEach(emenda => {
       if (emenda.pago > 0) {
@@ -73,7 +96,7 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
             colors.push(getRgbString(colorRgb, true))
             borderColors.push(getRgbString(colorRgb, true))
             jaAdicionadas.push(emenda.acao.substring(0,3))
-            localLabels.push(emenda.acao.substring(7,30)+"(...)")
+            localLabels.push(emenda.acao.substring(7,))
             data.push(emenda.pago)
           }
         } else {
@@ -84,7 +107,7 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
             colors.push(getRgbString(colorRgb, true))
             borderColors.push(getRgbString(colorRgb, true))
             jaAdicionadas.push(emenda.acao.substring(0,3))
-            localLabels.push(emenda.acao.substring(7,30)+"(...)")
+            localLabels.push(emenda.acao.substring(7,))
             data.push(emenda.pago)
           }
         }
@@ -98,6 +121,13 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
         borderWidth: 1
     }])
     updateLabels.setState(localLabels)
+    localLabels.forEach((acao, index, arr) => {
+      localLegenda.push({
+        nome: acao,
+        cor: colors[index]
+      })
+    })
+    setLegenda.setState(localLegenda)
   }
 
   useEffect(() => {
@@ -106,15 +136,27 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
     }
   }, [emendasUniversidade, anoSelecionado]);
 
-  return labels.length > 0 ? <Box className='container-grafico-emendas-acao' style={styleBox}>
+  return labels.length > 0 ? 
+  <Box className='container-grafico-emendas-acao' style={styleBox}>
     <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico} />
-  </Box> : <Box className='container-grafico-emendas-acao' style={styleBox}>
+    <List>
+      {
+        legenda.map(acao => {
+          return <ListItem>
+            <ListItemText secondary={acao.nome} />
+            <ListItemIcon><Square style={{color: acao.cor}}/></ListItemIcon>
+          </ListItem>
+        })
+      }
+    </List>
+  </Box> : 
+  <Box className='container-grafico-emendas-acao' style={styleBox}>
     <Pie data={{labels: ["Sem Dados"], datasets: [{
         label: "# Pago em R$",
         data: [1],
         backgroundColor: "rgb(175, 174, 174, 0.5)",
         borderColors: "rgb(175, 174, 174)",
         borderWidth: 1
-    }]}} options={options} style={styleGrafico}/>
+    }]}} options={optionsVazio} style={{width: "350px"}}/>
   </Box>
 }

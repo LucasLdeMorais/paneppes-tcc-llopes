@@ -3,13 +3,13 @@ import "./index.css"
 import { Typography } from '@mui/material';
 import Painel from '../../paineis/Painel';
 
-const PainelSemUniversidadeSelecionada = () => {
+const PainelSemUniversidadeSelecionada = ({tamanho, className, style}) => {
     return (
-        <Painel tamanho={ "grande" } componente={ 
-            <Typography id={"typography-painel-sem-universidade-selecionada"} variant='h4'>
-                Adicione uma Universidade ao gráfico para ver mais detalhes aqui
+        <Painel tamanho={ tamanho } componente={ 
+            <Typography id={"typography-painel-sem-universidade-selecionada"} variant='h4' textAlign={"justify"}>
+                Selecione uma universidade para ver mais detalhes aqui
             </Typography>
-        } style={{backgroundColor: "#878787"}}/>
+        } style={ style }/>
     )
 }
 

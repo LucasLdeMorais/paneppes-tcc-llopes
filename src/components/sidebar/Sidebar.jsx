@@ -20,7 +20,10 @@ import {
   Code,
   CurrencyExchange,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  CompareArrows,
+  Help,
+  Groups
 } from "@mui/icons-material";
 import { withRouter } from "react-router-dom";
 
@@ -39,27 +42,22 @@ const Sidebar = (props) => {
     },
     {
       text: "Painel Comparativo",
-      icon: <AccountBalance />,
+      icon: <CompareArrows />,
       onClick: () => history.push("/PainelComparativo")
     },
     {
       text: "Parlamentares",
-      icon: <PermIdentity />,
+      icon: <Groups />,
       onClick: () => history.push("/Parlamentares")
     }],
     saberMais: [{
-      text: "Emendas",
-      icon: <CurrencyExchange />,
-      onClick: () => history.push("/SaberMais/EmendasParlamentares")
-    },
-    {
-      text: "Financiamento das Universidades Federais",
+      text: "Entendendo as Emendas",
       icon: <AttachMoney />,
-      onClick: () => history.push("/SaberMais/FinanciamentoUniversidadesFederais")
+      onClick: () => history.push("/SaberMais")
     }],
     infoAdicionais: [{
-      text: "Sobre o Painel",
-      icon: <Info />,
+      text: "Como usar as Ferramentas",
+      icon: <Help />,
       onClick: () => history.push("/Sobre")
     },{
       text: "Código-fonte",
@@ -75,7 +73,7 @@ const Sidebar = (props) => {
     }}>
       <Box>
         <List>
-          <ListItem>
+          <ListItem key="fecharGaveta">
             <ListItemIcon>
               <IconButton onClick={props.fechaGaveta}>
                 <ChevronLeft />

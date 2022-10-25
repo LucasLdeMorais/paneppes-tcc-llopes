@@ -1,34 +1,55 @@
-.universidades{
+.parlamentares{
     flex: 4;
 }
 
-.seletorAnos{
+.seletor-anos-parlamentares{
     height: 50;
     line-height: 60px;
     width: 100%;
     min-width: fit-content;
 }
 
-.painel {
-    height: 300px;
+.container-seletor-anos-parlamentares {
+
+}
+
+.box-grafico-grande-vazio-parlamentares {
+    height: 350px;
+    width: 1104px;
+    color: grey
+}
+
+.texto-grafico-grande-vazio-parlamentares {
+    text-align: center;
+    padding-top: 15%;
+}
+
+.painel-grafico-pequeno-parlamentares {
+    min-height: 350px;
+    padding: 20px 0px 20px 20px;
+    overflow: auto;
+}
+.painel-lista-emendas-parlamentares {
+    height: 500px;
     padding: 20px 0px 20px 20px;
 }
 
-.painelGrafico {
-    /* height: 300px; */
-    /* padding: 20px */
+.painel-grafico-grande-parlamentares {
+    margin-bottom: 0px !important;
 }
 
-.breadcrumbs {
-    margin-bottom: 20px !important;
-}
-
-.container {
+.container-tela-parlamentares {
+    max-width: max-content !important;
+    margin-top: 30px;
     width: 100%
 }
 
-.paperAutocomplete {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 100%;
+.header-painel-grafico-grande-parlamentares {
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    background-color: #1976d2 ;
+    margin-bottom: 10px;
+    padding: 15px;
 }

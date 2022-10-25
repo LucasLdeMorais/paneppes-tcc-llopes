@@ -5,7 +5,7 @@ import GraficoEmendasAcao from '../../graficos/GraficosPequenos/GraficoEmendasAc
 import GraficoEmendasPartido from '../../graficos/GraficosPequenos/GraficoEmendasPartido';
 import SeletorAnos from '../../seletorAnos/SeletorAnos';
 import { useState } from 'react';
-import { ArrowDownwardTwoTone, ArrowUpwardTwoTone } from '@mui/icons-material';
+import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import ListaEmendas from '../../listaEmendas';
 import GraficoEmendasNatureza from './../../graficos/GraficosPequenos/GraficoEmendasNatureza/GraficoEmendasNatureza';
 
@@ -18,27 +18,44 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
     const BotaoLista = () => {
         return listaAberta? <Tooltip title={"Abrir tabela de emendas"}>
             <IconButton size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
-                <ArrowUpwardTwoTone/>
+                <ArrowUpward/>
             </IconButton>
         </Tooltip>: <Tooltip title={"Fechar tabela de emendas"}>
             <IconButton size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
-                <ArrowDownwardTwoTone/>
+                <ArrowDownward/>
             </IconButton>
         </Tooltip>
     }
 
     function handleSetAnoSelecionado(Ano) {
+        console.log(Ano)
         setAnoSelecionado(Ano)
     }
-    // TODO: Fazer pegar por ano
+
     const totalPago = emendasUniversidade.reduce((acc, obj) => {
-        return acc + obj.pago
+        if (anoSelecionado) {
+            if(obj.ano === parseInt(anoSelecionado)){
+                return acc + obj.pago
+            }
+            return acc
+        } else {
+            return acc + obj.pago
+        }
     }, 0)
 
-    // TODO: Fazer pegar por ano
+
     const totalEmpenhado = emendasUniversidade.reduce((acc, obj) => {
-        return acc + obj.empenhado
+        if (anoSelecionado) {
+            if(obj.ano === parseInt(anoSelecionado)){
+                return acc + obj.empenhado
+            }
+            return acc
+        } else {
+            return acc + obj.empenhado
+        }
     }, 0)
+
+    const emendas = anoSelecionado !== 0? emendasUniversidade.filter(ele => ele.ano === parseInt(anoSelecionado)) : emendasUniversidade
 
     return (
         <Painel titulo={ titulo } header removivel removerItem={handleRemover} tamanho={ "grande" } componente={ 
@@ -47,8 +64,8 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
                     <SeletorAnos setAnoSelecionado={handleSetAnoSelecionado} anoSelecionado={anoSelecionado} anos={anos}/>
                 </Box>
                 <Box id={"box-graficos-painel-detalhes"}>
-                    <GraficoEmendasPartido emendasUniversidade={emendasUniversidade} styleBox={{float: "left"}} styleGrafico={{width: "360px"}}  anoSelecionado={anoSelecionado}/>
-                    <GraficoEmendasAcao emendasUniversidade={emendasUniversidade} styleBox={{float: "right"}} styleGrafico={{width: "450px"}} anoSelecionado={anoSelecionado}/>  
+                    <GraficoEmendasPartido emendasUniversidade={emendas} styleBox={{float: "left"}} styleGrafico={{width: "320px"}}  anoSelecionado={anoSelecionado}/>
+                    <GraficoEmendasAcao emendasUniversidade={emendas} styleBox={{float: "right", marginLeft: "20px"}} styleGrafico={{width: "350px"}} anoSelecionado={anoSelecionado}/>  
                 </Box>
                 <Box id={"box-cards-painel-detalhes"}>
                     <Paper elevation={2} style={{padding: "10px", width: "max-content"}}>
