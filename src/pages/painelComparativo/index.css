@@ -3,14 +3,6 @@
   max-width: 1630px !important;
   margin: 40px
 }
-
-.header-painel {
-  min-height: max-content;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  color: whitesmoke;
-}
-
 .painel {
   border-radius: 15px;
   min-height: max-content;
@@ -31,14 +23,6 @@
 
 .painelDetalhes {
   height: 360px;
-}
-
-.header-painel-detalhes {
-  background-color: #1976d2;
-  min-height: max-content;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  color: whitesmoke;
 }
 
 .seletorAnos{

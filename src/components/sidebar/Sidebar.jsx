@@ -62,7 +62,7 @@ const Sidebar = (props) => {
     },{
       text: "Código-fonte",
       icon: <Code />,
-      onClick: () => history.push("/CodigoFonte")
+      onClick: () => window.open("https://github.com/LucasLdeMorais/lucas-lopes-tcc", '_blank').focus()
     }]
   };
   

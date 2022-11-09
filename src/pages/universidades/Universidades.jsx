@@ -13,7 +13,7 @@ import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants";
 import GraficoEmendasNatureza from './../../components/graficos/GraficosPequenos/GraficoEmendasNatureza/GraficoEmendasNatureza';
 import GraficoEmendasPartido from './../../components/graficos/GraficosPequenos/GraficoEmendasPartido/index';
-import ListaEmendas from "../../components/listaEmendas";
+import ListaEmendas from "../../components/tabelas/listaEmendas";
 import PainelSemUniversidadeSelecionada from './../../components/PainelComparativo/PainelSemUniversidadeSelecionada/index';
 import GraficoEmendasNaturezaBarras from "../../components/graficos/GraficosPequenos/GraficoEmendasNaturezaBarras";
 
@@ -112,14 +112,12 @@ export default function Universidades(props) {
                     Universidades
                 </Link>
             </Breadcrumbs>
-            <Paper>
-                <SeletorUniversidades loadingUniversidades={loading} listaUniversidades={listaUniversidades} selecionarUniversidade={handleSetUniversidade} valorAutocomplete={universidade} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetUniversidade} changeAutocompleteAberto={handleSetAutocompleteAberto} recarregar={handleRecarregar}></SeletorUniversidades>
-            </Paper>
+            <SeletorUniversidades loadingUniversidades={loading} listaUniversidades={listaUniversidades} selecionarUniversidade={handleSetUniversidade} valorAutocomplete={universidade} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetUniversidade} changeAutocompleteAberto={handleSetAutocompleteAberto} recarregar={handleRecarregar}></SeletorUniversidades>
             <Grid container spacing={2} >
                 <Grid item xs={12}>
                     <Paper className='painel-grafico-grande-universidades' elevation={3}>
                         <Box className='header-painel-grafico-grande-universidades'>
-                            <Typography component='h3' variant='h5'>Valor Total de Emendas em Reais por Ano </Typography>
+                            <Typography component='h3' variant='h5'>Valor Total de Emendas em Reais por Ano</Typography>
                         </Box>
                         { 
                             shouldBeLoadingGrafico.current ? <Box className='box-loading-grafico'>
@@ -141,24 +139,24 @@ export default function Universidades(props) {
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container spacing={2} justify="center" className='container-seletor-anos-universidades'>
-                        <SeletorAnos anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
-                    </Grid>
+                    <Box className='box-seletor-anos-universidades'>
+                        <SeletorAnos paper anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+                    </Box>
                 </Grid>
                 { 
                     universidade?  <Grid item xs={6} style={{height: "max-content"}}>
-                    <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
-                        <Box style={{height: "max-content"}}>
-                                <GraficoEmendasAcao anoSelecionado={anoSelecionado} emendasUniversidade={emendas} ladoLegenda={"bottom"} styleBox={{width: "250px"}} styleGrafico={{width: "250px"}}/>
+                        <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
+                            <Box style={{height: "max-content"}}>
+                                <GraficoEmendasAcao anoSelecionado={anoSelecionado} emendasUniversidade={emendas} ladoLegenda={"bottom"} styleBox={{width: "500px"}} styleGrafico={{maxHeight: "250px"}}/>
                             </Box>
                         </Paper> 
                     </Grid> : <PainelSemUniversidadeSelecionada tamanho={"medio"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
                 }
                 { 
                     universidade?  <Grid item xs={6} style={{height: "max-content"}}>
-                    <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
-                        <Box style={{height: "max-content"}}>
-                                <GraficoEmendasPartido anoSelecionado={anoSelecionado} emendasUniversidade={emendas} ladoLegenda={"bottom"}  styleGrafico={{height: "350px"}}/>
+                        <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
+                            <Box style={{height: "max-content"}}>
+                                <GraficoEmendasPartido anoSelecionado={anoSelecionado} emendasUniversidade={emendas} ladoLegenda={"bottom"}  styleBox={{width: "500px"}} styleGrafico={{maxHeight: "250px"}}/>
                             </Box>
                         </Paper> 
                     </Grid> : <PainelSemUniversidadeSelecionada tamanho={"medio"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
@@ -173,11 +171,9 @@ export default function Universidades(props) {
                     </Grid> : <PainelSemUniversidadeSelecionada tamanho={"grande"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
                 }
                 <Grid item xs={12}>
-                    <Grid container spacing={2} justify="center" className='container-seletor-anos-universidades'>
-                        <Grid item xs={1}>
-                            <SeletorAnos anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
-                        </Grid>
-                    </Grid>
+                    <Box className='box-seletor-anos-universidades'>
+                            <SeletorAnos paper anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+                    </Box>
                 </Grid>
                 <Grid item xs={12}>
                     <Paper className='painel-lista-emendas-universidades' elevation={2} style={{height: "max-content"}}>

@@ -1,0 +1,11 @@
+.container-grafico-partido {
+    width: max-content;
+    height: max-content;
+    padding-left: 0;
+    display: inline-block;
+}
+
+.grafico-emendas-partido {
+    height: 350px;
+    width: 430px
+}

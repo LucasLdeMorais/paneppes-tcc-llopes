@@ -1,6 +1,6 @@
 #box-seletor-anos-painel-detalhes {
-    display: block;
-    width: 100%;
+    display: inline-block;
+    float: left
 }
 
 #box-graficos-painel-detalhes {
@@ -11,14 +11,14 @@
 }
 
 #box-cards-painel-detalhes {
-    display: block;
-    margin-right: 2%;
-    margin-top: 3%;
-    float: inline-end;
+    display: inline-block;
+    margin-top: 8px;
+    margin-left: 20px;
 }
 
 #tabela-painel-detalhes {
     width: 100%; 
     text-align: center;
-    display: inline-block
+    display: inline-block;
+    margin-top: 20px;
 }

@@ -65,7 +65,7 @@ function getRgbString(rgb, translucido) {
     return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-function LinhaHorizontal({emendasUniversidade, anos, styleBox, styleGrafico}) {
+function EmendasPorAno({emendasUniversidade, anos, styleBox, styleGrafico}) {
     
     const [datasets, setDatasets] = useListState([]);
 
@@ -82,8 +82,8 @@ function LinhaHorizontal({emendasUniversidade, anos, styleBox, styleGrafico}) {
     /**
      * @param emendasUniversidades {
      *      universidade: UFRJ,
-     *      pagoEmendasAno: [ ..., 2500000, 1500000 ],
-     *      empenhadoEmendasAno: [ ..., 2500000, 1500000 ]
+     *      pago: [ ..., 2500000, 1500000 ],
+     *      empenhado: [ ..., 2500000, 1500000 ]
      *  }
      * 
      * @return [
@@ -119,6 +119,7 @@ function LinhaHorizontal({emendasUniversidade, anos, styleBox, styleGrafico}) {
             backgroundColor: 'rgb(255, 237, 81)',
             stack: 'Stack 1'
         })
+        console.log("datasets:",datasets)
         setDatasets.setState(datasets)
     }
 
@@ -133,4 +134,4 @@ function LinhaHorizontal({emendasUniversidade, anos, styleBox, styleGrafico}) {
                 }} options={options}/> : <></>} */}
          </>)
 }
-export default LinhaHorizontal;
+export default EmendasPorAno;

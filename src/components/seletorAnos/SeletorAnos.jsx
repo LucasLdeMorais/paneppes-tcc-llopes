@@ -1,14 +1,15 @@
 import "./seletorAnos.css";
 import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Paper } from '@mui/material';
 
-const SeletorAnos = ({anos, setAnoSelecionado, anoSelecionado, styleBox}) => {
+const SeletorAnos = ({anos, setAnoSelecionado, anoSelecionado, styleBox, stylePaper, paper}) => {
     function handleSetAnoSelecionado(e, value) {
         e.preventDefault();
         setAnoSelecionado(value)
     }
 
-    return (
-        <FormControl id="select-ano"style={styleBox}>
+    const Seletor = () => {
+        return <FormControl id="select-ano"style={styleBox}>
             <InputLabel id="select-ano-label">Ano</InputLabel>
             <Select
                 labelId="select-ano"
@@ -30,7 +31,11 @@ const SeletorAnos = ({anos, setAnoSelecionado, anoSelecionado, styleBox}) => {
                 }
             </Select>
         </FormControl>
-    )
+    }
+
+    return (paper? <Paper style={stylePaper}>
+        <Seletor/>
+    </Paper>: <Seletor/> )
 }
 
 export default SeletorAnos;

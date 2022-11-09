@@ -13,3 +13,25 @@
     display: flex;
     margin: 20px;
 }
+
+.botao-telas-home {
+    height: 100px;
+    padding: 40px;
+}
+
+.botao-telas-home :hover{
+}
+
+.paper-botao-telas-home {
+    
+}
+
+.paper-botao-telas-home :hover{
+}
+
+.painel-grafico-pequeno-home {
+    min-height: 350px;
+    margin-bottom: 10px;
+    height: max-content;
+    width: 100%;
+}

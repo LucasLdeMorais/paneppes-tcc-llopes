@@ -14,13 +14,13 @@ export default function CaixaTexto({titulo, corpo}) {
         setMostrarConteudo(!mostrarConteudo)
     }
 
-    return <Paper className={"box-caixa-texto"} >
+    return <Paper className={"box-caixa-texto"} elevation={3}>
         {mostrarConteudo? <Close onClick={(e) => handleMostrarConteudo(e)} className={"icone-header-caixa-texto"}/> : <ExpandMore onClick={(e) => handleMostrarConteudo(e)} className={"icone-header-caixa-texto"}/>}
         <Box className={mostrarConteudo? "header-caixa-texto" : "header-caixa-texto-fechado"} onClick={(e) => handleMostrarConteudo(e)}>
             <Typography className={"titulo-caixa-texto"} component='h4' variant='h6'>{titulo}</Typography>
         </Box>
         { mostrarConteudo? <Box className={"box-corpo-caixa-texto"} style={{padding: "10px"}}>
-                <Typography className={"corpo-caixa-texto"} component='p' variant="body1">{corpo}</Typography>
+                {corpo}
             </Box> : 
         <></> }
     </Paper>

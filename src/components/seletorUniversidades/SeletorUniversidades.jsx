@@ -38,7 +38,7 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
     }
 
     return <Box style={{width: "100%"}}>
-        <Paper className='paper-seletor-universidades'>
+        <Paper className={"paper-autocomplete"} style={{height: "55px"}}>
             <Autocomplete
                 className={temAcoes? "autocomplete-acoes-seletor-universidades" : "autocomplete-sem-acoes-seletor-universidades"}
                 onOpen={(e) => handleSetAutocompleteAberto(e, true)}
@@ -67,26 +67,26 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
                     </Box>
                 )}
             />
+            <Box className="box-botoes-seletor-universidades">
+                { temAcoes && <>
+                    <Tooltip title={"Adicionar"}>
+                        <IconButton className="icon-button" onClick={(event) => { handleSelecionarUniversidade(event, valorAutocomplete) }}>
+                            <Add></Add>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title={"Remover tudo"}>
+                        <IconButton className="icon-button" onClick={(event) => { handleRemoverTudo(event) }}>
+                            <DeleteForever></DeleteForever>
+                        </IconButton>
+                    </Tooltip>
+                </> }
+                <Tooltip title={"Recarregar"}>
+                    <IconButton className="icon-button" onClick={(event) => { handleRecarregarLista(event) }}>
+                        <Refresh></Refresh>
+                    </IconButton>
+                </Tooltip>
+            </Box>
         </Paper>
-        <Box className="box-botoes-seletor-universidades">
-            { temAcoes && <>
-                <Tooltip title={"Adicionar"}>
-                    <IconButton className="icon-button" onClick={(event) => { handleSelecionarUniversidade(event, valorAutocomplete) }}>
-                        <Add></Add>
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title={"Remover tudo"}>
-                    <IconButton className="icon-button" onClick={(event) => { handleRemoverTudo(event) }}>
-                        <DeleteForever></DeleteForever>
-                    </IconButton>
-                </Tooltip>
-            </> }
-            <Tooltip title={"Recarregar"}>
-                <IconButton className="icon-button" onClick={(event) => { handleRecarregarLista(event) }}>
-                    <Refresh></Refresh>
-                </IconButton>
-            </Tooltip>
-        </Box>
     </Box>
 }
 

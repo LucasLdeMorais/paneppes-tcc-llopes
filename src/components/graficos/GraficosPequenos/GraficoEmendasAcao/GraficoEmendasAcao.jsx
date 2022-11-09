@@ -8,6 +8,7 @@ import { useListState } from '@mantine/hooks';
 import { useEffect } from 'react';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Square } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 const options = {
@@ -68,6 +69,8 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
 
+  //! ACERTAR O VALOR NA LEGENDA 
+
   /**
    * 
    * @param {Array<EmendasUniversidade>} emendasUniversidade = [
@@ -96,7 +99,13 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
             colors.push(getRgbString(colorRgb, true))
             borderColors.push(getRgbString(colorRgb, true))
             jaAdicionadas.push(emenda.acao.substring(0,3))
-            localLabels.push(emenda.acao.substring(7,))
+            localLabels.push(`${emenda.acao.substring(7,55)}(...)`)
+            debugger
+            localLegenda.push({
+              nome: emenda.acao.substring(7,),
+              cor: getRgbString(colorRgb, true),
+              valor: emenda.pago
+            })
             data.push(emenda.pago)
           }
         } else {
@@ -107,7 +116,13 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
             colors.push(getRgbString(colorRgb, true))
             borderColors.push(getRgbString(colorRgb, true))
             jaAdicionadas.push(emenda.acao.substring(0,3))
-            localLabels.push(emenda.acao.substring(7,))
+            localLabels.push(`${emenda.acao.substring(7,55)}(...)`)
+            debugger
+            localLegenda.push({
+              nome: emenda.acao.substring(7,),
+              cor: getRgbString(colorRgb, true),
+              valor: emenda.pago
+            })
             data.push(emenda.pago)
           }
         }
@@ -121,13 +136,12 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
         borderWidth: 1
     }])
     updateLabels.setState(localLabels)
-    localLabels.forEach((acao, index, arr) => {
-      localLegenda.push({
-        nome: acao,
-        cor: colors[index]
-      })
-    })
     setLegenda.setState(localLegenda)
+  }
+
+  const styleLegendaMainText = {
+    fontSize: "0.7em",
+    color: "black"
   }
 
   useEffect(() => {
@@ -139,12 +153,13 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
   return labels.length > 0 ? 
   <Box className='container-grafico-emendas-acao' style={styleBox}>
     <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico} />
-    <List>
+    <Typography variant="h7" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
+    <List style={{overflow: "auto", height: "100px", maxHeight: "100px"}}>
       {
         legenda.map(acao => {
-          return <ListItem>
-            <ListItemText secondary={acao.nome} />
-            <ListItemIcon><Square style={{color: acao.cor}}/></ListItemIcon>
+          return <ListItem style={{color: acao.cor, paddingBottom: 0}}>
+            <ListItemText primary={acao.nome} secondary={`R$ ${acao.valor}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+            <ListItemIcon ><Square style={{color: acao.cor, marginLeft: "15px"}}/></ListItemIcon>
           </ListItem>
         })
       }

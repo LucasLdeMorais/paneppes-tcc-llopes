@@ -38,7 +38,7 @@ function SeletorParlamentares({ loadingParlamentares, recarregarLista, temAcoes,
     }
 
     return <Box style={{width: "100%"}}>
-        <Paper className='paper-seletor-parlamentares'>
+        <Paper className={"paper-autocomplete-parlamentares"} style={{height: "55px"}}>
             <Autocomplete
                 className={temAcoes? "autocomplete-acoes-seletor-parlamentares" : "autocomplete-sem-acoes-seletor-parlamentares"}
                 onOpen={(e) => handleSetAutocompleteAberto(e, true)}

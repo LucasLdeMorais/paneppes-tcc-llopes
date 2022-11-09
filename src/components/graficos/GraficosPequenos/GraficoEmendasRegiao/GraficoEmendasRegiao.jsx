@@ -69,14 +69,72 @@ function getRgbString(rgb, translucido) {
     return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-export default function GraficoEmendasPartido({emendasUniversidade, styleBox, styleGrafico}) {
+export default function GraficoEmendasRegiao({emendasUniversidades, universidades, styleBox, styleGrafico}) {
   const [labels, updateLabels] = useListState([]);
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
 
+
+  /**
+   * ! Ver como pegar o total pago para depois separar por UO
+   * @param {Array<EmendaUniversidade>} emendasUniversidades 
+   * @returns {Array<Object>} emendasUo
+   * * Para cada ano, criar o reduce de cada uo e adicionar no array por ano
+   */
+  function getEmendasUoAno(emendasUniversidades, ano, universidades) {
+    return emendasUniversidades.reduce((acc, obj) => {
+      if (obj.ano === ano) {
+        let chave = obj["nroUo"];
+
+        if(!acc[chave]) {
+          acc[chave] = []
+        };
+
+        let universidade = universidades.find(universidade => {
+          return universidade.uo === obj.nroUo
+        })
+
+        acc[chave].push({
+          ano: obj.ano,
+          rp: obj.rp,
+          autor: obj.autor,
+          tipoAutor: obj.tipoAutor,
+          partido: obj.partido,
+          ufAutor: obj.ufAutor,
+          nroEmenda: obj.nroEmenda,
+          orgao: obj.orgao,
+          uo: obj.uo,
+          acao: obj.acao,
+          localizador: obj.localizador,
+          gnd: obj.gnd,
+          modalidade: obj.modalidade,
+          naturezaDespesa: obj.naturezaDespesa,
+          dotacaoInicialEmenda: obj.dotacaoInicialEmenda,
+          dotacaoAtualEmenda: obj.dotacaoAtualEmenda,
+          empenhado: obj.empenhado,
+          liquidado: obj.liquidado,
+          pago: obj.pago,
+          nroUo: obj.nroUo,
+        });
+      }
+      return acc
+    }, {})
+  }
+
+  function getEmendasPorUoAnos(emendasUniversidades, anos) {
+    return anos.reduce((acc, ano) => {
+      if(!acc[ano]) {
+        acc[ano] = []
+      };
+
+      acc[ano].push(getEmendasUoAno(emendasUniversidades, ano))
+      return acc
+    })
+  }
+
   /**
    * 
-   * @param {Array<EmendasUniversidade>} emendasUniversidade = [
+   * @param {Array<EmendasUniversidade>} emendasUniversidades = [
    *  {
    *    siglaUniversidade: "UFRJ",
    *    emendas: []]
@@ -84,14 +142,14 @@ export default function GraficoEmendasPartido({emendasUniversidade, styleBox, st
    *  ...
    * ]
    */
-  function getDataGrafico(emendasUniversidade) {
+  function getDataGrafico(emendasUniversidades) {
     let data = [];
     let localLabels = [];
     let colors = [];
     let borderColors = [];
     let localLegenda = [];
     
-    emendasUniversidade.forEach(emenda => {
+    emendasUniversidades.forEach(emenda => {
       if (emenda.pago > 0) {
         if (localLabels.includes(emenda.partido)){
           data[localLabels.indexOf(emenda.partido)] += emenda.pago
@@ -126,10 +184,10 @@ export default function GraficoEmendasPartido({emendasUniversidade, styleBox, st
   }
 
   useEffect(() => {
-    if(emendasUniversidade && emendasUniversidade.length > 0){
-      getDataGrafico(emendasUniversidade);
+    if(emendasUniversidades && emendasUniversidades.length > 0){
+      getDataGrafico(emendasUniversidades);
     }
-  }, [emendasUniversidade]);
+  }, [emendasUniversidades]);
 
   return labels.length > 0 ? <Box className='container-grafico-partido' style={styleBox}>
     <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico}/>

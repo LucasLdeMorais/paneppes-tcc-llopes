@@ -24,12 +24,21 @@ async function recuperaListaParlamentares() {
 
 async function recuperaListaEmendas() {
 try {
+    let status = 0;
     const data = await api.get('/emendas').then( response => {
+      status = response.status
       return response.data
     })
-    return data
+    return ({
+      statusCode: status,
+      data: data
+    })
 } catch (e) {
     console.log(e.message)
+    return ({
+      statusCode: 400,
+      message: e.message
+    })
 }
 }
 

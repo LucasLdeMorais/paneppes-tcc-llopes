@@ -13,7 +13,7 @@
 }
 
 .box-botoes-seletor-universidades {
-    float: right;
+    margin-left: 5px;
 }
 
 .box-botoes-seletor-universidades .icon-button {

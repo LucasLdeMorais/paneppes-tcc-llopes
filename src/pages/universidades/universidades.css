@@ -9,8 +9,8 @@
     min-width: fit-content;
 }
 
-.container-seletor-anos-universidades {
-
+.box-seletor-anos-universidades {
+    width: min-content;
 }
 
 .box-grafico-grande-vazio-universidades {

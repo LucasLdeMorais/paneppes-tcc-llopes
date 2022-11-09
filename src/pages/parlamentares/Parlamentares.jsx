@@ -6,10 +6,10 @@ import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants";
 import { recuperaEmendasParlamentar, recuperaListaParlamentares } from "../../services/emendasService";
 import SeletorParlamentares from './../../components/seletorParlamentares/SeletorParlamentares';
-import ListaEmendasParlamentar from "../../components/listaEmendasParlamentar";
+import ListaEmendasParlamentar from "../../components/tabelas/listaEmendasParlamentar";
 
 export default function Parlamentars(props) {
-  const [ parlamentar, setParlamentar ] = useState(false)
+  const [ parlamentar, setParlamentar ] = useState()
   const [ listaParlamentares, setListaParlamentares ] = useState([])
   const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
   const [ anoSelecionado, setAnoSelecionado ] = useState(0)
@@ -108,9 +108,9 @@ function handleRecarregar() {
         </Breadcrumbs>
         <Grid container spacing={2} >
             <Grid item xs={12}>
-                <Grid container spacing={2} justify="center" className='container-seletor-parlamentares'>
+                <Box className='box-seletor-parlamentares'>
                     <SeletorParlamentares loadingParlamentares={loading} listaParlamentares={listaParlamentares} selecionarParlamentar={handleSetParlamentar} valorAutocomplete={parlamentar} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetParlamentar} changeAutocompleteAberto={handleSetAutocompleteAberto} recarregar={handleRecarregar} />
-                </Grid>
+                </Box>
             </Grid> 
             <Grid item xs={12}>
                 <Paper className='painel-lista-emendas-parlamentares' elevation={3}>

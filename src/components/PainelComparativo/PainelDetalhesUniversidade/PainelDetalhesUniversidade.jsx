@@ -6,8 +6,9 @@ import GraficoEmendasPartido from '../../graficos/GraficosPequenos/GraficoEmenda
 import SeletorAnos from '../../seletorAnos/SeletorAnos';
 import { useState } from 'react';
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
-import ListaEmendas from '../../listaEmendas';
+import ListaEmendas from '../../tabelas/listaEmendas';
 import GraficoEmendasNatureza from './../../graficos/GraficosPequenos/GraficoEmendasNatureza/GraficoEmendasNatureza';
+import { Button } from '@mui/material';
 
 // ? Filtragem por ano deve ser feita no componente pai e passar o array filtrado no emendasUniversidade
 
@@ -16,14 +17,14 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
     const [ listaAberta, setListaAberta ] = useState(false);
 
     const BotaoLista = () => {
-        return listaAberta? <Tooltip title={"Abrir tabela de emendas"}>
-            <IconButton size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
-                <ArrowUpward/>
-            </IconButton>
-        </Tooltip>: <Tooltip title={"Fechar tabela de emendas"}>
-            <IconButton size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
-                <ArrowDownward/>
-            </IconButton>
+        return listaAberta? <Tooltip title={"Fechar tabela de emendas"}>
+            <Button startIcon={<ArrowUpward/>} size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
+                Fechar tabela de emendas
+            </Button>
+        </Tooltip>: <Tooltip title={"Abrir tabela de emendas"}>
+            <Button startIcon={<ArrowDownward/>} size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
+                Abrir tabela de emendas
+            </Button>
         </Tooltip>
     }
 
@@ -63,17 +64,17 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
                 <Box id={"box-seletor-anos-painel-detalhes"}>
                     <SeletorAnos setAnoSelecionado={handleSetAnoSelecionado} anoSelecionado={anoSelecionado} anos={anos}/>
                 </Box>
-                <Box id={"box-graficos-painel-detalhes"}>
-                    <GraficoEmendasPartido emendasUniversidade={emendas} styleBox={{float: "left"}} styleGrafico={{width: "320px"}}  anoSelecionado={anoSelecionado}/>
-                    <GraficoEmendasAcao emendasUniversidade={emendas} styleBox={{float: "right", marginLeft: "20px"}} styleGrafico={{width: "350px"}} anoSelecionado={anoSelecionado}/>  
-                </Box>
                 <Box id={"box-cards-painel-detalhes"}>
-                    <Paper elevation={2} style={{padding: "10px", width: "max-content"}}>
+                    <Paper elevation={2} style={{padding: "10px", width: "max-content", display: "inline-block"}}>
                         <Typography variant="h7" style={{}}>Total empenhado{anoSelecionado? ` ${anoSelecionado}`:""}: {totalEmpenhado.toLocaleString()}</Typography>
                     </Paper>
-                    <Paper elevation={2} style={{padding: "10px", marginTop: "25px", width: "max-content"}}>
+                    <Paper elevation={2} style={{padding: "10px", width: "max-content", display: "inline-block", marginLeft: "15px"}}>
                         <Typography variant="h7" style={{}}>Total pago{anoSelecionado? ` ${anoSelecionado}`:""}: {totalPago.toLocaleString()}</Typography>
                     </Paper>
+                </Box>
+                <Box id={"box-graficos-painel-detalhes"}>
+                    <GraficoEmendasPartido emendasUniversidade={emendas} styleBox={{float: "left", width: "500px"}} styleGrafico={{maxHeight: "250px"}}  anoSelecionado={anoSelecionado}/>
+                    <GraficoEmendasAcao emendasUniversidade={emendas} styleBox={{float: "right", width: "500px", marginLeft: "20px"}} styleGrafico={{maxHeight: "250px"}}  anoSelecionado={anoSelecionado}/>  
                 </Box>
                 <Box id={"tabela-painel-detalhes"}>
                     {
