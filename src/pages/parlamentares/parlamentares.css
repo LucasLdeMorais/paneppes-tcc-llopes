@@ -29,13 +29,26 @@
     padding: 20px 0px 20px 20px;
     overflow: auto;
 }
+
 .painel-lista-emendas-parlamentares {
-    height: 500px;
-    padding: 20px 0px 20px 20px;
+    height: max-content
+}
+
+.box-lista-emendas-parlamentares {
+    min-height: 300px;
+    height: fit-content;
+    padding: 0px 20px 20px 20px;
 }
 
 .painel-grafico-grande-parlamentares {
     margin-bottom: 0px !important;
+}
+
+.box-lista-vazia {
+    display: block;
+    color: grey;
+    text-align: center;
+    padding: 130px;
 }
 
 .container-tela-parlamentares {
@@ -44,7 +57,7 @@
     width: 100%
 }
 
-.header-painel-grafico-grande-parlamentares {
+.header-painel-lista-emendas-parlamentares {
     min-height: max-content;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;

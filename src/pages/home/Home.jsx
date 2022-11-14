@@ -120,7 +120,7 @@ function Home(props) {
         {/* BOTOES */
           listaBotoes.map( (botao,index) => {
             return <Grid item xs={4} key={index}>
-              <Paper className={"paper-botao-telas-home"}>
+              <Paper className={"paper-botao-telas-home"} elevation={4}>
                 <Button color="primary" variant="contained" className={"botao-telas-home"} onClick={botao.onClick}>
                   <Icon style={{marginRight: "10px"}}>{botao.icone}</Icon>
                   <Typography component='h3' variant='h6'>{botao.texto}</Typography>

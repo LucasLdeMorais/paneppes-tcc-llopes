@@ -1,12 +1,12 @@
 import "./parlamentares.css";
-import { NavigateNext } from '@mui/icons-material'
-import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText } from "@mui/material";
+import { Error, NavigateNext, Warning } from '@mui/icons-material'
+import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText, Icon } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants";
 import { recuperaEmendasParlamentar, recuperaListaParlamentares } from "../../services/emendasService";
 import SeletorParlamentares from './../../components/seletorParlamentares/SeletorParlamentares';
-import ListaEmendasParlamentar from "../../components/tabelas/listaEmendasParlamentar";
+import ListaEmendasParlamentar from "../../components/tabelas/tabelaEmendasParlamentar";
 
 export default function Parlamentars(props) {
   const [ parlamentar, setParlamentar ] = useState()
@@ -31,12 +31,11 @@ export default function Parlamentars(props) {
     try {
         const data = await recuperaListaParlamentares();
         if(data){
-            setListaParlamentares(data)
-            console.log("handleRecuperaListaParlamentares", data)
-            shouldGetListaParlamentares.current = false
+            setListaParlamentares(data);
+            shouldGetListaParlamentares.current = false;
         }
     } catch (e) {
-    console.log(e.message)
+        console.log(e.message);
     }
 }
 
@@ -70,8 +69,9 @@ async function handleSetParlamentar(value) {
     setParlamentar(value);
     let emendasParlamentar;
     emendasParlamentar = await recuperaEmendasParlamentar(value)
+    console.log(emendasParlamentar)
     setEmendas(emendasParlamentar.emendas)
-    handleGetEmendasAno(emendasParlamentar.emendas)
+    //handleGetEmendasAno(emendasParlamentar.emendas)
     setShouldBeLoadingGrafico(false)
 }
 
@@ -82,6 +82,17 @@ function handleSetAnoSelecionado(Ano) {
 
 function handleRecarregar() {
     handleRecuperaListaParlamentares()   
+}
+
+const RenderListaEmendas = () => {
+    if (parlamentar === undefined) {
+        return <Box className='box-lista-vazia'><Typography component='h5' variant='h6' style={{}}>Selecione um parlamentar para visualizar as emendas</Typography></Box>
+    }
+
+    return <Box className={"box-lista-emendas-parlamentares"}>
+        <SeletorAnos anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado} styleBox={{marginTop: "15px", maxWidth: "250px", width: "250px"}}/>  
+        <ListaEmendasParlamentar dadosEmendas={emendas} anoSelecionado={anoSelecionado}/>
+    </Box>
 }
 
   return (
@@ -114,11 +125,12 @@ function handleRecarregar() {
             </Grid> 
             <Grid item xs={12}>
                 <Paper className='painel-lista-emendas-parlamentares' elevation={3}>
-                    <Box style={{marginBottom:15, width: "100%"}}>
-                        <Typography variant="h6" component="h3" style={{float: "left", paddingTop: "10px"}}>Lista de emendas</Typography>
-                        <SeletorAnos anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado} styleBox={{marginLeft: "20px"}}/>
+                    <Box style={{width: "100%"}}>
+                        <Box className='header-painel-lista-emendas-parlamentares'>
+                            <Typography component='h3' variant='subtitle1'>Lista de emendas</Typography>
+                        </Box>
                     </Box>
-                    <ListaEmendasParlamentar dadosEmendas={emendas} anoSelecionado={anoSelecionado}/>
+                    <RenderListaEmendas/>
                 </Paper>
             </Grid>
             <Grid item xs={8}>

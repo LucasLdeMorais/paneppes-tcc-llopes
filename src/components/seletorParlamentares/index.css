@@ -12,12 +12,13 @@
     background-color: "white"
 }
 
-.box-botoes-seletor-universidades {
-    margin-left: 5px;
+.box-botoes-seletor-parlamentares {
+    float: right;
+    margin-top: -48px;
+    margin-right: 8px;
 }
 
 .box-botoes-seletor-universidades .icon-button {
-    margin-top: 8px
 }
 
 .paper-seletor-parlamentares {
