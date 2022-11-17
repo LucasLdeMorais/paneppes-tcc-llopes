@@ -18,10 +18,10 @@ const regioes = [
     },
     {
         nome: "Sul",
-        estados: ["PN","RS","SC"]
+        estados: ["PR","RS","SC"]
     },
 ]
-const estados = ["AC","AM","AP","PA","RO","RR","TO","AL","BA","CE","MA","PI","PE","PB","RN","SE","GO","MT","MS","DF","ES","MG","RJ","SP","PN","RS","SC"]
+const estados = ["AC","AM","AP","PA","RO","RR","TO","AL","BA","CE","MA","PI","PE","PB","RN","SE","GO","MT","MS","DF","ES","MG","RJ","SP","PR","RS","SC"]
 
 
 export {anos, regioes, estados}

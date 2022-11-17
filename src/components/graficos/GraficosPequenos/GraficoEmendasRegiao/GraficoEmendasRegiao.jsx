@@ -13,6 +13,9 @@ import { ListItemText } from '@mui/material';
 import { ListItemIcon } from '@mui/material';
 import { Square } from '@mui/icons-material';
 import { Typography } from '@mui/material';
+import { regioes } from '../../../../constants';
+import { useRef } from 'react';
+import { roundDouble } from '../../../../utils';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 const options = {
@@ -27,7 +30,7 @@ const options = {
           position: 'nearest'
       },
       title: {
-          display: true,
+          display: false,
           text: 'Valor de Emendas Pagas por Partido',
       },
   },
@@ -69,113 +72,83 @@ function getRgbString(rgb, translucido) {
     return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-export default function GraficoEmendasRegiao({emendasUniversidades, universidades, styleBox, styleGrafico}) {
+export default function GraficoEmendasRegiao({emendasUniversidades, universidades, anoSelecionado, styleBox, styleGrafico}) {
   const [labels, updateLabels] = useListState([]);
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
+  const [anoAnterior, setAno] = useState(-1);
+  const shouldGetDataset = useRef(true);
 
+  const regiaoEmenda = (emenda, listaUniversidades) => {
+    const universidade = listaUniversidades.find(universidade => universidade.uo === emenda.nroUo);
+    const regiao = regioes.find(item => item.estados.find(item2 => item2 === universidade.uf));
+    return regiao.nome;
+  }
 
   /**
-   * ! Ver como pegar o total pago para depois separar por UO
+   * ! Ver por que está dando ERRO
    * @param {Array<EmendaUniversidade>} emendasUniversidades 
-   * @returns {Array<Object>} emendasUo
+   * @param {String<Ano>} anoSelecionado
+   * @param {Array<universidade>} universidades
+   * @returns {{Array<String>,Array<Integer>}} emendasUo
    * * Para cada ano, criar o reduce de cada uo e adicionar no array por ano
    */
-  function getEmendasUoAno(emendasUniversidades, ano, universidades) {
-    return emendasUniversidades.reduce((acc, obj) => {
-      if (obj.ano === ano) {
-        let chave = obj["nroUo"];
-
-        if(!acc[chave]) {
-          acc[chave] = []
-        };
-
-        let universidade = universidades.find(universidade => {
-          return universidade.uo === obj.nroUo
-        })
-
-        acc[chave].push({
-          ano: obj.ano,
-          rp: obj.rp,
-          autor: obj.autor,
-          tipoAutor: obj.tipoAutor,
-          partido: obj.partido,
-          ufAutor: obj.ufAutor,
-          nroEmenda: obj.nroEmenda,
-          orgao: obj.orgao,
-          uo: obj.uo,
-          acao: obj.acao,
-          localizador: obj.localizador,
-          gnd: obj.gnd,
-          modalidade: obj.modalidade,
-          naturezaDespesa: obj.naturezaDespesa,
-          dotacaoInicialEmenda: obj.dotacaoInicialEmenda,
-          dotacaoAtualEmenda: obj.dotacaoAtualEmenda,
-          empenhado: obj.empenhado,
-          liquidado: obj.liquidado,
-          pago: obj.pago,
-          nroUo: obj.nroUo,
-        });
-      }
-      return acc
-    }, {})
-  }
-
-  function getEmendasPorUoAnos(emendasUniversidades, anos) {
-    return anos.reduce((acc, ano) => {
-      if(!acc[ano]) {
-        acc[ano] = []
-      };
-
-      acc[ano].push(getEmendasUoAno(emendasUniversidades, ano))
-      return acc
-    })
-  }
-
-  /**
-   * 
-   * @param {Array<EmendasUniversidade>} emendasUniversidades = [
-   *  {
-   *    siglaUniversidade: "UFRJ",
-   *    emendas: []]
-   *  }, 
-   *  ...
-   * ]
-   */
-  function getDataGrafico(emendasUniversidades) {
-    let data = [];
-    let localLabels = [];
+  function getEmendasRegiao(emendasUniversidades, anoSelecionado, listaUniversidades) {
     let colors = [];
     let borderColors = [];
     let localLegenda = [];
+
+    const pagoRegiao = {
+      labels: [],
+      data: []
+    }
     
-    emendasUniversidades.forEach(emenda => {
-      if (emenda.pago > 0) {
-        if (localLabels.includes(emenda.partido)){
-          data[localLabels.indexOf(emenda.partido)] += emenda.pago
-        } else {
+    debugger
+    emendasUniversidades.forEach((obj) => {
+      const confereAnoSelecionado = anoSelecionado !== 0 && `${obj.ano}` === anoSelecionado;
+      const regiao = regiaoEmenda(obj, listaUniversidades)
+
+      if (anoSelecionado === 0 || confereAnoSelecionado) {
+        //* insere os valores na primeira vez e define as cores
+        if(!pagoRegiao.labels.find(item => item === regiao)) {
           const colorRgb = randomPastelColorRGB();
-          colors.push(getRgbString(colorRgb, true))
-          borderColors.push(getRgbString(colorRgb, true))
-          localLabels.push(emenda.partido)
+
+          pagoRegiao.labels.push(regiao);
+          pagoRegiao.data.push(obj.pago);
+
+          colors.push(getRgbString(colorRgb, true));
+          borderColors.push(getRgbString(colorRgb, false));
           localLegenda.push({
-            nome: emenda.partido,
+            nome: regiao,
             cor: getRgbString(colorRgb, true),
-            valor: emenda.pago
+            valor: 0,
+            percentual: 0
           })
-          data.push(emenda.pago)
+        } else {
+          // * Se já tem, pega o indice e soma o valor
+          const index = pagoRegiao["labels"].indexOf(regiao);
+
+          pagoRegiao.data[index] += obj.pago;
         }
       }
+    });
+    // * Seta o valor acumulado na legenda
+    const total = pagoRegiao.data.reduce((acc,valor) => {
+      return acc += valor
+    })
+    localLegenda.forEach((item,index) => {
+      item.valor = pagoRegiao.data[index];
+      item.percentual = (100 * item.valor) / total;
     })
     updateDatasets.setState([{
-        label: "# Pago em R$",
-        data: data,
-        backgroundColor: colors,
-        borderColors: borderColors,
-        borderWidth: 1
-    }])
-    updateLabels.setState(localLabels)
-    setLegenda.setState(localLegenda)
+      label: "# Pago em R$",
+      data: pagoRegiao.data,
+      backgroundColor: colors,
+      borderColors: borderColors,
+      borderWidth: 1
+    }]);
+    updateLabels.setState(pagoRegiao.labels);
+    setLegenda.setState(localLegenda);
   }
 
   const styleLegendaMainText = {
@@ -184,25 +157,33 @@ export default function GraficoEmendasRegiao({emendasUniversidades, universidade
   }
 
   useEffect(() => {
-    if(emendasUniversidades && emendasUniversidades.length > 0){
-      getDataGrafico(emendasUniversidades);
+    if(shouldGetDataset.current){
+      setAno(anoSelecionado);
+      getEmendasRegiao(emendasUniversidades, anoSelecionado, universidades);
+      shouldGetDataset.current = false;
+    } else if (anoSelecionado !== anoAnterior){
+      setAno(anoSelecionado);
+      getEmendasRegiao(emendasUniversidades, anoSelecionado, universidades);
     }
-  }, [emendasUniversidades]);
+  }, [emendasUniversidades, anoSelecionado, universidades]);
 
-  return labels.length > 0 ? <Box className='container-grafico-partido' style={styleBox}>
+  let newLeg = legenda.sort((a,b) => b.valor - a.valor );
+
+  return labels.length > 0 ? <Box className='container-grafico-regiao' style={styleBox}>
     <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico}/>
     <Typography variant="h7" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
-    <List style={{overflow: "auto", height: "100px", maxHeight: "100px"}}>
+    <List style={{overflow: "auto", height: "100px", maxHeight: "100px", width: "100%"}}>
       {
-        legenda.map(partido => {
-          return <ListItem style={{color: partido.cor, paddingBottom: 0}}>
-            <ListItemText primary={partido.nome} secondary={`R$ ${partido.valor}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-            <ListItemIcon ><Square style={{color: partido.cor, marginLeft: "15px"}}/></ListItemIcon>
+        newLeg.map(regiao => {
+          return <ListItem style={{color: regiao.cor, paddingBottom: 0}}>
+            <ListItemText primary={regiao.nome} secondary={`R$ ${regiao.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+            <ListItemText secondary={`${roundDouble(regiao.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+            <ListItemIcon ><Square style={{color: regiao.cor, marginLeft: "15px"}}/></ListItemIcon>
           </ListItem>
         })
       }
     </List>
-  </Box> : <Box className='container-grafico-partido' style={styleBox}>
+  </Box> : <Box className='container-grafico-regiao' style={styleBox}>
     <Pie data={{labels: ["Sem registros"], datasets: [{
         label: "# Pago em R$",
         data: [1],

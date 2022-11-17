@@ -1,11 +1,10 @@
-.container-grafico-partido {
-    width: max-content;
-    height: max-content;
+.container-grafico-regiao {
+    width: 100%;
+    height: 100%;
     padding-left: 0;
-    display: inline-block;
 }
 
-.grafico-emendas-partido {
+.grafico-emendas-regiao {
     height: 350px;
     width: 430px
 }

@@ -158,7 +158,7 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
       {
         legenda.map(acao => {
           return <ListItem style={{color: acao.cor, paddingBottom: 0}}>
-            <ListItemText primary={acao.nome} secondary={`R$ ${acao.valor}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+            <ListItemText primary={acao.nome} secondary={`R$ ${acao.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
             <ListItemIcon ><Square style={{color: acao.cor, marginLeft: "15px"}}/></ListItemIcon>
           </ListItem>
         })

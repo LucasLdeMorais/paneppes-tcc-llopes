@@ -103,7 +103,7 @@ export default function GraficoEmendasPartido({emendasUniversidade, styleBox, st
           localLegenda.push({
             nome: emenda.partido,
             cor: getRgbString(colorRgb, true),
-            valor: emenda.pago
+            valor: 0
           })
           data.push(emenda.pago)
         }
@@ -136,9 +136,9 @@ export default function GraficoEmendasPartido({emendasUniversidade, styleBox, st
     <Typography variant="h7" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
     <List style={{overflow: "auto", height: "100px", maxHeight: "100px"}}>
       {
-        legenda.map(partido => {
-          return <ListItem style={{color: partido.cor, paddingBottom: 0}}>
-            <ListItemText primary={partido.nome} secondary={`R$ ${partido.valor}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+        legenda.map((partido,index) => {
+          return <ListItem style={{color: partido.cor, paddingBottom: 0}} key={index}>
+            <ListItemText primary={partido.nome} secondary={`R$ ${partido.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
             <ListItemIcon ><Square style={{color: partido.cor, marginLeft: "15px"}}/></ListItemIcon>
           </ListItem>
         })

@@ -10,6 +10,8 @@ import { useRef } from 'react';
 import { recuperaListaEmendas, recuperaListaUniversidades } from "../../services/emendasService";
 import { withRouter } from "react-router-dom";
 import BreadcrumbsWithRouter from '../../components/BreadcrumbsWithRouter/BreadcrumbsWithRouter';
+import GraficoEmendasRegiao from './../../components/graficos/GraficosPequenos/GraficoEmendasRegiao/index';
+import GraficoEmendasPorEstado from './../../components/graficos/GraficosGrandes/graficoEmendasPorEstado/index';
 
 function Home(props) {
   const { history } = props;
@@ -20,7 +22,6 @@ function Home(props) {
   const shouldGetEmendas = useRef(true);
   const shouldGetUniversidades = useRef(true);
   function handleSetAnoSelecionado(Ano) {
-    console.log(Ano);
     setAnoSelecionado(Ano);
   }
 
@@ -65,11 +66,17 @@ function Home(props) {
   }
 
   async function handleRecuperaListaUniversidades() {
-    const universidadesResponse = await recuperaListaUniversidades();
-    if(universidadesResponse.statusCode === 200){
-      updateListaUniversidades.setState(universidadesResponse.data);
+    try {
+      const universidadesResponse = await recuperaListaUniversidades();
+      updateListaUniversidades.setState(universidadesResponse);
       shouldGetUniversidades.current = false;
+    } catch(e) {
+      console.log("Erro handleRecuperaListaEmendas Home",e.message)
     }
+  }
+
+  const handleGetAnoSelecionado = () => {
+    return anoSelecionado
   }
 
   /**
@@ -100,18 +107,17 @@ function Home(props) {
       emendasAnos.pago.push(emendasAno.pago)
       emendasAnos.empenhado.push(emendasAno.empenhado)
     })
-    console.log(emendasAnos)
     return emendasAnos
   }
 
   useEffect( () => {
-    if(shouldGetEmendas.current){
-      handleRecuperaListaEmendas()
-    }
     if(shouldGetUniversidades.current){
       handleRecuperaListaUniversidades()
     }
-  },)
+    if(shouldGetEmendas.current){
+      handleRecuperaListaEmendas()
+    }
+  },[listaUniversidades,emendas])
 
   return (
     <Container className='container'>
@@ -135,7 +141,13 @@ function Home(props) {
             <Box className='header-painel-grafico-grande-universidades'>
               <Typography component='h3' variant='subtitle1'>Distribuição de emendas por Região</Typography>
             </Box>
-            <SeletorAnos paper stylePaper={{width: "95%", margin: "9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            <SeletorAnos paper stylePaper={{width: "95%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            {  
+              emendas.length > 0 && listaUniversidades.length > 0 ? <GraficoEmendasRegiao emendasUniversidades={emendas} universidades={listaUniversidades} anoSelecionado={anoSelecionado} styleGrafico={{padding: "20px"}}/> :
+              <Box className='box-tabela-vazia'>
+                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
+              </Box>
+            }
           </Paper>
         </Grid>
         <Grid item xs={8}>
@@ -144,6 +156,12 @@ function Home(props) {
               <Typography component='h3' variant='subtitle1'>Distribuição de emendas por Estado</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "97%", marginLeft: "9px", marginRight: "9px", marginTop:"9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            { 
+              emendas.length > 0 && listaUniversidades.length > 0 ? <GraficoEmendasPorEstado emendasUniversidades={emendas} universidades={listaUniversidades} anoSelecionado={anoSelecionado} styleGrafico={{padding: "5px"}}/>  :
+              <Box className='box-tabela-vazia'>
+                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
+              </Box>
+            }
           </Paper>
         </Grid>
         <Grid item xs={8}>
@@ -154,7 +172,9 @@ function Home(props) {
             {
               emendasAno !== undefined ?
               <EmendasPorAno styleGrafico={{maxHeight: "400px", padding: "10px"}} emendasUniversidade={emendasAno} anos={anos}/> :
-              <></>
+              <Box className='box-tabela-vazia'>
+                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
+              </Box>
             }
           </Paper>
         </Grid>
@@ -164,6 +184,12 @@ function Home(props) {
               <Typography component='h3' variant='subtitle1'>Universidades que mais receberam emendas</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "95%", margin: "9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            {
+              emendasAno !== undefined ? <></>:
+              <Box className='box-tabela-vazia'>
+                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
+              </Box>
+            }
           </Paper>
         </Grid>
       </Grid>
