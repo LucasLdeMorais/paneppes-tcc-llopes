@@ -22,11 +22,6 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
         changeAutocompleteAberto(value)
     }
 
-    function handleRecarregarLista(event) {
-        event.preventDefault();
-        recarregarLista()
-    }
-
     function handleRemoverTudo(event) {
         event.preventDefault();
         removerTudo()
@@ -80,11 +75,6 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
                         </IconButton>
                     </Tooltip>
                 </> }
-                <Tooltip title={"Recarregar"}>
-                    <IconButton className="icon-button" onClick={(event) => { handleRecarregarLista(event) }}>
-                        <Refresh></Refresh>
-                    </IconButton>
-                </Tooltip>
             </Box>
         </Paper>
     </Box>

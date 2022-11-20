@@ -14,6 +14,7 @@ import { Bar } from 'react-chartjs-2';
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useListState } from '@mantine/hooks';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
     CategoryScale,
@@ -23,18 +24,28 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
 );
 const options = {
     plugins: {
         title: {
-            display: true,
+            display: false,
             text: 'Emendas pagas e empenhadas por ano (em R$) ',
             position: 'top'
         },
         legend: {
             display: true,
             position: 'bottom'
+        },
+        datalabels: {
+            anchor: 'end',
+            formatter: (value, ctx) => {
+                return value.toLocaleString('pt-BR');
+            },
+            font: {
+                weight: 'bold'
+            }
         }
     },
     responsive: true,

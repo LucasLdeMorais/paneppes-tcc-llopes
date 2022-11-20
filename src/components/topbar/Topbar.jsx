@@ -20,7 +20,7 @@ const Topbar = (props) => {
         {/* { !props.aberto && <IconButton onClick={props.abreGaveta}>
           <Menu style={{ color: 'white' }}/>
         </IconButton>} */}
-        <IconButton onClick={props.abreGaveta}>
+        <IconButton onClick={(e) => props.abreGaveta(e)}>
           <Menu style={{ color: 'white' }}/>
         </IconButton>
         <Typography

@@ -11,6 +11,7 @@
 
 .box-seletor-anos-universidades {
     width: min-content;
+    margin-left: 20px
 }
 
 .box-grafico-grande-vazio-universidades {
@@ -26,12 +27,10 @@
 
 .painel-grafico-pequeno-universidades {
     min-height: 350px;
-    padding: 20px 0px 20px 20px;
     overflow: auto;
 }
 .painel-lista-emendas-universidades {
     height: 300px;
-    padding: 20px 0px 20px 20px;
 }
 
 .painel-grafico-grande-universidades {
@@ -45,6 +44,16 @@
 }
 
 .header-painel-grafico-grande-universidades {
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    background-color: #1976d2 ;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.header-painel-grafico-universidades {
     min-height: max-content;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;

@@ -21,6 +21,7 @@ import { Square } from '@mui/icons-material';
 import { List } from '@mui/material';
 import { Typography } from '@mui/material';
 import { roundDouble } from '../../../../utils';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
     CategoryScale,
@@ -30,7 +31,8 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
 );
 const options = {
     plugins: {
@@ -42,6 +44,16 @@ const options = {
         legend: {
             display: false,
             position: 'bottom'
+        },
+        datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: (value, ctx) => {
+                return value.toLocaleString('pt-BR');
+            },
+            font: {
+                weight: 'bold'
+            }
         }
     },
     responsive: true,
@@ -157,7 +169,6 @@ function EmendasPorAno({emendasUniversidades, anoSelecionado, universidades, sty
             item.valor = pagoUf.data[index];
             item.percentual = (100 * item.valor) / total;
         });
-        debugger
         setLegenda.setState(localLegenda);
     }
     let newLeg = legenda.sort((a,b) => b.valor - a.valor );

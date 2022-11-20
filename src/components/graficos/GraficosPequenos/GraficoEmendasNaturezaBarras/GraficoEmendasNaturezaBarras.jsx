@@ -75,7 +75,6 @@ export default function GraficoEmendasNaturezaBarras({emendasUniversidade, style
       if (emenda.pago > 0) {
         if (anoSelecionado !== 0 && `${emenda.ano}` === anoSelecionado){
           if (naturezas.includes(natureza => emenda.naturezaDespesa.substring(0,8) === natureza.codigo)){
-            debugger
             naturezas[naturezas.indexOf(natureza => natureza.codigo === emenda.naturezaDespesa.substring(0,8))].pago += emenda.pago
           } else {
             const colorRgb = randomPastelColorRGB();
@@ -105,7 +104,6 @@ export default function GraficoEmendasNaturezaBarras({emendasUniversidade, style
     })
 
     naturezas.forEach((natureza, index, arr) => {
-      debugger
       labels.push(`${natureza.nome}--`)
       datasets.push({
         label: `${natureza.nome}++`,

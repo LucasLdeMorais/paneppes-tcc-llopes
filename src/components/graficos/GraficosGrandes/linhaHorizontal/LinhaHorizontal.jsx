@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2';
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useListState } from '@mantine/hooks';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(
     CategoryScale,
@@ -23,7 +24,8 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
 );
 const options = {
     indexAxis: 'x',
@@ -39,7 +41,17 @@ const options = {
             display: false,
             text: 'Chart.js Horizontal Bar Chart',
         },
-    },
+        datalabels: {
+            anchor: 'end',
+            align: 'top',
+            formatter: (value, ctx) => {
+                return value.toLocaleString('pt-BR');
+            },
+            font: {
+                weight: 'bold'
+            }
+        }
+    }
 };
 
 function randomPastelColorRGB(){

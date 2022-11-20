@@ -9,23 +9,39 @@ import { useEffect } from 'react';
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Square } from '@mui/icons-material';
 import { Typography } from '@mui/material';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { roundDouble } from '../../../../utils';
 
-ChartJS.register(ArcElement, Tooltip, Legend, Title);
+ChartJS.register(ArcElement, Tooltip, Legend, Title, ChartDataLabels);
 const options = {
   indexAxis: 'x',
   responsive: true,
   plugins: {
-      legend: {
-          position: 'right',
-          display: false
+    legend: {
+        position: 'right',
+        display: false
+    },
+    tooltip: {
+    },
+    title: {
+        display: false,
+        text: 'Valor de Emendas Pagas por Ação'
+    },
+    datalabels: {
+      formatter: (value, ctx) => {
+        let dataset = ctx.dataset;
+        let soma = 0;
+        dataset.data.forEach(data => {
+          soma += data;
+        });
+        let percentage = roundDouble(((value / soma) * 100), 2) + '%';
+        return percentage;
       },
-      tooltip: {
-      },
-      title: {
-          display: true,
-          text: 'Valor de Emendas Pagas por Ação'
-      },
-  },
+      font: {
+          weight: 'bold'
+      }
+    }
+  }
 };
 
 const optionsVazio = {
@@ -100,7 +116,6 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
             borderColors.push(getRgbString(colorRgb, true))
             jaAdicionadas.push(emenda.acao.substring(0,3))
             localLabels.push(`${emenda.acao.substring(7,55)}(...)`)
-            debugger
             localLegenda.push({
               nome: emenda.acao.substring(7,),
               cor: getRgbString(colorRgb, true),
@@ -117,7 +132,6 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
             borderColors.push(getRgbString(colorRgb, true))
             jaAdicionadas.push(emenda.acao.substring(0,3))
             localLabels.push(`${emenda.acao.substring(7,55)}(...)`)
-            debugger
             localLegenda.push({
               nome: emenda.acao.substring(7,),
               cor: getRgbString(colorRgb, true),

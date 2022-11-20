@@ -8,8 +8,8 @@ export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas})
             <TableRow hover onClick={() => {window.open(`https://www.portaltransparencia.gov.br/emendas/detalhe?codigoEmenda=${emenda.ano}${emenda.nroEmenda}&ordenarPor=data&direcao=asc`, "_blank")}} button style={{cursor: "pointer", height: "min-content"}} key={index}>
                 <TableCell className="listItem" style={{width: "200px"}}>{emenda.uo.substring(8,)}</TableCell>
                 <TableCell className="listItem" style={{width: "200px"}}>{`${emenda.ano}${emenda.nroEmenda}`}</TableCell>
-                <TableCell className="listItem" style={{width: "150px"}}>{`R$ ${emenda.empenhado},00`}</TableCell>
-                <TableCell className="listItem" style={{width: "150px"}}>{`R$ ${emenda.pago},00`}</TableCell>
+                <TableCell className="listItem" style={{width: "150px"}}>{`R$ ${emenda.empenhado.toLocaleString('pt-BR')}`}</TableCell>
+                <TableCell className="listItem" style={{width: "150px"}}>{`R$ ${emenda.pago.toLocaleString('pt-BR')}`}</TableCell>
                 <TableCell className="listItem" style={{width: "100px"}}>{emenda.ano}</TableCell>
                 <TableCell className="listItem" style={{width: "150px"}}>{emenda.naturezaDespesa.replace(RegExp("^(.*?)-"), "")}</TableCell>
                 <TableCell className="listItem" style={{width: "400px", textAlign: "left"}}>{emenda.acao.replace(RegExp("^(.*?)-"), "")}</TableCell>

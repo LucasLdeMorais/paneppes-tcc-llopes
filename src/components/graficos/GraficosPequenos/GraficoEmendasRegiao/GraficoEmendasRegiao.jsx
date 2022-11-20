@@ -16,43 +16,60 @@ import { Typography } from '@mui/material';
 import { regioes } from '../../../../constants';
 import { useRef } from 'react';
 import { roundDouble } from '../../../../utils';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend, Title);
+ChartJS.register(ArcElement, Tooltip, Legend, Title, ChartDataLabels);
+
 const options = {
   indexAxis: 'x',
   responsive: true,
   plugins: {
-      legend: {
-          position: 'bottom',
-          display: false
+    legend: {
+        position: 'bottom',
+        display: false
+    },
+    tooltip: {
+        position: 'nearest'
+    },
+    title: {
+        display: false,
+        text: 'Valor de Emendas Pagas por Partido',
+    },
+    datalabels: {
+      formatter: (value, ctx) => {
+        debugger
+        let dataset = ctx.dataset;
+        let soma = 0;
+        dataset.data.forEach(data => {
+          soma += data;
+        });
+        let percentage = roundDouble(((value / soma) * 100), 2) + '%';
+        return percentage;
       },
-      tooltip: {
-          position: 'nearest'
-      },
-      title: {
-          display: false,
-          text: 'Valor de Emendas Pagas por Partido',
-      },
-  },
+      font: {
+          weight: 'bold'
+      }
+    }
+  }
 };
 
 const optionsVazio = {
   indexAxis: 'x',
   responsive: true,
   plugins: {
-      legend: {
-          position: 'right',
-          display: true
-      },
-      tooltip: {
-          position: 'nearest',
-          display: false
-      },
-      title: {
-          display: true,
-          text: 'Valor de Emendas Pagas por Partido',
-      },
-  },
+    legend: {
+        position: 'right',
+        display: true
+    },
+    tooltip: {
+        position: 'nearest',
+        display: false
+    },
+    title: {
+        display: true,
+        text: 'Valor de Emendas Pagas por Partido',
+    },
+  }
 };
 
 function randomPastelColorRGB(){
@@ -103,7 +120,6 @@ export default function GraficoEmendasRegiao({emendasUniversidades, universidade
       data: []
     }
     
-    debugger
     emendasUniversidades.forEach((obj) => {
       const confereAnoSelecionado = anoSelecionado !== 0 && `${obj.ano}` === anoSelecionado;
       const regiao = regiaoEmenda(obj, listaUniversidades)

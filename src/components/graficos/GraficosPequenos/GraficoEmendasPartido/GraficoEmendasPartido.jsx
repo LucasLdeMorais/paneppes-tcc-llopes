@@ -13,43 +13,59 @@ import { ListItemText } from '@mui/material';
 import { ListItemIcon } from '@mui/material';
 import { Square } from '@mui/icons-material';
 import { Typography } from '@mui/material';
+import { roundDouble } from '../../../../utils';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend, Title);
+ChartJS.register(ArcElement, Tooltip, Legend, Title, ChartDataLabels);
 const options = {
   indexAxis: 'x',
   responsive: true,
   plugins: {
-      legend: {
-          position: 'bottom',
-          display: false
+    legend: {
+        position: 'bottom',
+        display: false
+    },
+    tooltip: {
+        position: 'nearest'
+    },
+    title: {
+        display: false,
+        text: 'Valor de Emendas Pagas por Partido',
+    },
+    datalabels: {
+      formatter: (value, ctx) => {
+        let dataset = ctx.dataset;
+        let soma = 0;
+        dataset.data.forEach(data => {
+          soma += data;
+        });
+        let percentage = roundDouble(((value / soma) * 100), 2) + '%';
+        return percentage;
       },
-      tooltip: {
-          position: 'nearest'
-      },
-      title: {
-          display: true,
-          text: 'Valor de Emendas Pagas por Partido',
-      },
-  },
+      font: {
+          weight: 'bold'
+      }
+    }
+  }
 };
 
 const optionsVazio = {
   indexAxis: 'x',
   responsive: true,
   plugins: {
-      legend: {
-          position: 'right',
-          display: true
-      },
-      tooltip: {
-          position: 'nearest',
-          display: false
-      },
-      title: {
-          display: true,
-          text: 'Valor de Emendas Pagas por Partido',
-      },
-  },
+    legend: {
+        position: 'right',
+        display: true
+    },
+    tooltip: {
+        position: 'nearest',
+        display: false
+    },
+    title: {
+        display: true,
+        text: 'Valor de Emendas Pagas por Partido',
+    }
+  }
 };
 
 function randomPastelColorRGB(){

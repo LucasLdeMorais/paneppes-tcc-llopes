@@ -23,23 +23,43 @@ async function recuperaListaParlamentares() {
 }
 
 async function recuperaListaEmendas() {
-try {
-    let status = 0;
-    const data = await api.get('/emendas').then( response => {
-      status = response.status
-      return response.data
-    })
-    return ({
-      statusCode: status,
-      data: data
-    })
-} catch (e) {
-    console.log(e.message)
-    return ({
-      statusCode: 400,
-      message: e.message
-    })
+  try {
+      let status = 0;
+      const data = await api.get('/emendas').then( response => {
+        status = response.status;
+        return response.data;
+      });
+      return ({
+        statusCode: status,
+        data: data
+      });
+  } catch (e) {
+      console.log(e.message);
+      return ({
+        statusCode: 400,
+        message: e.message
+      });
+  }
 }
+
+async function recuperaListaEmendasPaginado(pagina, limite) {
+  try {
+      let status = 0;
+      const data = await api.get(`/emendas?pagina=${pagina}&limite=${limite}`).then( response => {
+        status = response.status
+        return response.data.emendas
+      })
+      return ({
+        statusCode: status,
+        data: data
+      })
+  } catch (e) {
+      console.log(e.message)
+      return ({
+        statusCode: 400,
+        message: e.message
+      })
+  }
 }
 
 async function recuperaEmendasUniversidade(universidade) {
@@ -82,4 +102,4 @@ async function recuperaEmendasParlamentar(parlamentar) {
   }
 }
 
-export {recuperaListaUniversidades, recuperaListaEmendas, recuperaEmendasUniversidade, recuperaListaParlamentares, recuperaEmendasParlamentar}
+export {recuperaListaUniversidades, recuperaListaEmendas, recuperaEmendasUniversidade, recuperaListaParlamentares, recuperaEmendasParlamentar, recuperaListaEmendasPaginado}

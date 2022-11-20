@@ -1,13 +1,13 @@
 .autocomplete-acoes-seletor-universidades {
     float: left;
-    width: 88%;
+    width: 91%;
     margin-right: 10px;
     background-color: "white"
 }
 
 .autocomplete-sem-acoes-seletor-universidades {
     float: left;
-    width: 95%;
+    width: 100%;
     margin-right: 10px;
     background-color: "white"
 }

@@ -19,16 +19,21 @@ const ParaSaberMais = (props) => {
                 <Typography component='h2' variant='h4' style={{marginBottom: "5px"}} >Entendendo as Emendas</Typography>
                 <Typography component='h4' variant='subtitle2' style={{marginBottom: "10px", color: "grey"}} fontStyle={"italic"}>Clique em uma das áreas azuis para visualizar a informação</Typography>
                 <Typography component='h3' variant='h6' style={{marginBottom: "10px"}} >Emendas Parlamentares</Typography>
-                <CaixaTexto titulo={"O que são"} corpo={oQueSaoEmendasParlamentares}/>
+                <CaixaTexto titulo={"O que são"} corpo={
+                  <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>
+                    A emenda ao orçamento é um instrumento que permite a deputados e senadores realizarem alterações no Projeto de Lei Orçamentária Anual - o PLOA. Trata-se de um mecanismo que permite que estes parlamentares possam opinar e reivindicar reajustes orçamentários em função de seus compromissos políticos.
+                    Em outras palavras, podemos dizer que emendas são valores adicionais que deputados ou senadores podem solicitar como um adicional para determinada função como, por exemplo, reformas em uma universidade.
+                  </Typography> 
+                }/>
                 <CaixaTexto titulo={"Como funcionam"} corpo={comoFuncionaEmendasParlamentares}/>
                 <CaixaTexto titulo={"Tipos de Emendas"} corpo={<>
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1">Existem quatro tipos de emendas ao orçamento federal: individuais, de bancada, de comissão e de relator.</Typography> 
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Existem quatro tipos de emendas ao orçamento federal: individuais, de bancada, de comissão e de relator.</Typography> 
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas individuais:</Typography>
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1">Emendas individuais são de autoria individual - tal como o nome sugere - de cada parlamentar, que pode sugerir até vinte e cinco emendas ao PLOA e estas devem seguir as exigências dispostas na Lei de Diretrizes Orçamentárias - a LDO (Resolução 1/06 do Congresso Nacional, 2006).</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas individuais são de autoria individual - tal como o nome sugere - de cada parlamentar, que pode sugerir até vinte e cinco emendas ao PLOA e estas devem seguir as exigências dispostas na Lei de Diretrizes Orçamentárias - a LDO (Resolução 1/06 do Congresso Nacional, 2006).</Typography>
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de Bancada:</Typography>
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1">As emendas de bancada, também conhecidas como emendas coletivas, são as de iniciativa de bancadas estaduais e regionais, composta por grupos de parlamentares de determinados estados, municípios ou regiões inteiras do território brasileiro (Resolução 1/06 do Congresso Nacional, 2006). Já as emendas de comissão são aquelas propostas pelas comissões técnicas e permanentes do Senado e da Câmara dos Deputados (Resolução 1/06 do Congresso Nacional, 2006).</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas de bancada, também conhecidas como emendas coletivas, são as de iniciativa de bancadas estaduais e regionais, composta por grupos de parlamentares de determinados estados, municípios ou regiões inteiras do território brasileiro (Resolução 1/06 do Congresso Nacional, 2006). Já as emendas de comissão são aquelas propostas pelas comissões técnicas e permanentes do Senado e da Câmara dos Deputados (Resolução 1/06 do Congresso Nacional, 2006).</Typography>
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas da Relator:</Typography> 
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1">As emendas da relator - ou de relatoria - são emendas sugeridas pelo relator geral escolhido anualmente dentre o corpo de deputados e senadores da câmara.</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas da relator - ou de relatoria - são emendas sugeridas pelo relator geral escolhido anualmente dentre o corpo de deputados e senadores da câmara.</Typography>
                 </>}/>
                 <Typography component='h3' variant='h6' style={{marginBottom: "10px"}} >Orçamento das Universidades Federais</Typography>
                 <CaixaTexto titulo={"Como é feito"} corpo={oQueSaoEmendasParlamentares}/>

@@ -75,7 +75,7 @@ const Sidebar = (props) => {
         <List>
           <ListItem key="fecharGaveta">
             <ListItemIcon>
-              <IconButton onClick={props.fechaGaveta}>
+              <IconButton onClick={(e) => {props.fechaGaveta(e)}}>
                 <ChevronLeft />
               </IconButton>
             </ListItemIcon>
