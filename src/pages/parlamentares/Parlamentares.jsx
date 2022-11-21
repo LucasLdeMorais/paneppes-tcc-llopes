@@ -1,43 +1,36 @@
 import "./parlamentares.css";
 import { Error, NavigateNext, Warning } from '@mui/icons-material'
-import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText, Icon } from "@mui/material";
+import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText, Icon, CircularProgress } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants";
 import { recuperaEmendasParlamentar, recuperaListaParlamentares } from "../../services/emendasService";
 import SeletorParlamentares from './../../components/seletorParlamentares/SeletorParlamentares';
 import ListaEmendasParlamentar from "../../components/tabelas/tabelaEmendasParlamentar";
+import { useQuery } from 'react-query';
+import api from './../../services/api';
 
 export default function Parlamentars(props) {
-  const [ parlamentar, setParlamentar ] = useState()
-  const [ listaParlamentares, setListaParlamentares ] = useState([])
-  const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
-  const [ anoSelecionado, setAnoSelecionado ] = useState(0)
-  const [ emendas, setEmendas ] = useState([])
-  const [ emendasAno, setEmendasAno ] = useState([])
-  const shouldGetListaParlamentares = useRef(true)
-  const loading = listaParlamentares.length === 0;
-  const [ shouldBeLoadingGrafico, setShouldBeLoadingGrafico ] = useState(false)
-
-  useEffect(() => {
-      if(shouldGetListaParlamentares.current) {
-        handleRecuperaListaParlamentares();
-        console.log("effect", listaParlamentares)
-      }
-    }
-  )
-
-  async function handleRecuperaListaParlamentares() {
-    try {
-        const data = await recuperaListaParlamentares();
-        if(data){
-            setListaParlamentares(data);
-            shouldGetListaParlamentares.current = false;
+    const [ parlamentar, setParlamentar ] = useState()
+    const { isLoading: carregandoParlamentares, isError: temErroParlamentares, error: erroParlamentares, data: dadosParlamentares } = useQuery("recuperaListaParlamentares", 
+        async () => { 
+            const response = await api.get('/parlamentares');
+            return response.data;
         }
-    } catch (e) {
-        console.log(e.message);
-    }
-}
+    );
+    const { isLoading: carregandoEmendas, isError: temErroEmendas, error: erroEmendas, data: dadosEmendas } = useQuery("recuperaEmendas", 
+        async () => { 
+            const response = await api.get(`/emendas/autor?autor=${parlamentar.nome}`);
+            return response.data.emendas;
+        },
+        { enabled: !!parlamentar }
+    );
+    const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
+    const [ anoSelecionado, setAnoSelecionado ] = useState("2022")
+    const [ emendasAno, setEmendasAno ] = useState([])
+
+    useEffect(() => {
+    })
 
 function handleGetEmendasAno(emendas) {
     let emendasAnoAux = {
@@ -65,14 +58,7 @@ function handleSetAutocompleteAberto(value) {
 }
 
 async function handleSetParlamentar(value) {
-    setShouldBeLoadingGrafico(true)
     setParlamentar(value);
-    let emendasParlamentar;
-    emendasParlamentar = await recuperaEmendasParlamentar(value)
-    console.log(emendasParlamentar)
-    setEmendas(emendasParlamentar.emendas)
-    //handleGetEmendasAno(emendasParlamentar.emendas)
-    setShouldBeLoadingGrafico(false)
 }
 
 function handleSetAnoSelecionado(Ano) {
@@ -80,18 +66,26 @@ function handleSetAnoSelecionado(Ano) {
     setAnoSelecionado(Ano)
 }
 
-function handleRecarregar() {
-    handleRecuperaListaParlamentares()   
-}
-
 const RenderListaEmendas = () => {
-    if (parlamentar === undefined) {
-        return <Box className='box-lista-vazia'><Typography component='h5' variant='h6' style={{}}>Selecione um parlamentar para visualizar as emendas</Typography></Box>
+    if (carregandoEmendas) {
+        return <Box className='box-loading-grafico'>
+            <CircularProgress color="inherit" size={40} />
+        </Box>
+    }
+    if (temErroEmendas || temErroParlamentares) {
+        return <Box className='box-tabela-vazia'>
+            <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados do servidor</Typography>
+        </Box>
+    }
+    if (!parlamentar) {
+        return <Box className='box-lista-vazia'>
+            <Typography component='h5' variant='h6' style={{}}>Selecione um parlamentar para visualizar as emendas</Typography>
+        </Box>
     }
 
     return <Box className={"box-lista-emendas-parlamentares"}>
         <SeletorAnos anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado} styleBox={{marginTop: "15px", maxWidth: "250px", width: "250px"}}/>  
-        <ListaEmendasParlamentar dadosEmendas={emendas} anoSelecionado={anoSelecionado}/>
+        <ListaEmendasParlamentar dadosEmendas={dadosEmendas} anoSelecionado={anoSelecionado}/>
     </Box>
 }
 
@@ -120,7 +114,7 @@ const RenderListaEmendas = () => {
         <Grid container spacing={2} >
             <Grid item xs={12}>
                 <Box className='box-seletor-parlamentares'>
-                    <SeletorParlamentares loadingParlamentares={loading} listaParlamentares={listaParlamentares} selecionarParlamentar={handleSetParlamentar} valorAutocomplete={parlamentar} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetParlamentar} changeAutocompleteAberto={handleSetAutocompleteAberto} recarregar={handleRecarregar} />
+                    <SeletorParlamentares loadingParlamentares={carregandoParlamentares} listaParlamentares={dadosParlamentares} selecionarParlamentar={handleSetParlamentar} valorAutocomplete={parlamentar} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetParlamentar} changeAutocompleteAberto={handleSetAutocompleteAberto}/>
                 </Box>
             </Grid> 
             <Grid item xs={12}>
@@ -144,7 +138,7 @@ const RenderListaEmendas = () => {
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
                         {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}].map((emenda, index) => (
-                        <ListItem button style={{cursor: "default"}} key="item exemplo 2">
+                        <ListItem button style={{cursor: "default"}} key={index}>
                             <ListItemText>{emenda.nome}</ListItemText>
                             <ListItemText>{emenda.valor}</ListItemText>
                             <ListItemText>{emenda.motivo}</ListItemText>

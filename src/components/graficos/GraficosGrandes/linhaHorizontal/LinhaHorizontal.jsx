@@ -8,7 +8,8 @@ import {
     PointElement,
     LineController,
     LineElement,
-  } from 'chart.js';
+} from 'chart.js';
+import React from 'react';
 import "./linhaHorizontal.css";
 import { Line } from 'react-chartjs-2';
 import { Box, CircularProgress } from '@mui/material';

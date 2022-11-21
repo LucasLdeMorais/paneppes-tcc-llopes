@@ -7,7 +7,7 @@ import { Add, DeleteForever, Refresh, Remove } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { Paper } from '@mui/material';
 
-function SeletorParlamentares({ loadingParlamentares, recarregarLista, temAcoes, removerTudo, listaParlamentares, selecionarParlamentar, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
+function SeletorParlamentares({ loadingParlamentares, temAcoes, removerTudo, listaParlamentares, selecionarParlamentar, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
 
     //const loading = autocompleteAberto && listaParlamentares.length === 0;
     //const [valorAutocomplete, setValorAutocomplete] = useState({""});
@@ -20,11 +20,6 @@ function SeletorParlamentares({ loadingParlamentares, recarregarLista, temAcoes,
     function handleSetAutocompleteAberto(event, value) {
         event.preventDefault();
         changeAutocompleteAberto(value)
-    }
-
-    function handleRecarregarLista(event) {
-        event.preventDefault();
-        recarregarLista()
     }
 
     function handleRemoverTudo(event) {
@@ -46,9 +41,9 @@ function SeletorParlamentares({ loadingParlamentares, recarregarLista, temAcoes,
                 value={ valorAutocomplete }
                 onChange={ (e, newValue) => onChange(e, newValue) }
                 loading={ loadingParlamentares }
-                options={ listaParlamentares }
+                options={ listaParlamentares? listaParlamentares : []}
                 getOptionLabel={(option) => `${option.nome} - ${option.partido} - ${option.ufAutor}`}
-                noOptionsText="Vazio"
+                noOptionsText="Houve algum problema ao buscar os dados de parlamentares"
                 renderInput={(params) => <TextField {...params} 
                     label="Parlamentares Federais"
                     InputProps={{
@@ -81,11 +76,6 @@ function SeletorParlamentares({ loadingParlamentares, recarregarLista, temAcoes,
                     </IconButton>
                 </Tooltip>
             </> }
-            <Tooltip title={"Recarregar"}>
-                <IconButton className="icon-button" onClick={(event) => { handleRecarregarLista(event) }}>
-                    <Refresh></Refresh>
-                </IconButton>
-            </Tooltip>
         </Box>
     </Box>
 }

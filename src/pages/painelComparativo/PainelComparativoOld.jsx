@@ -36,7 +36,7 @@ export default function PainelComparativo(props) {
     const [ emendas, setEmendas ] = useListState([])
     const [ universidadesSelecionadas, setUniversidadesSelecionadas ] = useListState([])
     const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
-    const [ anoSelecionado, setAnoSelecionado ] = useState(0)
+    const [ anoSelecionado, setAnoSelecionado ] = useState("2022")
     const loading = autocompleteAberto && listaUniversidades.length === 0;
 
     const listaComponentes = [

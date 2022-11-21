@@ -41,9 +41,9 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
                 value={ valorAutocomplete }
                 onChange={ (e, newValue) => onChange(e, newValue) }
                 loading={ loadingUniversidades }
-                options={ listaUniversidades }
+                options={ listaUniversidades? listaUniversidades : []}
                 getOptionLabel={(option) => `${option.nome} - ${option.sigla}`}
-                noOptionsText="Vazio"
+                noOptionsText="Houve algum problema ao buscar os dados das universidades"
                 renderInput={(params) => <TextField {...params} 
                     label="Universidades Federais"
                     InputProps={{

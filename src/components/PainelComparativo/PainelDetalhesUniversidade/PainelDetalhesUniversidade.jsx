@@ -1,4 +1,5 @@
-import "./index.css"
+import "./index.css";
+import React from 'react';
 import { Paper, Typography, Box, IconButton, Tooltip } from '@mui/material';
 import Painel from '../../paineis/Painel';
 import GraficoEmendasAcao from '../../graficos/GraficosPequenos/GraficoEmendasAcao/GraficoEmendasAcao';
@@ -13,7 +14,7 @@ import { Button } from '@mui/material';
 // ? Filtragem por ano deve ser feita no componente pai e passar o array filtrado no emendasUniversidade
 
 const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUniversidade, anos }) => {
-    const [ anoSelecionado, setAnoSelecionado ] = useState(0);
+    const [ anoSelecionado, setAnoSelecionado ] = useState("2022");
     const [ listaAberta, setListaAberta ] = useState(false);
 
     const BotaoLista = () => {

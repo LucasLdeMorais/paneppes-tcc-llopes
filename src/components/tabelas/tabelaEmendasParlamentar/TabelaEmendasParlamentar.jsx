@@ -1,11 +1,12 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography, Box } from "@mui/material";
-import "./index.css"
+import "./index.css";
+import React from 'react';
 
 export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas}) {
     
     const ItemTabela = ({emenda, index}) => {
-        return <Tooltip placement="bottom-start" title={`Clique para abrir o detalhamento da emenda ${emenda.ano}${emenda.nroEmenda} proposta pelo ${emenda.tipoAutor.toLowerCase()} ${emenda.autor}`}>
-            <TableRow hover onClick={() => {window.open(`https://www.portaltransparencia.gov.br/emendas/detalhe?codigoEmenda=${emenda.ano}${emenda.nroEmenda}&ordenarPor=data&direcao=asc`, "_blank")}} button style={{cursor: "pointer", height: "min-content"}} key={index}>
+        return <Tooltip placement="bottom-start" title={`Clique para abrir o detalhamento da emenda ${emenda.ano}${emenda.nroEmenda} proposta pelo ${emenda.tipoAutor.toLowerCase()} ${emenda.autor}`} key={index}>
+            <TableRow hover onClick={() => {window.open(`https://www.portaltransparencia.gov.br/emendas/detalhe?codigoEmenda=${emenda.ano}${emenda.nroEmenda}&ordenarPor=data&direcao=asc`, "_blank")}} style={{cursor: "pointer", height: "min-content"}} key={index}>
                 <TableCell className="listItem" style={{width: "200px"}}>{emenda.uo.substring(8,)}</TableCell>
                 <TableCell className="listItem" style={{width: "200px"}}>{`${emenda.ano}${emenda.nroEmenda}`}</TableCell>
                 <TableCell className="listItem" style={{width: "150px"}}>{`R$ ${emenda.empenhado.toLocaleString('pt-BR')}`}</TableCell>
