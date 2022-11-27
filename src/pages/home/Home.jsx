@@ -14,6 +14,7 @@ import GraficoEmendasRegiao from './../../components/graficos/GraficosPequenos/G
 import GraficoEmendasPorEstado from './../../components/graficos/GraficosGrandes/graficoEmendasPorEstado/index';
 import { useQuery } from "react-query";
 import api from './../../services/api';
+import GraficoEmendasRp from './../../components/graficos/GraficosPequenos/GraficoEmendasRp/index';
 
 function Home(props) {
   const { history } = props;
@@ -45,7 +46,7 @@ function Home(props) {
 
   const listaBotoes = [
     {
-      texto: "Explorar emendas para cada Universidade",
+      texto: "Explorar emendas para cada Instituição",
       icone: <AccountBalance fontSize="medium" style={{color: "white"}}/>,
       onClick: () => history.push("/Universidades")
     },
@@ -55,7 +56,7 @@ function Home(props) {
       onClick: () => history.push("/Parlamentares")
     },
     {
-      texto: "Comparar Emendas entre Universidades",
+      texto: "Comparar Emendas entre Instituições",
       icone: <CompareArrows fontSize="medium" style={{color: "white"}}/>,
       onClick: () => history.push("/PainelComparativo")
     },
@@ -88,7 +89,7 @@ function Home(props) {
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de universidades</Typography>
       </Box>
     } else {
-      return <GraficoEmendasRegiao emendasUniversidades={dadosEmendas} universidades={dadosUniversidades} anoSelecionado={anoSelecionado} styleGrafico={{padding: "25px"}}/>
+      return <GraficoEmendasRegiao emendasUniversidades={dadosEmendas} universidades={dadosUniversidades} anoSelecionado={anoSelecionado} styleGrafico={{padding: "25px", maxHeight: "300px"}}/>
     }
   }
 
@@ -106,7 +107,22 @@ function Home(props) {
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de universidades</Typography>
       </Box>
     } else {
-      return <GraficoEmendasPorEstado emendasUniversidades={dadosEmendas} universidades={dadosUniversidades} anoSelecionado={anoSelecionado} styleGrafico={{width: "max-content", padding: "15px"}}/>
+      return <GraficoEmendasPorEstado emendasUniversidades={dadosEmendas} universidades={dadosUniversidades} anoSelecionado={anoSelecionado} styleBox={{height: "max-content"}} styleGrafico={{maxHeight: "550px", padding: "15px"}}/>
+    }
+  }
+
+  const GeraGraficoEmendasRp = () => {
+    debugger
+    if(carregandoEmendas || carregandoUniversidades) {
+      return <Box className='box-tabela-vazia'>
+        <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
+      </Box>
+    } else if (temErroEmendas) {
+      return <Box className='box-tabela-vazia'>
+        <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de emendas</Typography>
+      </Box>
+    } else {
+      return <GraficoEmendasRp emendasUniversidades={dadosEmendas} anoSelecionado={anoSelecionado} styleGrafico={{padding: "15px", maxHeight: "300px"}}/>
     }
   }
 
@@ -165,25 +181,35 @@ function Home(props) {
           })
         }
         {/* Graficos */}
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <Paper className='painel-grafico-pequeno-home' elevation={3}>
             <Box className='header-painel-grafico-grande-universidades'>
-              <Typography component='h3' variant='subtitle1'>Distribuição de emendas por Região</Typography>
+              <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por Região</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "95%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
             <GeraGraficoEmendasRegiao/>
           </Paper>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <Paper className='painel-grafico-pequeno-home' elevation={3}>
             <Box className='header-painel-grafico-grande-universidades'>
-              <Typography component='h3' variant='subtitle1'>Distribuição de emendas por Estado</Typography>
+              <Typography component='h3' variant='subtitle1'>Distribuição por Tipo de Emenda (RP)</Typography>
+            </Box>
+            <SeletorAnos paper stylePaper={{width: "95%", margin: "9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            <GeraGraficoEmendasRp />
+          </Paper>
+        </Grid>
+      </Grid>
+        <Grid item xs={12}>
+          <Paper className='painel-grafico-pequeno-home' elevation={3}>
+            <Box className='header-painel-grafico-grande-universidades'>
+              <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por Estado</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "97%", marginLeft: "9px", marginRight: "9px", marginTop:"9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
             <GeraGraficoEmendasEstados />
           </Paper>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <Paper className='painel-grafico-pequeno-home' elevation={3}>
             <Box className='header-painel-grafico-grande-universidades'>
               <Typography component='h3' variant='subtitle1'>Total de Emendas Pagas e empenhadas por Ano (R$)</Typography>
@@ -197,23 +223,6 @@ function Home(props) {
             }
           </Paper>
         </Grid>
-        <Grid item xs={4}>
-          <Paper className='painel-grafico-pequeno-home' elevation={3}>
-            <Box className='header-painel-grafico-grande-universidades'>
-              <Typography component='h3' variant='subtitle1'>Universidades que mais receberam emendas</Typography>
-            </Box>
-            <SeletorAnos paper stylePaper={{width: "95%", margin: "9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
-            {
-              emendasAno !== undefined ? <Box className='box-tabela-vazia'>
-                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
-              </Box> :
-              <Box className='box-tabela-vazia'>
-                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
-              </Box>
-            }
-          </Paper>
-        </Grid>
-      </Grid>
     </Container>
   );
 }

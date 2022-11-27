@@ -21,7 +21,7 @@ const Painel = ({tamanho, componente, header, indice, removerItem, removivel, ti
         <Paper style={style} className='paper-painel' elevation={2}>
             {
                 header? <Box className={'header-painel'} style={{ marginBottom: 10 }}>
-                    <Typography style={{float:"left", padding: 5, paddingLeft: 10}} component='h3' variant='h8'>{titulo}</Typography>
+                    <Typography style={{float:"left", padding: 5, paddingLeft: 10}} component='h3' variant='h6'>{titulo}</Typography>
                     { 
                         removivel? <IconButton style={{float:"right"}} onClick={(e) => {
                                 e.preventDefault();

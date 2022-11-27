@@ -124,32 +124,32 @@ function EmendasPorAno({emendasUniversidades, anoSelecionado, universidades, sty
         
         const newEmUn = emendasUniversidades.sort((a,b) => a.nroUo - b.nroUo);
         newEmUn.forEach((obj) => {
-        const confereAnoSelecionado = anoSelecionado !== 0 && `${obj.ano}` === anoSelecionado;
-        const uf = ufEmenda(obj, listaUniversidades)
+            const confereAnoSelecionado = anoSelecionado !== 0 && `${obj.ano}` === anoSelecionado;
+            const uf = ufEmenda(obj, listaUniversidades)
 
-        if (anoSelecionado === 0 || confereAnoSelecionado) {
-            //* insere os valores na primeira vez e define as cores
-            if(!pagoUf.labels.find(item => item === uf)) {
-            const colorRgb = randomPastelColorRGB();
+            if (anoSelecionado === 0 || confereAnoSelecionado) {
+                //* insere os valores na primeira vez e define as cores
+                if(!pagoUf.labels.find(item => item === uf)) {
+                const colorRgb = randomPastelColorRGB();
 
-            pagoUf.labels.push(uf);
-            pagoUf.data.push(obj.pago);
+                pagoUf.labels.push(uf);
+                pagoUf.data.push(obj.pago);
 
-            colors.push(getRgbString(colorRgb, false));
-            borderColors.push(getRgbString(colorRgb, false));
-            localLegenda.push({
-                nome: uf,
-                cor: getRgbString(colorRgb, true),
-                valor: 0,
-                percentual: 0
-            })
-            } else {
-                // * Se já tem, pega o indice e soma o valor
-                const index = pagoUf.labels.indexOf(uf);
+                colors.push(getRgbString(colorRgb, false));
+                borderColors.push(getRgbString(colorRgb, false));
+                localLegenda.push({
+                    nome: uf,
+                    cor: getRgbString(colorRgb, true),
+                    valor: 0,
+                    percentual: 0
+                })
+                } else {
+                    // * Se já tem, pega o indice e soma o valor
+                    const index = pagoUf.labels.indexOf(uf);
 
-                pagoUf.data[index] += obj.pago;
+                    pagoUf.data[index] += obj.pago;
+                }
             }
-        }
         });
         const localDatasets = []
         
@@ -177,15 +177,15 @@ function EmendasPorAno({emendasUniversidades, anoSelecionado, universidades, sty
             labels: labels,
             datasets: datasets
         }} options={options}/>
-        <Typography variant="h7" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
+        <Typography variant="subtitle1" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
         <List style={{overflow: "auto", height: "100px", maxHeight: "100px", width: "100%"}}>
             {
                 newLeg.map( (uf,index) => {
-                return <ListItem style={{color: uf.cor, paddingBottom: 0}} key={index}>
-                    <ListItemText primary={uf.nome} secondary={`R$ ${uf.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-                    <ListItemText secondary={`${roundDouble(uf.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-                    <ListItemIcon><Square style={{color: uf.cor, marginLeft: "15px"}}/></ListItemIcon>
-                </ListItem>
+                    return <ListItem style={{color: uf.cor, paddingBottom: 0}} key={index}>
+                        <ListItemText primary={uf.nome} secondary={`R$ ${uf.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+                        <ListItemText secondary={`${roundDouble(uf.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+                        <ListItemIcon><Square style={{color: uf.cor, marginLeft: "15px"}}/></ListItemIcon>
+                    </ListItem>
                 })
             }
         </List>

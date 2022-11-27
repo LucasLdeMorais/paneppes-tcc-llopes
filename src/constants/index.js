@@ -10,7 +10,7 @@ const regioes = [
     },
     {
         nome: "Centro-Oeste",
-        estados: ["GO","MT","MS","DF"]
+        estados: ["GO","MT","MS"]
     },
     {
         nome: "Sudeste",
@@ -20,6 +20,14 @@ const regioes = [
         nome: "Sul",
         estados: ["PR","RS","SC"]
     },
+    {
+        nome: "Destrito Federal",
+        estados: ["DF"]
+    },
+    {
+        nome: "Nacional",
+        estados: ["Nacional"]
+    }
 ]
 const estados = ["AC","AM","AP","PA","RO","RR","TO","AL","BA","CE","MA","PI","PE","PB","RN","SE","GO","MT","MS","DF","ES","MG","RJ","SP","PR","RS","SC"]
 

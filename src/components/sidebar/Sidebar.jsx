@@ -8,7 +8,8 @@ import {
   ListItemText,
   IconButton,
   Typography,
-  Box
+  Box,
+  ClickAwayListener
 } from "@mui/material";
 import { 
   PermIdentity,
@@ -67,59 +68,62 @@ const Sidebar = (props) => {
   };
   
   return (
+    
     <MUIDrawer open={props.aberto} variant="temporary" className='drawer' sx={{
       display: { xs: 'none', sm: 'block' },
       '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '250px' },
     }}>
       <Box>
-        <List>
-          <ListItem key="fecharGaveta">
-            <ListItemIcon>
-              <IconButton onClick={(e) => {props.fechaGaveta(e)}}>
-                <ChevronLeft />
-              </IconButton>
-            </ListItemIcon>
-            <ListItemText primary='Fechar'/>
-          </ListItem>
-          <ListItem key={'principal'}>
-            <ListItemText primary={'Painéis'}/>
-          </ListItem>
-          {itemsList.principal.map((item, index) => {
-            const { text, icon, onClick } = item;
-            return (
-              <ListItem button key={text} onClick={onClick}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText secondary={text} />
-              </ListItem>
-            );
-          })}
-          <Divider />
-          <ListItem key={'paraSaberMais'}>
-            <ListItemText primary={'Para saber mais'} />
-          </ListItem>
-          {itemsList.saberMais.map((item, index) => {
-            const { text, icon, onClick } = item;
-            return (
-              <ListItem button key={text} onClick={onClick}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText secondary={text} />
-              </ListItem>
-            );
-          })}
-          <Divider />
-          <ListItem key={'infoAdicionais'}>
-            <ListItemText primary={'Informações adicionais'} />
-          </ListItem>
-          {itemsList.infoAdicionais.map((item, index) => {
-            const { text, icon, onClick } = item;
-            return (
-              <ListItem button key={text} onClick={onClick}>
-                {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                <ListItemText secondary={text}/>
-              </ListItem>
-            );
-          })}
-        </List>
+        <ClickAwayListener onClickAway={(e) => {props.fechaGaveta(e)}}>
+          <List>
+            <ListItem key="fecharGaveta">
+              <ListItemIcon>
+                <IconButton onClick={(e) => {props.fechaGaveta(e)}}>
+                  <ChevronLeft />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemText primary='Fechar'/>
+            </ListItem>
+            <ListItem key={'principal'}>
+              <ListItemText primary={'Painéis'}/>
+            </ListItem>
+            {itemsList.principal.map((item, index) => {
+              const { text, icon, onClick } = item;
+              return (
+                <ListItem button key={text} onClick={onClick}>
+                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                  <ListItemText secondary={text} />
+                </ListItem>
+              );
+            })}
+            <Divider />
+            <ListItem key={'paraSaberMais'}>
+              <ListItemText primary={'Para saber mais'} />
+            </ListItem>
+            {itemsList.saberMais.map((item, index) => {
+              const { text, icon, onClick } = item;
+              return (
+                <ListItem button key={text} onClick={onClick}>
+                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                  <ListItemText secondary={text} />
+                </ListItem>
+              );
+            })}
+            <Divider />
+            <ListItem key={'infoAdicionais'}>
+              <ListItemText primary={'Informações adicionais'} />
+            </ListItem>
+            {itemsList.infoAdicionais.map((item, index) => {
+              const { text, icon, onClick } = item;
+              return (
+                <ListItem button key={text} onClick={onClick}>
+                  {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                  <ListItemText secondary={text}/>
+                </ListItem>
+              );
+            })}
+          </List>
+        </ClickAwayListener>
       </Box>
     </MUIDrawer>
   );

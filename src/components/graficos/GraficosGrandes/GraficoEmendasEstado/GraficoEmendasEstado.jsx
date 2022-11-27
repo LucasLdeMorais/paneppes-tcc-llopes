@@ -191,7 +191,7 @@ export default function GraficoEmendasEstado({emendasUniversidades, universidade
 
   return labels.length > 0 ? <Box className='container-grafico-partido' style={styleBox}>
     <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico}/>
-    <Typography variant="h7" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
+    <Typography variant="subtitle1" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
     <List style={{overflow: "auto", height: "100px", maxHeight: "100px"}}>
       {
         legenda.map(partido => {

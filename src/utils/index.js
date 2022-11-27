@@ -5,4 +5,14 @@ function roundDouble(value, places) {
     return tmp / factor;
 }
 
-export {roundDouble};
+function removeItemAll(arr1, arr2, value) {
+    arr1.forEach((item,index) => {
+        if (item === value) {
+            arr1.splice(index, 1);
+            arr2.splice(index, 1);
+        }
+    })
+    return arr1
+}
+
+export {roundDouble, removeItemAll};

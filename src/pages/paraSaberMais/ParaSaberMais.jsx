@@ -22,7 +22,6 @@ const ParaSaberMais = (props) => {
                 <CaixaTexto titulo={"O que são"} corpo={
                   <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>
                     A emenda ao orçamento é um instrumento que permite a deputados e senadores realizarem alterações no Projeto de Lei Orçamentária Anual - o PLOA. Trata-se de um mecanismo que permite que estes parlamentares possam opinar e reivindicar reajustes orçamentários em função de seus compromissos políticos.
-                    Em outras palavras, podemos dizer que emendas são valores adicionais que deputados ou senadores podem solicitar como um adicional para determinada função como, por exemplo, reformas em uma universidade.
                   </Typography> 
                 }/>
                 <CaixaTexto titulo={"Como funcionam"} corpo={comoFuncionaEmendasParlamentares}/>

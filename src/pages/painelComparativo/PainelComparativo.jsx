@@ -1,6 +1,6 @@
 import './index.css';
 import { Box, Container } from '@mui/system';
-import { CircularProgress, Grid, Paper, Typography } from '@mui/material';
+import { CircularProgress, ClickAwayListener, Grid, Paper, Typography } from '@mui/material';
 import LinhaHorizontal from '../../components/graficos/GraficosGrandes/linhaHorizontal/LinhaHorizontal';
 import { anos } from '../../constants'
 import { recuperaEmendasUniversidade, recuperaListaUniversidades } from '../../services/emendasService/'
@@ -11,6 +11,10 @@ import PainelSemUniversidadeSelecionada from '../../components/PainelComparativo
 import PainelDetalhesUniversidade from '../../components/PainelComparativo/PainelDetalhesUniversidade/PainelDetalhesUniversidade';
 import BreadcrumbsWithRouter from '../../components/BreadcrumbsWithRouter/BreadcrumbsWithRouter';
 import { withRouter } from "react-router-dom";
+import { Tooltip } from '@mui/material';
+import { Icon } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { Help } from '@mui/icons-material';
   // TODO: Olhar no figma exemplos de dashboard
   // TODO: Fazer ajustes relacionados ao desempenho da aplicação em redes mais lentas
     // * CHECK! TODO: Baixar emendas de acordo com as universidades selecionadas 
@@ -22,16 +26,17 @@ import { withRouter } from "react-router-dom";
 
 function PainelComparativo(props) {
   const { history } = props;
-  const [ listaUniversidades, setListaUniversidades ] = useListState([])
-  const [ emendas, setEmendas ] = useListState([])
-  const [ listaPaineis, updateListaPaineis ] = useListState([])
-  const [ universidadesSelecionadas, setUniversidadesSelecionadas ] = useListState([])
-  const [ emendasAnoUniversidades, setEmendasAnoUniversidades ] = useListState([])
+  const [ listaUniversidades, setListaUniversidades ] = useListState([]);
+  const [ emendas, setEmendas ] = useListState([]);
+  const [ listaPaineis, updateListaPaineis ] = useListState([]);
+  const [ universidadesSelecionadas, setUniversidadesSelecionadas ] = useListState([]);
+  const [ emendasAnoUniversidades, setEmendasAnoUniversidades ] = useListState([]);
   const shouldGetListaUniversidades = useRef(true)
   const loadingUniversidades = listaUniversidades.length === 0;
   const loadingGrafico = emendas.length !== 0 && universidadesSelecionadas.length !== 0;
-  const [ valorAutocomplete, setValorAutocomplete ] = useState()
-  const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
+  const [ valorAutocomplete, setValorAutocomplete ] = useState();
+  const [ autocompleteAberto, setAutocompleteAberto ] = useState(false);
+  const [statusAjudaPainelComparativo, setStatusAjudaPainelComparativo] = useState(false);
 
   async function handleRecuperaListaUniversidades() {
     try {
@@ -255,6 +260,14 @@ function PainelComparativo(props) {
     handleRecuperaListaUniversidades()
   }
 
+  function abrirAjudaPainelComparativo() {
+    setStatusAjudaPainelComparativo(true)
+  }
+
+  function fecharAjudaPainelComparativo() {
+    setStatusAjudaPainelComparativo(false)
+  }
+
   function handleRemoverTudo() {
     try {
         setUniversidadesSelecionadas.setState([])
@@ -267,6 +280,19 @@ function PainelComparativo(props) {
     } catch (e) {
       console.log(e.message)
     }
+  }
+
+  const AjudaPainelComparativo = ({open, abrir, fechar}) => {
+    return  <Box style={{float: "right"}}>
+      <ClickAwayListener onClickAway={fechar}>
+        <Tooltip arrow PopperProps={{disablePortal: true}} disableFocusListener disableHoverListener disableTouchListener open={open} onClose={fechar} title={<React.Fragment>
+            <Typography color="inherit">Como utilizar:</Typography>
+            {"It's very engaging. Right?"}<u>{'Link para guia completo'}</u>
+        </React.Fragment>} placement='right'>
+            <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
+        </Tooltip>
+      </ClickAwayListener>
+    </Box>
   }
 
   useEffect(() => {
@@ -284,7 +310,8 @@ function PainelComparativo(props) {
       <Grid item xs={12}>
         <Paper className='painelGrafico' elevation={3}>
           <Box className='header-painel' style={{ marginBottom: 10 }}>
-            <Typography component='h3' variant='h5' style={{ padding: 15 }}>Total Pago em Emendas Por Universidade</Typography>
+            <Typography component='h3' variant='h5' style={{  marginTop: "4px", marginLeft: "10px", float: "left" }}>Total Pago em Emendas Por Universidade</Typography>
+            <AjudaPainelComparativo open={statusAjudaPainelComparativo} abrir={abrirAjudaPainelComparativo} fechar={fecharAjudaPainelComparativo} />
           </Box>
           {
             emendasAnoUniversidades.length > 0 ? <LinhaHorizontal emendasUniversidades={emendasAnoUniversidades} anos={anos}/> : 

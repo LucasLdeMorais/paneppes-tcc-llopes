@@ -29,7 +29,7 @@ export default function Universidades(props) {
         }
     );
     const [ autocompleteAberto, setAutocompleteAberto ] = useState({})
-    const [ anoSelecionado, setAnoSelecionado ] = useState(0)
+    const [ anoSelecionado, setAnoSelecionado ] = useState("2022")
     const [ emendas, setEmendas ] = useState([])
     const [ emendasAno, setEmendasAno ] = useState([])
     const shouldGetListaUniversidades = useRef(true)
@@ -87,7 +87,7 @@ export default function Universidades(props) {
                 <CircularProgress color="inherit" size={40} />
             </Box>
         } else {
-            return emendas.length > 0? <EmendasPorAno emendasUniversidade={emendasAno} styleGrafico={{maxHeight: "350px", padding: "25px"}}/> :
+            return emendas.length > 0? <EmendasPorAno emendasUniversidade={emendasAno} styleBox={{overflow: "auto"}}styleGrafico={{maxHeight: "350px", padding: "25px"}}/> :
             <Box className='box-grafico-grande-vazio-universidades'>
                 <Typography variant="h5" className='texto-grafico-grande-vazio-universidades'>Não foram identificadas emendas destinadas a essa universidade</Typography>
             </Box>
@@ -135,12 +135,12 @@ export default function Universidades(props) {
                     Universidades
                 </Link>
             </Breadcrumbs>
-            <SeletorUniversidades loadingUniversidades={carregandoUniversidades} listaUniversidades={dadosUniversidades} selecionarUniversidade={handleSetUniversidade} valorAutocomplete={universidade} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetUniversidade} changeAutocompleteAberto={handleSetAutocompleteAberto}></SeletorUniversidades>
+            <SeletorUniversidades erroListaUniversidades={temErroUniversidades} loadingUniversidades={carregandoUniversidades} listaUniversidades={dadosUniversidades} selecionarUniversidade={handleSetUniversidade} valorAutocomplete={universidade} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetUniversidade} changeAutocompleteAberto={handleSetAutocompleteAberto}></SeletorUniversidades>
             <Grid container spacing={2} >
                 <Grid item xs={12}>
                     <Paper className='painel-grafico-grande-universidades' elevation={3}>
                         <Box className='header-painel-grafico-grande-universidades'>
-                            <Typography component='h3' variant='h5'>Valor Total de Emendas em Reais por Ano</Typography>
+                            <Typography component='h3' variant='h6'>Valor Total de Emendas em Reais por Ano</Typography>
                         </Box>
                         <GeraGraficoEmendasAno />
                     </Paper>
@@ -149,7 +149,7 @@ export default function Universidades(props) {
                     universidade?  <Grid item xs={6} style={{height: "max-content"}}>
                         <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
                             <Box className='header-painel-grafico-universidades'>
-                                    <Typography component='h3' variant='subtitle1'>Distribuição de emendas por ação</Typography>
+                                    <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por ação</Typography>
                                 </Box>
                             <Box className='box-seletor-anos-universidades'>
                                 <SeletorAnos paper anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado} onClear={handleLimpar}/>
@@ -164,7 +164,7 @@ export default function Universidades(props) {
                     universidade?  <Grid item xs={6} style={{height: "max-content"}}>
                         <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
                             <Box className='header-painel-grafico-universidades'>
-                                <Typography component='h3' variant='subtitle1'>Distribuição de emendas por Partido</Typography>
+                                <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por Partido</Typography>
                             </Box>
                             <Box className='box-seletor-anos-universidades'>
                                 <SeletorAnos paper anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
@@ -188,7 +188,7 @@ export default function Universidades(props) {
                     <Paper className='painel-lista-emendas-universidades' elevation={2} style={{height: "max-content"}}>
                     <Box className='header-painel-grafico-grande-universidades'>
                         {
-                            (anoSelecionado !== 0)? <Typography variant="subtitle" component="h4">Emendas no ano de {anoSelecionado}</Typography> :
+                            (anoSelecionado !== 0)? <Typography variant="subtitle1" component="h4">Emendas no ano de {anoSelecionado}</Typography> :
                             <Typography variant="subtitle" component="h4">Emendas</Typography>
                         }
                     </Box>

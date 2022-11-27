@@ -37,7 +37,6 @@ const options = {
     },
     datalabels: {
       formatter: (value, ctx) => {
-        debugger
         let dataset = ctx.dataset;
         let soma = 0;
         dataset.data.forEach(data => {
@@ -187,15 +186,18 @@ export default function GraficoEmendasRegiao({emendasUniversidades, universidade
 
   return labels.length > 0 ? <Box className='container-grafico-regiao' style={styleBox}>
     <Pie data={{labels: labels, datasets: datasets}} options={options} style={styleGrafico}/>
-    <Typography variant="h7" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
+    <Typography variant="subtitle1" component="h4" style={{marginLeft: "10px"}} >Legenda</Typography>
     <List style={{overflow: "auto", height: "100px", maxHeight: "100px", width: "100%"}}>
       {
-        newLeg.map(regiao => {
-          return <ListItem style={{color: regiao.cor, paddingBottom: 0}}>
-            <ListItemText primary={regiao.nome} secondary={`R$ ${regiao.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-            <ListItemText secondary={`${roundDouble(regiao.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-            <ListItemIcon ><Square style={{color: regiao.cor, marginLeft: "15px"}}/></ListItemIcon>
-          </ListItem>
+        newLeg.map((regiao,index) => {
+            if (regiao.valor > 0) {   
+              return <ListItem style={{color: regiao.cor, paddingBottom: 0}} key={index}>
+                <ListItemText primary={regiao.nome} secondary={`R$ ${regiao.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+                <ListItemText secondary={`${roundDouble(regiao.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+                <ListItemIcon ><Square style={{color: regiao.cor, marginLeft: "15px"}}/></ListItemIcon>
+              </ListItem>
+            }
+            return <></>
         })
       }
     </List>

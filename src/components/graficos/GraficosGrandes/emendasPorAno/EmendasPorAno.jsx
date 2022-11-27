@@ -40,6 +40,7 @@ const options = {
         },
         datalabels: {
             anchor: 'end',
+            align: 'top',
             formatter: (value, ctx) => {
                 return value.toLocaleString('pt-BR');
             },

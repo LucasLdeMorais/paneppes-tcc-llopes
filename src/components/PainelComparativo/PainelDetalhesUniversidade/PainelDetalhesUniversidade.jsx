@@ -13,15 +13,15 @@ import { Button } from '@mui/material';
 // ? Filtragem por ano deve ser feita no componente pai e passar o array filtrado no emendasUniversidade
 
 const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUniversidade, anos }) => {
-    const [ anoSelecionado, setAnoSelecionado ] = useState(0);
+    const [ anoSelecionado, setAnoSelecionado ] = useState("2022");
     const [ listaAberta, setListaAberta ] = useState(false);
 
     const BotaoLista = () => {
-        return listaAberta? <Tooltip title={"Fechar tabela de emendas"}>
+        return listaAberta? <Tooltip arrow arrow title={"Fechar tabela de emendas"}>
             <Button startIcon={<ArrowUpward/>} size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
                 Fechar tabela de emendas
             </Button>
-        </Tooltip>: <Tooltip title={"Abrir tabela de emendas"}>
+        </Tooltip>: <Tooltip arrow title={"Abrir tabela de emendas"}>
             <Button startIcon={<ArrowDownward/>} size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
                 Abrir tabela de emendas
             </Button>
@@ -66,15 +66,15 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
                 </Box>
                 <Box id={"box-cards-painel-detalhes"}>
                     <Paper elevation={2} style={{padding: "10px", width: "max-content", display: "inline-block"}}>
-                        <Typography variant="h7" style={{}}>Total empenhado{anoSelecionado? ` ${anoSelecionado}`:""}: {totalEmpenhado.toLocaleString()}</Typography>
+                        <Typography variant="subtitle1" style={{}}><b>Total empenhado{anoSelecionado? ` ${anoSelecionado}`:""}:</b> {`R$ ${totalEmpenhado.toLocaleString()}`}</Typography>
                     </Paper>
                     <Paper elevation={2} style={{padding: "10px", width: "max-content", display: "inline-block", marginLeft: "15px"}}>
-                        <Typography variant="h7" style={{}}>Total pago{anoSelecionado? ` ${anoSelecionado}`:""}: {totalPago.toLocaleString()}</Typography>
+                        <Typography variant="subtitle1" style={{}}><b>Total pago{anoSelecionado? ` ${anoSelecionado}`:""}:</b> {`R$ ${totalPago.toLocaleString()}`}</Typography>
                     </Paper>
                 </Box>
                 <Box id={"box-graficos-painel-detalhes"}>
-                    <GraficoEmendasPartido emendasUniversidade={emendas} styleBox={{float: "left", width: "500px"}} styleGrafico={{maxHeight: "250px"}}  anoSelecionado={anoSelecionado}/>
-                    <GraficoEmendasAcao emendasUniversidade={emendas} styleBox={{float: "right", width: "500px", marginLeft: "20px"}} styleGrafico={{maxHeight: "250px"}}  anoSelecionado={anoSelecionado}/>  
+                    <GraficoEmendasPartido titulo={"Emendas pagas por partido"} emendasUniversidade={emendas} styleBox={{float: "left", width: "500px"}} styleGrafico={{maxHeight: "250px"}}  anoSelecionado={anoSelecionado}/>
+                    <GraficoEmendasAcao titulo={"Emendas pagas por ação"} emendasUniversidade={emendas} styleBox={{float: "right", width: "500px", marginLeft: "20px"}} styleGrafico={{maxHeight: "250px"}}  anoSelecionado={anoSelecionado}/>  
                 </Box>
                 <Box id={"tabela-painel-detalhes"}>
                     {

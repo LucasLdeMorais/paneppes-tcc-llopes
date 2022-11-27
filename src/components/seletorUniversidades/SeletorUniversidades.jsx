@@ -7,7 +7,7 @@ import { Add, DeleteForever, Refresh, Remove } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { Paper } from '@mui/material';
 
-function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes, removerTudo, listaUniversidades, selecionarUniversidade, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
+function SeletorUniversidades({ loadingUniversidades, erroListaUniversidades, temAcoes, removerTudo, listaUniversidades, selecionarUniversidade, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
 
     //const loading = autocompleteAberto && listaUniversidades.length === 0;
     //const [valorAutocomplete, setValorAutocomplete] = useState({""});
@@ -41,9 +41,9 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
                 value={ valorAutocomplete }
                 onChange={ (e, newValue) => onChange(e, newValue) }
                 loading={ loadingUniversidades }
-                options={ listaUniversidades }
+                options={ listaUniversidades? listaUniversidades : []  }
                 getOptionLabel={(option) => `${option.nome} - ${option.sigla}`}
-                noOptionsText="Vazio"
+                noOptionsText={erroListaUniversidades? "Erro ao carregar dados do servidor":"Vazio"}
                 renderInput={(params) => <TextField {...params} 
                     label="Universidades Federais"
                     InputProps={{
@@ -64,12 +64,12 @@ function SeletorUniversidades({ loadingUniversidades, recarregarLista, temAcoes,
             />
             <Box className="box-botoes-seletor-universidades">
                 { temAcoes && <>
-                    <Tooltip title={"Adicionar"}>
+                    <Tooltip arrow title={"Adicionar"}>
                         <IconButton className="icon-button" onClick={(event) => { handleSelecionarUniversidade(event, valorAutocomplete) }}>
                             <Add></Add>
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title={"Remover tudo"}>
+                    <Tooltip arrow title={"Remover tudo"}>
                         <IconButton className="icon-button" onClick={(event) => { handleRemoverTudo(event) }}>
                             <DeleteForever></DeleteForever>
                         </IconButton>
