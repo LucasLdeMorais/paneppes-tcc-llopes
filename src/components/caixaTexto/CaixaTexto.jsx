@@ -1,4 +1,5 @@
-import "./index.css"
+import "./index.css";
+import React from 'react';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
 import { Box } from '@mui/material';

@@ -8,7 +8,8 @@ import {
     PointElement,
     BarController,
     BarElement,
-  } from 'chart.js';
+} from 'chart.js';
+import React from 'react';
 import "./index.css";
 import { Bar } from 'react-chartjs-2';
 import { Box, CircularProgress, ListItemIcon } from '@mui/material';

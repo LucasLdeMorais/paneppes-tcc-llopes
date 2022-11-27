@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography, Box } from "@mui/material";
-import "./index.css"
+import "./index.css";
+import React from 'react';
 
 export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas}) {
     

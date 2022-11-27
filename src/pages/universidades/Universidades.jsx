@@ -21,7 +21,6 @@ import { useQuery } from 'react-query';
 
 export default function Universidades(props) {
     const [ universidade, setUniversidade ] = useState()
-    const [ listaUniversidades, setListaUniversidades ] = useState([])
     const {isLoading: carregandoUniversidades, isError: temErroUniversidades, error: erroUniversidades, data: dadosUniversidades} = useQuery("recuperaListaUniversidades", 
         async () => { 
             const response = await api.get('/universidades');
@@ -32,24 +31,10 @@ export default function Universidades(props) {
     const [ anoSelecionado, setAnoSelecionado ] = useState("2022")
     const [ emendas, setEmendas ] = useState([])
     const [ emendasAno, setEmendasAno ] = useState([])
-    const shouldGetListaUniversidades = useRef(true)
-    const loading = listaUniversidades.length === 0;
     const [shouldBeLoadingGrafico, setShouldBeLoadingGrafico] = useState(false)
   
     useEffect(() => {
-    })
-
-    async function handleRecuperaListaUniversidades() {
-        try {
-            const data = await recuperaListaUniversidades();
-            if(data){
-                setListaUniversidades(data)
-                shouldGetListaUniversidades.current = false
-            }
-        } catch (e) {
-        console.log(e.message)
-        }
-    }
+    },[emendas])
 
     function handleGetEmendasAno(emendas) {
         let emendasAnoAux = {
@@ -97,8 +82,7 @@ export default function Universidades(props) {
     async function handleSetUniversidade(value) {
         setShouldBeLoadingGrafico(true)
         setUniversidade(value);
-        let emendasUniversidade 
-        emendasUniversidade = await recuperaEmendasUniversidade(value)
+        const emendasUniversidade = await recuperaEmendasUniversidade(value)
         setEmendas(emendasUniversidade.emendas)
         handleGetEmendasAno(emendasUniversidade.emendas)
         setShouldBeLoadingGrafico(false)
@@ -107,10 +91,6 @@ export default function Universidades(props) {
     function handleSetAnoSelecionado(Ano) {
         console.log(Ano)
         setAnoSelecionado(Ano)
-    }
-
-    function handleLimpar() {
-
     }
 
     return (
@@ -146,13 +126,13 @@ export default function Universidades(props) {
                     </Paper>
                 </Grid>
                 { 
-                    universidade?  <Grid item xs={6} style={{height: "max-content"}}>
+                    universidade && emendas?  <Grid item xs={6} style={{height: "max-content"}}>
                         <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
                             <Box className='header-painel-grafico-universidades'>
                                     <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por ação</Typography>
                                 </Box>
                             <Box className='box-seletor-anos-universidades'>
-                                <SeletorAnos paper anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado} onClear={handleLimpar}/>
+                                <SeletorAnos paper anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
                             </Box>
                             <Box style={{height: "max-content"}}>
                                 <GraficoEmendasAcao anoSelecionado={anoSelecionado} emendasUniversidade={emendas} ladoLegenda={"bottom"} styleBox={{width: "100%", marginTop: "15px"}} styleGrafico={{maxHeight: "250px"}}/>
@@ -161,7 +141,7 @@ export default function Universidades(props) {
                     </Grid> : <PainelSemUniversidadeSelecionada tamanho={"medio"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
                 }
                 { 
-                    universidade?  <Grid item xs={6} style={{height: "max-content"}}>
+                    universidade && emendas?  <Grid item xs={6} style={{height: "max-content"}}>
                         <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
                             <Box className='header-painel-grafico-universidades'>
                                 <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por Partido</Typography>

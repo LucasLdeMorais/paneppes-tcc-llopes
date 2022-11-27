@@ -1,5 +1,6 @@
 
-import "./index.css"
+import "./index.css";
+import React from 'react';
 import { Typography } from '@mui/material';
 import Painel from '../../paineis/Painel';
 

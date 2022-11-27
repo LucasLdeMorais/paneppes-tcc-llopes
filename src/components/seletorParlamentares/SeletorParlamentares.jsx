@@ -7,7 +7,7 @@ import { Add, DeleteForever, Refresh, Remove } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { Paper } from '@mui/material';
 
-function SeletorParlamentares({ loadingParlamentares, erroListaParlamentares, recarregarLista, temAcoes, removerTudo, listaParlamentares, selecionarParlamentar, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
+function SeletorParlamentares({ loadingParlamentares, erroListaParlamentares, temAcoes, removerTudo, listaParlamentares, selecionarParlamentar, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
 
     //const loading = autocompleteAberto && listaParlamentares.length === 0;
     //const [valorAutocomplete, setValorAutocomplete] = useState({""});
@@ -20,11 +20,6 @@ function SeletorParlamentares({ loadingParlamentares, erroListaParlamentares, re
     function handleSetAutocompleteAberto(event, value) {
         event.preventDefault();
         changeAutocompleteAberto(value)
-    }
-
-    function handleRecarregarLista(event) {
-        event.preventDefault();
-        recarregarLista()
     }
 
     function handleRemoverTudo(event) {

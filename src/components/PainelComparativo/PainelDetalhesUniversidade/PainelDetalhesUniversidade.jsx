@@ -1,4 +1,5 @@
-import "./index.css"
+import "./index.css";
+import React from 'react';
 import { Paper, Typography, Box, IconButton, Tooltip } from '@mui/material';
 import Painel from '../../paineis/Painel';
 import GraficoEmendasAcao from '../../graficos/GraficosPequenos/GraficoEmendasAcao/GraficoEmendasAcao';

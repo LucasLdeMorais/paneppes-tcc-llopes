@@ -1,4 +1,5 @@
 import "./home.css";
+import React from 'react';
 import { Button, Container, Grid, Icon, Paper, Typography, Box } from "@mui/material";
 import EmendasPorAno from "../../components/graficos/GraficosGrandes/emendasPorAno/EmendasPorAno";
 import { AccountBalance, CompareArrows, Groups } from "@mui/icons-material";
