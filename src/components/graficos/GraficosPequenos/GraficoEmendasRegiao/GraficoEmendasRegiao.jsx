@@ -90,6 +90,7 @@ function getRgbString(rgb, translucido) {
 
 export default function GraficoEmendasRegiao({emendasUniversidades, universidades, anoSelecionado, styleBox, styleGrafico}) {
   const [labels, updateLabels] = useListState([]);
+  const [emendasAnterior, setEmendasAnterior] = useState();
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
   const [anoAnterior, setAno] = useState(-1);
@@ -174,10 +175,16 @@ export default function GraficoEmendasRegiao({emendasUniversidades, universidade
   useEffect(() => {
     if(shouldGetDataset.current){
       setAno(anoSelecionado);
+      setEmendasAnterior(emendasUniversidades);
       getEmendasRegiao(emendasUniversidades, anoSelecionado, universidades);
       shouldGetDataset.current = false;
-    } else if (anoSelecionado !== anoAnterior){
+    }
+    if (anoSelecionado !== anoAnterior){
       setAno(anoSelecionado);
+      getEmendasRegiao(emendasUniversidades, anoSelecionado, universidades);
+    }
+    if (emendasUniversidades !== emendasAnterior) {
+      setEmendasAnterior(emendasUniversidades);
       getEmendasRegiao(emendasUniversidades, anoSelecionado, universidades);
     }
   }, [emendasUniversidades, anoSelecionado, universidades]);

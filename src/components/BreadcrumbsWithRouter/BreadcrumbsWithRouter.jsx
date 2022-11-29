@@ -3,8 +3,8 @@ import { Link, Breadcrumbs } from '@mui/material';
 import React from 'react';
 import { NavigateNext } from '@mui/icons-material';
 
-const BreadcrumbsWithRouter = ({links, history}) => {
-    return <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNext fontSize="small"/>} style={{marginBottom:20, marginTop:25}}>
+const BreadcrumbsWithRouter = ({links, history, className, style}) => {
+    return <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNext fontSize="small"/>} style={style} className={className}>
         {
             links.map( (link,index) => {
                 return <Link 

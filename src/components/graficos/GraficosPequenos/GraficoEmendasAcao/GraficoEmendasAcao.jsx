@@ -97,7 +97,8 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
   const [labels, updateLabels] = useListState([]);
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
-  const [anoAnterior, setAno] = useState(-1);
+  const [anoAnterior, setAnoAnterior] = useState(-1);
+  const [emendasAnterior, setEmendasAnterior] = useState();
   const shouldGetDataset = useRef(true);
 
   function getEmendasAcao(emendasUniversidade, anoSelecionado) {
@@ -107,7 +108,8 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
 
     const pagoAcao = {
       labels: [],
-      data: []
+      data: [],
+      codigos: []
     }
     
     emendasUniversidade.forEach((obj) => {
@@ -115,10 +117,10 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
 
       if (anoSelecionado === 0 || confereAnoSelecionado) {
         //* insere os valores na primeira vez e define as cores
-        if(!pagoAcao.labels.find(item => item === obj.acao.substring(7,55))) {
+        if(!pagoAcao.codigos.find(item => item === obj.acao.substring(0,7))) {
           const colorRgb = randomPastelColorRGB();
-
-          pagoAcao.labels.push(`${obj.acao.substring(7,55)}(...)`);
+          pagoAcao.codigos.push(obj.acao.substring(0,7));
+          pagoAcao.labels.push(`${obj.acao.substring(0,55)}(...)`);
           pagoAcao.data.push(obj.pago);
 
           colors.push(getRgbString(colorRgb, true));
@@ -131,13 +133,13 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
           })
         } else {
           // * Se já tem, pega o indice e soma o valor
-          const index = pagoAcao["labels"].indexOf(obj.acao);
-
+          const index = pagoAcao["codigos"].indexOf(obj.acao.substring(0,7));
           pagoAcao.data[index] += obj.pago;
         }
       }
     });
     
+    debugger
     if (!(pagoAcao.data.length === pagoAcao.data.filter(item => item === 0).length)){
       let i = 0;
       while (i < pagoAcao.data.length) {
@@ -150,13 +152,18 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
       }
     }
     // * Seta o valor acumulado na legenda
-    const total = pagoAcao.data.reduce((acc,valor) => {
-      return acc += valor
-    })
+    debugger
+    let total = 0;
+    if (pagoAcao.data.length > 0){
+        total = pagoAcao.data.reduce((acc,valor) => {
+          return acc += valor
+        });
+    }
     localLegenda.forEach((item,index) => {
       item.valor = pagoAcao.data[index];
       item.percentual = (100 * item.valor) / total;
-    })
+    });
+
     updateDatasets.setState([{
       label: "# Pago em R$",
       data: pagoAcao.data,
@@ -176,11 +183,17 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
 
   useEffect(() => {
     if(shouldGetDataset.current && emendasUniversidade.length > 0){
-      setAno(anoSelecionado);
+      setAnoAnterior(anoSelecionado);
+      setEmendasAnterior(emendasUniversidade);
       getEmendasAcao(emendasUniversidade, anoSelecionado);
       shouldGetDataset.current = false;
-    } else if ((anoSelecionado !== anoAnterior) && emendasUniversidade.length > 0){
-      setAno(anoSelecionado);
+    } 
+    if ((anoSelecionado !== anoAnterior) && emendasUniversidade.length > 0){
+      setAnoAnterior(anoSelecionado);
+      getEmendasAcao(emendasUniversidade, anoSelecionado);
+    }
+    if (emendasUniversidade !== emendasAnterior) {
+      setEmendasAnterior(emendasUniversidade);
       getEmendasAcao(emendasUniversidade, anoSelecionado);
     }
   }, [emendasUniversidade, anoSelecionado]);

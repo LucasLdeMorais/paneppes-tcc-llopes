@@ -10,6 +10,12 @@
     height: 360px;
 }
 
+.titulo-header-painel {
+    float: left;
+    padding: 5px;
+    padding-left: 10px;
+}
+
 .header-painel {
     background-color: #1976d2;
     min-height: 40px;
@@ -19,6 +25,7 @@
     color: whitesmoke;
     padding: 5px;
 }
+
 
 .conteudo-painel {
     height: max-content;

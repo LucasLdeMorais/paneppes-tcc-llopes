@@ -12,6 +12,7 @@ import Parlamentares from "./pages/parlamentares/Parlamentares";
 import FinanciamentoUniversidadesFederais from "./pages/financiamentoUniversidadesFederais/FinanciamentoUniversidadesFederais";
 import ParaSaberMais from './pages/paraSaberMais/ParaSaberMais';
 import { QueryClient, QueryClientProvider } from "react-query";
+import FonteDasInformacoes from "./pages/fonteDasInformacoes/FonteDasInformacoes";
 
 function App() {
   const [aberto, setAberto] = useState(false);
@@ -55,6 +56,9 @@ function App() {
               </Route>
               <Route path="/SaberMais">
                 <ParaSaberMais />
+              </Route>
+              <Route path="/FonteDasInformacoes">
+                <FonteDasInformacoes />
               </Route>
             </Switch>
           </Container>

@@ -16,6 +16,7 @@ import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useListState } from '@mantine/hooks';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { anos } from '../../../../constants';
 
 ChartJS.register(
     CategoryScale,
@@ -78,11 +79,9 @@ function getRgbString(rgb, translucido) {
     return 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 
-function EmendasPorAno({emendasUniversidade, anos, styleBox, styleGrafico}) {
+function EmendasPorAno({emendasUniversidade, styleBox, styleGrafico}) {
     
-    const [datasets, setDatasets] = useListState([]);
-
-    const anos2 = ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"]
+    const [datasets, setDatasets] = useState([]);
 
     useEffect(() => {
         if(emendasUniversidade){
@@ -132,13 +131,12 @@ function EmendasPorAno({emendasUniversidade, anos, styleBox, styleGrafico}) {
             backgroundColor: 'rgb(255, 237, 81)',
             stack: 'Stack 1'
         })
-        console.log("datasets:",datasets)
-        setDatasets.setState(datasets)
+        setDatasets(datasets)
     }
 
     return(<>
                 <Bar className={"grafico-barras"} style={styleGrafico} data={{
-                    labels: anos2,
+                    labels: anos,
                     datasets: datasets
                 }} options={options}/>
                 {/* { datasets.length > 0 ? <Bar className={"grafico-barras"} style={styleGrafico} data={{

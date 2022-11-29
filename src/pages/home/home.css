@@ -22,6 +22,22 @@
 .botao-telas-home :hover{
 }
 
+.box-grafico-grande-vazio {
+    display: block;
+    color: grey;
+    text-align: center;
+    max-height: 379px;
+    padding: 120px 0 120px 0;
+}
+
+.box-grafico-grande-carregando {
+    display: block;
+    color: grey;
+    text-align: center;
+    max-height: 379px;
+    padding: 100px 0 100px 0;
+}
+
 .paper-botao-telas-home {
     
 }
@@ -31,7 +47,41 @@
 
 .painel-grafico-pequeno-home {
     min-height: 350px;
-    margin-bottom: 10px;
-    height: max-content;
+    max-height: 577px;
     width: 100%;
+    margin-bottom: 10px;
+}
+
+.painel-grafico-grande-home {
+    min-height: 350px;
+    max-height: 577px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.painel-grafico-estados-home {
+    min-height: 350px;
+    max-height: 700px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.header-painel-grafico-grande-home {
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    background-color: #1976d2 ;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.header-painel-grafico-home {
+    min-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    background-color: #1976d2 ;
+    margin-bottom: 10px;
+    padding: 15px;
 }

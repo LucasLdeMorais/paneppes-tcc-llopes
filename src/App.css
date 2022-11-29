@@ -9,6 +9,10 @@ body {
     background-color: #f7f7f7;
 }
 
+.breadcrumbs {
+    margin-top: 20px !important;
+}
+
 .container-application{
     display: flex;
     margin-top: 10px;

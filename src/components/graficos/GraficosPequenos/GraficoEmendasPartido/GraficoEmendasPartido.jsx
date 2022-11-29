@@ -89,7 +89,8 @@ export default function GraficoEmendasPartido({emendasUniversidade, anoSeleciona
   const [labels, updateLabels] = useListState([]);
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
-  const [anoAnterior, setAno] = useState(-1);
+  const [anoAnterior, setAnoAnterior] = useState(-1);
+  const [emendasAnterior, setEmendasAnterior] = useState();
   const shouldGetDataset = useRef(true);
 
   function getEmendasPartido(emendasUniversidade, anoSelecionado) {
@@ -143,9 +144,12 @@ export default function GraficoEmendasPartido({emendasUniversidade, anoSeleciona
     }
 
     // * Seta o valor acumulado na legenda
-    const total = pagoPartido.data.reduce((acc,valor) => {
-      return acc += valor
-    })
+    let total = 0;
+    if (pagoPartido.data.length > 0){
+        total = pagoPartido.data.reduce((acc,valor) => {
+          return acc += valor
+        });
+    }
 
     localLegenda.forEach((item,index) => {
       item.valor = pagoPartido.data[index];
@@ -171,17 +175,23 @@ export default function GraficoEmendasPartido({emendasUniversidade, anoSeleciona
 
   useEffect(() => {
     if(shouldGetDataset.current && emendasUniversidade.length > 0){
-      setAno(anoSelecionado);
+      setAnoAnterior(anoSelecionado);
+      setEmendasAnterior(emendasUniversidade);
       getEmendasPartido(emendasUniversidade, anoSelecionado);
       shouldGetDataset.current = false;
-    } else if ((anoSelecionado !== anoAnterior) && emendasUniversidade.length > 0){
-      setAno(anoSelecionado);
+    } 
+    if ((anoSelecionado !== anoAnterior) && emendasUniversidade.length > 0){
+      setAnoAnterior(anoSelecionado);
+      getEmendasPartido(emendasUniversidade, anoSelecionado);
+    }
+    if (emendasUniversidade !== emendasAnterior) {
+      setEmendasAnterior(emendasUniversidade);
       getEmendasPartido(emendasUniversidade, anoSelecionado);
     }
   }, [emendasUniversidade, anoSelecionado]);
 
   let newLeg = legenda.sort((a,b) => b.valor - a.valor );
-  debugger
+  
   if ( datasets.length > 0 && datasets[0].total > 0 ){
     return <Box className='container-grafico-partido' style={styleBox}>
     { 

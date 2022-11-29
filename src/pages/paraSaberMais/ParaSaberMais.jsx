@@ -1,8 +1,7 @@
 import "./index.css";
-import { ArrowDownward, NavigateNext } from '@mui/icons-material'
-import { Container, Paper, Typography, Link, Box, CardContent, CardActionArea, List, ListItem, ListItemText, IconButton } from "@mui/material";
-import React, { useState } from "react";
-import { comoFuncionaEmendasParlamentares, oQueSaoEmendasParlamentares, tiposEmendasParlamentares } from "../../mensagens";
+import { Container, Paper, Typography, Box} from "@mui/material";
+import React from "react";
+import { comoFuncionaEmendasParlamentares, oQueSaoEmendasParlamentares } from "../../mensagens";
 import CaixaTexto from './../../components/caixaTexto/CaixaTexto';
 import BreadcrumbsWithRouter from "../../components/BreadcrumbsWithRouter";
 import { withRouter } from "react-router-dom";
@@ -13,7 +12,7 @@ const ParaSaberMais = (props) => {
   const history = props;
   return (
     <Container className='container'>
-        <BreadcrumbsWithRouter links={[{texto: "Principal", endPagina: "/"},{texto: "Entendendo as Emendas", endPagina: "/SaberMais"}]} history={history}/>
+        <BreadcrumbsWithRouter links={[{texto: "Principal", endPagina: "/"},{texto: "Entendendo as Emendas", endPagina: "/SaberMais"}]} history={history} className={"breadcrumbs"}/>
         <Paper elevation={3} style={{width: '100%', height: 'max-content'}} className='painel'>
             <Box style={{width: '100%', height: 'max-content'}}>
                 <Typography component='h2' variant='h4' style={{marginBottom: "5px"}} >Entendendo as Emendas</Typography>
@@ -28,9 +27,11 @@ const ParaSaberMais = (props) => {
                 <CaixaTexto titulo={"Tipos de Emendas"} corpo={<>
                     <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Existem quatro tipos de emendas ao orçamento federal: individuais, de bancada, de comissão e de relator.</Typography> 
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas individuais:</Typography>
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas individuais são de autoria individual - tal como o nome sugere - de cada parlamentar, que pode sugerir até vinte e cinco emendas ao PLOA e estas devem seguir as exigências dispostas na Lei de Diretrizes Orçamentárias - a LDO (Resolução 1/06 do Congresso Nacional, 2006).</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas individuais são de autoria individual - tal como o nome sugere - de cada parlamentar, que pode sugerir até vinte e cinco emendas ao PLOA e estas devem seguir as exigências dispostas na Lei de Diretrizes Orçamentárias - a LDO (<i>Resolução 1/06 do Congresso Nacional, 2006</i>).</Typography>
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de Bancada:</Typography>
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas de bancada, também conhecidas como emendas coletivas, são as de iniciativa de bancadas estaduais e regionais, composta por grupos de parlamentares de determinados estados, municípios ou regiões inteiras do território brasileiro (Resolução 1/06 do Congresso Nacional, 2006). Já as emendas de comissão são aquelas propostas pelas comissões técnicas e permanentes do Senado e da Câmara dos Deputados (Resolução 1/06 do Congresso Nacional, 2006).</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas de bancada, também conhecidas como emendas coletivas, são as de iniciativa de bancadas estaduais e regionais, composta por grupos de parlamentares de determinados estados, municípios ou regiões inteiras do território brasileiro (<i>Resolução 1/06 do Congresso Nacional, 2006</i>)</Typography>
+                    <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de Comissão:</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas de comissão são aquelas propostas pelas comissões técnicas e permanentes do Senado e da Câmara dos Deputados (<i>Resolução 1/06 do Congresso Nacional, 2006</i>).</Typography>
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas da Relator:</Typography> 
                     <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas da relator - ou de relatoria - são emendas sugeridas pelo relator geral escolhido anualmente dentre o corpo de deputados e senadores da câmara.</Typography>
                 </>}/>

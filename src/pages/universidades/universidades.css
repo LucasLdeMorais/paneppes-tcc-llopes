@@ -11,13 +11,22 @@
 
 .box-seletor-anos-universidades {
     width: min-content;
-    margin-left: 20px
+    margin-left: 15px;
+    margin-top: 15px
 }
 
 .box-grafico-grande-vazio-universidades {
-    height: 350px;
-    width: 1104px;
-    color: grey
+    color: grey;
+    text-align: center;
+    max-height: 350px;
+    padding: 155px 0 155px 0;
+}
+
+.box-grafico-vazio-universidades{ 
+    color: grey;
+    text-align: center;
+    max-height: 200px;
+    padding: 100px 0 100px 0;
 }
 
 .texto-grafico-grande-vazio-universidades {
@@ -43,22 +52,60 @@
     width: 100%
 }
 
-.header-painel-grafico-grande-universidades {
-    min-height: max-content;
+.titulo-header-painel-universidades {
+    padding: 6px 8px 8px 10px;
+    padding-left: 10px;
+    float: left
+}
+
+.titulo-header-painel-grafico-pequeno-universidades {
+    padding: 6px 8px 8px 10px;
+    padding-left: 10px;
+    float: left;
+    min-height: 40px;
+    max-height: max-content;
+}
+
+.titulo-header-painel-tabela-emendas-universidades {
+    padding: 6px 8px 8px 10px;
+    padding-left: 10px;
+    float: left;
+    min-height: 40px;
+    max-height: max-content;
+}
+
+.subtitulo-header-painel-universidades {
+    padding: 5px 5px 5px 10px;
+}
+
+.subtitulo-painel-grafico-grande-universidades {
+    padding-top: 10px;
+}
+
+.header-tabela-emendas-universidades {
+    min-height: 40px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     color: whitesmoke;
     background-color: #1976d2 ;
-    margin-bottom: 10px;
-    padding: 15px;
+    padding: 5px;
+}
+
+.header-painel-grafico-grande-universidades {
+    background-color: #1976d2;
+    min-height: 40px;
+    max-height: max-content;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: whitesmoke;
+    padding: 5px;
 }
 
 .header-painel-grafico-universidades {
-    min-height: max-content;
+    min-height: 40px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     color: whitesmoke;
     background-color: #1976d2 ;
-    margin-bottom: 10px;
-    padding: 15px;
+    padding: 5px;
 }

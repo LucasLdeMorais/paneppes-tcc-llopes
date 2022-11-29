@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolt
 import "./index.css";
 import React from 'react';
 
-export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas}) {
+export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas, anos, selecionaAno}) {
     
     const ItemTabela = ({emenda, index}) => {
         return <Tooltip arrow placement="bottom-start" title={`Clique para abrir o detalhamento da emenda ${emenda.ano}${emenda.nroEmenda} proposta pelo ${emenda.tipoAutor.toLowerCase()} ${emenda.autor}`}>
@@ -19,7 +19,7 @@ export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas})
     }
 
     const Tabela = ({corpo}) => {
-        return <TableContainer style={{overflow: "auto", maxHeight: "400px"}}>
+        return <TableContainer className={"table-container-tabela-emendas-parlamentar"}>
             <Table stickyHeader>
                 <TableHead style={{cursor: "default", textAlign: "left"}}>
                     <TableRow>
@@ -40,26 +40,19 @@ export default function TabelaEmendasParlamentar({anoSelecionado, dadosEmendas})
     }
 
     const RenderTabela = () => {
-        if (dadosEmendas.length === 0) {
-            return <Box className='box-tabela-vazia'>
-                <Typography component='h5' variant='h6' style={{}}>Não há registro de emendas</Typography>
-            </Box>
-        }
+        let itensTabela;
+        let emendasFiltradas;
         if (anoSelecionado) {
-            const emendasFiltradas = dadosEmendas.filter(obj => obj.ano === parseInt(anoSelecionado) && (obj.pago > 0 || obj.empenhado > 0));
-            return emendasFiltradas.length !== 0?
-                <Tabela corpo={emendasFiltradas.map((emenda, index) => { return <ItemTabela emenda={emenda} index={index}/> })}/> :
-                <Box className='box-tabela-vazia'>
-                    <Typography component='h5' variant='h6' style={{}}>Não há registro de emendas para o ano selecionado</Typography>
-                </Box>
+            emendasFiltradas = dadosEmendas.filter(obj => obj.ano === parseInt(anoSelecionado) && (obj.pago > 0 || obj.empenhado > 0));
+        } else {
+            emendasFiltradas = dadosEmendas.filter(obj => obj.pago > 0 || obj.empenhado > 0)
         }
-
-        const itensTabela = dadosEmendas.filter(obj => obj.pago > 0 || obj.empenhado > 0).map((emenda, index) => { 
-            return <ItemTabela emenda={emenda} index={index}/> 
-        })
-
-        return <Tabela corpo={itensTabela}/>
+        itensTabela = emendasFiltradas.map((emenda, index) => { return <ItemTabela emenda={emenda} index={index}/> });
+        return itensTabela.length !== 0?
+            <Tabela corpo={itensTabela}/> : 
+            <Box className='box-tabela-vazia'>
+                <Typography component='h5' variant='h6'>Não há registro de emendas{ anoSelecionado && anoSelecionado !== 0? " para este ano" : ""}</Typography>
+            </Box>
     }
-
     return <RenderTabela />
 }

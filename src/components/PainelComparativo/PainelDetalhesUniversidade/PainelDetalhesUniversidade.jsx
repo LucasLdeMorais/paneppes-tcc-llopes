@@ -1,14 +1,13 @@
 import "./index.css";
 import React from 'react';
-import { Paper, Typography, Box, IconButton, Tooltip } from '@mui/material';
+import { Paper, Typography, Box, IconButton, Tooltip, ClickAwayListener, Icon } from '@mui/material';
 import Painel from '../../paineis/Painel';
 import GraficoEmendasAcao from '../../graficos/GraficosPequenos/GraficoEmendasAcao/GraficoEmendasAcao';
 import GraficoEmendasPartido from '../../graficos/GraficosPequenos/GraficoEmendasPartido';
 import SeletorAnos from '../../seletorAnos/SeletorAnos';
 import { useState } from 'react';
-import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
+import { ArrowDownward, ArrowUpward, Help } from '@mui/icons-material';
 import ListaEmendas from '../../tabelas/listaEmendas';
-import GraficoEmendasNatureza from './../../graficos/GraficosPequenos/GraficoEmendasNatureza/GraficoEmendasNatureza';
 import { Button } from '@mui/material';
 
 // ? Filtragem por ano deve ser feita no componente pai e passar o array filtrado no emendasUniversidade
@@ -16,9 +15,10 @@ import { Button } from '@mui/material';
 const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUniversidade, anos }) => {
     const [ anoSelecionado, setAnoSelecionado ] = useState("2022");
     const [ listaAberta, setListaAberta ] = useState(false);
+    const [ statusAjudaPainelComparativo, setStatusAjudaPainelComparativo ] = useState(false);
 
     const BotaoLista = () => {
-        return listaAberta? <Tooltip arrow arrow title={"Fechar tabela de emendas"}>
+        return listaAberta? <Tooltip arrow title={"Fechar tabela de emendas"}>
             <Button startIcon={<ArrowUpward/>} size={"small"} onClick={() => { setListaAberta(!listaAberta) }}>
                 Fechar tabela de emendas
             </Button>
@@ -59,8 +59,36 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
 
     const emendas = anoSelecionado !== 0? emendasUniversidade.filter(ele => ele.ano === parseInt(anoSelecionado)) : emendasUniversidade
 
+    function abrirAjudaPainelDetalhesUniversidade() {
+        setStatusAjudaPainelComparativo(true)
+    }
+
+    function fecharAjudaPainelDetalhesUniversidade() {
+        setStatusAjudaPainelComparativo(false)
+    }
+
+    const AjudaPainelDetalhesUniversidade = ({open, abrir, fechar}) => {
+        return  <Box style={{float: "right"}}>
+          <ClickAwayListener onClickAway={fechar}>
+            <Tooltip arrow PopperProps={{disablePortal: true}} disableFocusListener disableHoverListener disableTouchListener open={open} onClose={fechar} title={<React.Fragment>
+                <Typography color="inherit">Como utilizar:</Typography>
+                <Typography variant='subtitle2' color="inherit">Selecionar Ano:</Typography>
+                {"Selecione um ano na barra de seleção abaixo para que os gráficos mostrem os dados referentes a emendas pagas no ano selecionado."}
+                <Typography variant='subtitle2' color="inherit">Remover Universidade:</Typography>
+                {"Para Remover, desça a tela até o painel da espectiva universidade e clique no símbolo \"x\" no cabeçalho (em azul)."}
+                <Typography variant='subtitle2' color="inherit">Abrir Tabela de Emendas da Universidade:</Typography>
+                {"Clique no botão escrito \"Abrir tabela de emendas\" logo abaixo dos gráficos de pizza. Para fechar, bastar clicar no botão novamente."}
+                <hr/>
+                <u>{'Link para guia completo'}</u>
+            </React.Fragment>} placement='right'>
+                <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
+            </Tooltip>
+          </ClickAwayListener>
+        </Box>
+    }
+
     return (
-        <Painel titulo={ titulo } header removivel removerItem={handleRemover} tamanho={ "grande" } componente={ 
+        <Painel titulo={ titulo } subtitulo={"Passe o cursor do mouse sobre as fatias do gráfico visualizar os respectivos valores"}tooltip={<AjudaPainelDetalhesUniversidade abrir={abrirAjudaPainelDetalhesUniversidade} fechar={fecharAjudaPainelDetalhesUniversidade} open={statusAjudaPainelComparativo}/>} header removivel removerItem={handleRemover} tamanho={ "grande" } componente={ 
             <>
                 <Box id={"box-seletor-anos-painel-detalhes"}>
                     <SeletorAnos setAnoSelecionado={handleSetAnoSelecionado} anoSelecionado={anoSelecionado} anos={anos}/>

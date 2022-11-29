@@ -2,5 +2,11 @@
     display: block;
     color: grey;
     text-align: center;
-    padding: 130px;
+    max-height: 379px;
+    padding: 189px 0 189px 0;
+}
+
+.table-container-tabela-emendas-parlamentar {
+    overflow: auto;
+    max-height: 379px
 }

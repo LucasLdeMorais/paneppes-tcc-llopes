@@ -14,12 +14,12 @@ import { withRouter } from "react-router-dom";
 import { Tooltip } from '@mui/material';
 import { Icon } from '@mui/material';
 import { IconButton } from '@mui/material';
-import { Help } from '@mui/icons-material';
+import { Help, Warning } from '@mui/icons-material';
   // TODO: Olhar no figma exemplos de dashboard
   // TODO: Fazer ajustes relacionados ao desempenho da aplicação em redes mais lentas
-    // * CHECK! TODO: Baixar emendas de acordo com as universidades selecionadas 
+  // * CHECK! TODO: Baixar emendas de acordo com as universidades selecionadas 
   // * CHECK! TODO: Separar emendas obtidas a partir das respectivas universidades
-  // TODO: Documentar todas as funções e só manter o que está sendo utilizado de fato
+  //// Documentar todas as funções e só manter o que está sendo utilizado de fato
   // * CHECK! TODO: Colocar o display de paineis separado
   // * CHECK! TODO: Seletor de anos por painel com menu dropdown
   // TODO: Gerar Cor junto com as Emendas da Universidade
@@ -36,7 +36,7 @@ function PainelComparativo(props) {
   const loadingGrafico = emendas.length !== 0 && universidadesSelecionadas.length !== 0;
   const [ valorAutocomplete, setValorAutocomplete ] = useState();
   const [ autocompleteAberto, setAutocompleteAberto ] = useState(false);
-  const [statusAjudaPainelComparativo, setStatusAjudaPainelComparativo] = useState(false);
+  const [ statusAjudaPainelComparativo, setStatusAjudaPainelComparativo ] = useState(false);
 
   async function handleRecuperaListaUniversidades() {
     try {
@@ -260,14 +260,6 @@ function PainelComparativo(props) {
     handleRecuperaListaUniversidades()
   }
 
-  function abrirAjudaPainelComparativo() {
-    setStatusAjudaPainelComparativo(true)
-  }
-
-  function fecharAjudaPainelComparativo() {
-    setStatusAjudaPainelComparativo(false)
-  }
-
   function handleRemoverTudo() {
     try {
         setUniversidadesSelecionadas.setState([])
@@ -282,12 +274,27 @@ function PainelComparativo(props) {
     }
   }
 
+  function abrirAjudaPainelComparativo() {
+    setStatusAjudaPainelComparativo(true)
+  }
+
+  function fecharAjudaPainelComparativo() {
+    setStatusAjudaPainelComparativo(false)
+  }
+
   const AjudaPainelComparativo = ({open, abrir, fechar}) => {
     return  <Box style={{float: "right"}}>
       <ClickAwayListener onClickAway={fechar}>
         <Tooltip arrow PopperProps={{disablePortal: true}} disableFocusListener disableHoverListener disableTouchListener open={open} onClose={fechar} title={<React.Fragment>
             <Typography color="inherit">Como utilizar:</Typography>
-            {"It's very engaging. Right?"}<u>{'Link para guia completo'}</u>
+            <Typography variant='subtitle2' color="inherit">Adicionar Universidade:</Typography>
+            {"Selecione uma universidade na barra de seleção acima e clique no botão com o símbolo \"+\" para que o gráfico mostre os dados referentes a universidade selecionada."}
+            <Typography variant='subtitle2' color="inherit">Remover Universidade:</Typography>
+            {"Para Remover, desça a tela até o painel da espectiva universidade e clique no símbolo \"x\" no cabeçalho (em azul)."}
+            <Typography variant='subtitle2' color="inherit">Abrir Tabela de Emendas da Universidade:</Typography>
+              {"Clique no botão escrito \"Abrir tabela de emendas\" logo abaixo dos gráficos de pizza. Para fechar, bastar clicar no botão novamente."}
+              <hr/>
+              <u>{'Link para guia completo'}</u>
         </React.Fragment>} placement='right'>
             <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
         </Tooltip>
@@ -301,17 +308,23 @@ function PainelComparativo(props) {
     }
   })
 
-  return (<Container className='main-container' component={'main'}>
-    <BreadcrumbsWithRouter props={props} history={history} links={[{texto:"Principal", endPagina: "/"}, {texto:"Painel Comparativo", endPagina: "/PainelComparativo"}]} />
+  return (<Container className='container-tela' component={'main'}>
+    <BreadcrumbsWithRouter props={props} history={history} links={[{texto:"Principal", endPagina: "/"}, {texto:"Painel Comparativo", endPagina: "/PainelComparativo"}]} className={"breadcrumbs"}/>
     <Box style={{width: "100%"}}>
       <SeletorUniversidades temAcoes loadingUniversidades={loadingUniversidades} listaUniversidades={listaUniversidades} recarregar={handleRecarregar} removerTudo={handleRemoverTudo} selecionarUniversidade={handleAdicionarUniversidade} valorAutocomplete={valorAutocomplete} autocompleteAberto={autocompleteAberto} setValorAutocomplete={handleSetValorAutocomplete} changeAutocompleteAberto={handleSetAutocompleteAberto}></SeletorUniversidades>
     </Box>
     <Grid container spacing={2} className='grid-principal'>
       <Grid item xs={12}>
-        <Paper className='painelGrafico' elevation={3}>
-          <Box className='header-painel' style={{ marginBottom: 10 }}>
-            <Typography component='h3' variant='h5' style={{  marginTop: "4px", marginLeft: "10px", float: "left" }}>Total Pago em Emendas Por Universidade</Typography>
+        <Paper className='painel-grafico-painel-comparativo' elevation={3}>
+          <Box className='header-painel-painel-comparativo'>
+            <Typography component='h3' variant='subtitle1' className='titulo-header-painel-painel-comparativo'>Total Pago em Emendas Por Universidade</Typography>
             <AjudaPainelComparativo open={statusAjudaPainelComparativo} abrir={abrirAjudaPainelComparativo} fechar={fecharAjudaPainelComparativo} />
+          </Box>
+          <Box className='subtitulo-painel-painel-comparativo'>
+            <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                <Warning />
+            </Icon>
+            <Typography component='h3' variant='caption' className="subtitulo-header-painel-universidades">Passe o cursor do mouse sobre os pontos do gráfico visualizar os respectivos valores</Typography>
           </Box>
           {
             emendasAnoUniversidades.length > 0 ? <LinhaHorizontal emendasUniversidades={emendasAnoUniversidades} anos={anos}/> : 
@@ -320,7 +333,7 @@ function PainelComparativo(props) {
                 loadingGrafico ? <Box className='box-loading-grafico'>
                   <CircularProgress color="inherit" size={40} />
                 </Box> : <Box className='box-grafico-vazio' style={{height: "50px", color: "grey"}}>
-                  <Typography variant="h5">Adicione uma Universidade ao gráfico</Typography>
+                  <Typography component='h5' variant='h6'>Adicione uma universidade ao gráfico</Typography>
                 </Box>
               }
             </> 

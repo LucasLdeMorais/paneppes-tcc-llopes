@@ -8,11 +8,26 @@
   min-height: max-content;
 }
 
-.painelGrafico {
+.painel-grafico-painel-comparativo {
   min-height: 350px;
-  margin-bottom: 40px;
   height: max-content;
   width: 100%;
+}
+
+.header-painel-painel-comparativo {
+  background-color: #1976d2;
+  min-height: 40px;
+  max-height: max-content;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: whitesmoke;
+  padding: 5px;
+}
+
+.titulo-header-painel-painel-comparativo {
+  padding: 6px 8px 8px 10px;
+  padding-left: 10px;
+  float: left
 }
 
 .painelAnos {
@@ -42,5 +57,9 @@
   height: 50px; 
   color: grey;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 12%;
+}
+
+.subtitulo-painel-painel-comparativo {
+  padding-top: 10px;
 }

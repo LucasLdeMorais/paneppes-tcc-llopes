@@ -24,7 +24,8 @@ import {
   ChevronRight,
   CompareArrows,
   Help,
-  Groups
+  Groups,
+  Source
 } from "@mui/icons-material";
 import { withRouter } from "react-router-dom";
 
@@ -60,6 +61,10 @@ const Sidebar = (props) => {
       text: "Como usar as Ferramentas",
       icon: <Help />,
       onClick: () => history.push("/Sobre")
+    },{
+      text: "Fonte das Informações",
+      icon: <Source />,
+      onClick: () => history.push("/FonteDasInformacoes")
     },{
       text: "Código-fonte",
       icon: <Code />,
