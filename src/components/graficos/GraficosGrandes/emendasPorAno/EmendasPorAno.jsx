@@ -54,30 +54,13 @@ const options = {
     responsive: true,
     scales: {
         x: {
-            stacked: false,
+            stacked: true,
         },
         y: {
-            stacked: false,
+            stacked: true,
         },
     },
 };
-
-function randomPastelColorRGB(){
-    var r = (Math.round(Math.random()* 127) + 127);
-    var g = (Math.round(Math.random()* 127) + 127);
-    var b = (Math.round(Math.random()* 127) + 127);
-    return [r,g,b]
-}
-
-function getRgbString(rgb, translucido) {
-    let r = rgb[0]
-    let g = rgb[1]
-    let b = rgb[2]
-    if(translucido){
-        return 'rgba(' + r + ', ' + g + ', ' + b + ', 0.5 )';
-    }
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
 
 function EmendasPorAno({emendasUniversidade, styleBox, styleGrafico}) {
     
@@ -118,20 +101,26 @@ function EmendasPorAno({emendasUniversidade, styleBox, styleGrafico}) {
      * ]
      */ 
     function getDatasets(emendas) {
-        const datasets = []
-        datasets.push({
-            label: "Pago",
-            data: emendas.pago,
-            backgroundColor: 'rgb(109, 255, 124)',
-            stack: 'Stack 0'
-        })
-        datasets.push({
-            label: "Empenhado",
-            data: emendas.empenhado,
-            backgroundColor: 'rgb(255, 237, 81)',
-            stack: 'Stack 1'
-        })
-        setDatasets(datasets)
+        setDatasets([
+            {
+                label: "Empenhado",
+                data: emendas.empenhado,
+                backgroundColor: 'rgb(88, 211, 97)',
+                stack: 'Stack 1'
+            },
+            {
+                label: "Liquidado",
+                data: emendas.liquidado,
+                backgroundColor: 'rgb(255, 237, 81)',
+                stack: 'Stack 2'
+            },
+            {
+                label: "Pago",
+                data: emendas.pago,
+                backgroundColor: 'rgb(25, 118, 210)',
+                stack: 'Stack 3'
+            }
+        ])
     }
 
     return(<>

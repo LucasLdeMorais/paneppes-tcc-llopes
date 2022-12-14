@@ -44,20 +44,25 @@ function Universidades(props) {
     function handleGetEmendasAno(emendas) {
         let emendasAnoAux = {
             pago: [],
-            empenhado: []
+            empenhado: [],
+            liquidado: []
         }
         
         anos.forEach(ano => {
-            let pagoAno = 0
-            let empenhadoAno = 0
+            let pagoAno = 0;
+            let empenhadoAno = 0;
+            let liquidadoAno = 0;
             emendas.forEach(emenda => {
                 if(emenda.ano === parseInt(ano)){
-                    pagoAno += emenda.pago
-                    empenhadoAno += emenda.empenhado
+                    debugger
+                    empenhadoAno += emenda.empenhado;
+                    liquidadoAno += emenda.liquidado;
+                    pagoAno += emenda.pago;
                 }
-            })
-            emendasAnoAux.pago.push(pagoAno)
-            emendasAnoAux.empenhado.push(empenhadoAno)
+            });
+            emendasAnoAux.empenhado.push(empenhadoAno);
+            emendasAnoAux.liquidado.push(liquidadoAno);
+            emendasAnoAux.pago.push(pagoAno);            
         })
         setEmendasAno(emendasAnoAux)
     }

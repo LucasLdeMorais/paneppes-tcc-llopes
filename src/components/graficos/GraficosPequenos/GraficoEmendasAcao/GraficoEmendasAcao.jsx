@@ -139,7 +139,6 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
       }
     });
     
-    debugger
     if (!(pagoAcao.data.length === pagoAcao.data.filter(item => item === 0).length)){
       let i = 0;
       while (i < pagoAcao.data.length) {
@@ -152,7 +151,7 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
       }
     }
     // * Seta o valor acumulado na legenda
-    debugger
+    
     let total = 0;
     if (pagoAcao.data.length > 0){
         total = pagoAcao.data.reduce((acc,valor) => {

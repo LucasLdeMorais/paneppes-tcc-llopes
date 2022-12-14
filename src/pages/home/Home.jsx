@@ -2,7 +2,7 @@ import "./home.css";
 import React from 'react';
 import { Button, Container, Grid, Icon, Paper, Typography, Box, CircularProgress } from "@mui/material";
 import EmendasPorAno from "../../components/graficos/GraficosGrandes/emendasPorAno/EmendasPorAno";
-import { AccountBalance, CompareArrows, Groups } from "@mui/icons-material";
+import { AccountBalance, CompareArrows, Groups, Warning } from "@mui/icons-material";
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants";
 import { useState, useEffect } from 'react';
@@ -130,7 +130,6 @@ function Home(props) {
   }
 
   const GeraGraficoEmendasAno = () => {
-    debugger
     if(emendasAno === undefined){
       if(carregandoEmendas){
         return <Box className='box-grafico-grande-carregando'>
@@ -162,22 +161,26 @@ function Home(props) {
   const reduceEmendasAno = (emendas, anos) => {
     let emendasAnos = {
       pago: [],
-      empenhado: []
+      empenhado: [],
+      liquidado: []
     }
-    console.log(emendas,"aqui")
+    
     anos.forEach((ano) => {
       let emendasAno = {
         pago: 0,
-        empenhado: 0
+        empenhado: 0,
+        liquidado: 0
       }
       emendas.forEach( emenda => {
         if(`${emenda.ano}` === ano) {
           emendasAno.pago += emenda.pago;
           emendasAno.empenhado += emenda.empenhado;
+          emendasAno.liquidado += emenda.liquidado;
         }
       })
       emendasAnos.pago.push(emendasAno.pago)
       emendasAnos.empenhado.push(emendasAno.empenhado)
+      emendasAnos.liquidado.push(emendasAno.liquidado)
     })
     return emendasAnos
   }
@@ -218,6 +221,12 @@ function Home(props) {
             <Box className='header-painel-grafico-home'>
               <Typography component='h3' variant='subtitle1'>Total de Emendas Pagas e empenhadas por Ano (R$)</Typography>
             </Box>
+            <Box className='subtitulo-painel-grafico-grande-home'>
+                <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                    <Warning />
+                </Icon>
+                <Typography component='h3' variant='caption' className="subtitulo-header-painel-home">Posicione o cursor do mouse sobre as barras do gráfico para visualizar os valores</Typography>
+            </Box>
             <GeraGraficoEmendasAno />
           </Paper>
         </Grid>
@@ -227,6 +236,12 @@ function Home(props) {
               <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por Região</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "95%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            <Box className='subtitulo-painel-grafico-grande-home'>
+              <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                  <Warning />
+              </Icon>
+              <Typography component='h3' variant='caption' className="subtitulo-header-painel-home">Posicione o cursor do mouse sobre as barras do gráfico para visualizar os valores</Typography>
+            </Box>
             <GeraGraficoEmendasRegiao/>
           </Paper>
         </Grid>
@@ -236,6 +251,12 @@ function Home(props) {
               <Typography component='h3' variant='subtitle1'>Distribuição por Tipo de Emenda (RP)</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "95%", margin: "9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            <Box className='subtitulo-painel-grafico-grande-home'>
+              <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                  <Warning />
+              </Icon>
+              <Typography component='h3' variant='caption' className="subtitulo-header-painel-home">Posicione o cursor do mouse sobre as barras do gráfico para visualizar os valores</Typography>
+            </Box>
             <GeraGraficoEmendasRp />
           </Paper>
         </Grid>
@@ -246,6 +267,12 @@ function Home(props) {
               <Typography component='h3' variant='subtitle1'>Distribuição de emendas pagas por Estado</Typography>
             </Box>
             <SeletorAnos paper stylePaper={{width: "97%", marginLeft: "9px", marginRight: "9px", marginTop:"9px"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+            <Box className='subtitulo-painel-grafico-grande-home'>
+              <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                  <Warning />
+              </Icon>
+              <Typography component='h3' variant='caption' className="subtitulo-header-painel-home">Posicione o cursor do mouse sobre as barras do gráfico para visualizar os valores</Typography>
+            </Box>
             <GeraGraficoEmendasEstados />
           </Paper>
         </Grid>
