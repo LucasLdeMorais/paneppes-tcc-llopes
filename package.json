@@ -1,5 +1,5 @@
 {
-  "name": "lucas-lopes-tcc",
+  "name": "painel-visepes",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -53,7 +53,6 @@
     ]
   },
   "devDependencies": {
-    "react-scripts": "^2.1.3"
-  },
-  "homepage": "https://LucasLdeMorais.github.io/painel-visepes"
+    "react-scripts": "^5.0.1"
+  }
 }
