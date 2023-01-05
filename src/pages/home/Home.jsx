@@ -78,7 +78,7 @@ function Home(props) {
 
   const GeraGraficoEmendasRegiao = () => {
     if(carregandoEmendas || carregandoUniversidades) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='carregando-item-home'>
         <CircularProgress color="inherit" size={40} style={{marginBottom:"20px"}}/>
         <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
       </Box>
@@ -97,7 +97,7 @@ function Home(props) {
 
   const GeraGraficoEmendasEstados = () => {
     if(carregandoEmendas || carregandoUniversidades) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='carregando-item-home'>
           <CircularProgress color="inherit" size={40} style={{marginBottom:"20px"}}/>
         <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
       </Box>
@@ -116,7 +116,7 @@ function Home(props) {
 
   const GeraGraficoEmendasRp = () => {
     if(carregandoEmendas || carregandoUniversidades) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='carregando-item-home'>
         <CircularProgress color="inherit" size={40} style={{marginBottom:"20px"}}/>
         <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
       </Box>

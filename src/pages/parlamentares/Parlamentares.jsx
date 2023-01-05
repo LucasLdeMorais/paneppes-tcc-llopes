@@ -100,16 +100,16 @@ function Parlamentares(props) {
      const GeraListaEmendas = () => {
         if(dadosEmendas === undefined){
             if(carregandoEmendas){
-            return <Box className='box-tabela-vazia'>
+            return <Box className='box-tabela-emendas-vazia-parlamentar'>
                 <CircularProgress color="inherit" size={40} style={{marginBottom:"20px"}}/>
                 <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
             </Box>
             } else if(temErroEmendas) {
-            return <Box className='box-tabela-vazia'>
+            return <Box className='box-tabela-emendas-vazia-parlamentar'>
                 <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de emendas</Typography>
             </Box>
             } else {
-            return <Box className='box-tabela-vazia'>
+            return <Box className='box-tabela-emendas-vazia-parlamentar'>
                 <Typography component='h5' variant='h6'>Selecione um parlamentar</Typography>
             </Box>
             }

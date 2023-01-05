@@ -1,12 +1,13 @@
-.box-tabela-vazia {
+.box-tabela-emendas-vazia-parlamentar {
     display: block;
     color: grey;
     text-align: center;
     max-height: 379px;
-    padding: 189px 0 189px 0;
+    padding: 170px 0 170px 0;
 }
 
 .table-container-tabela-emendas-parlamentar {
     overflow: auto;
-    max-height: 379px
+    min-height: 350px;
+    max-height: 540px;
 }

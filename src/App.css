@@ -25,4 +25,12 @@ body {
 
 .link-breadcrumbs {
     cursor: pointer;
-  }
+}
+
+.carregando-pagina-app {
+    display: block;
+    color: grey;
+    text-align: center;
+    max-height: 379px;
+    padding: 189px 0 189px 0;
+}

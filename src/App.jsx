@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import "./App.css";
+import React, { useState, lazy, Suspense} from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { QueryClient, QueryClientProvider } from "react-query";
+import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
-import "./App.css";
-import Home from "./pages/home/Home";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Universidades from "./pages/universidades/Universidades";
-import PainelComparativo from "./pages/painelComparativo/PainelComparativo";
-import EmendasParlamentares from "./pages/emendasParlamentares/EmendasParlamentares";
-import { Box, Container } from "@mui/material";
-import Parlamentares from "./pages/parlamentares/Parlamentares";
-import FinanciamentoUniversidadesFederais from "./pages/financiamentoUniversidadesFederais/FinanciamentoUniversidadesFederais";
-import ParaSaberMais from './pages/paraSaberMais/ParaSaberMais';
-import { QueryClient, QueryClientProvider } from "react-query";
-import FonteDasInformacoes from "./pages/fonteDasInformacoes/FonteDasInformacoes";
+
+const Universidades = lazy(() => import("./pages/universidades/Universidades"));
+const PainelComparativo = lazy(() => import("./pages/painelComparativo/PainelComparativo"));
+const Parlamentares = lazy(() => import("./pages/parlamentares/Parlamentares"));
+const ParaSaberMais = lazy(() => import("./pages/paraSaberMais/ParaSaberMais"));
+const FonteDasInformacoes = lazy(() => import("./pages/fonteDasInformacoes/FonteDasInformacoes"));
+const Home = lazy(() => import("./pages/home/Home"));
 
 function App() {
   const [aberto, setAberto] = useState(false);
@@ -42,24 +42,31 @@ function App() {
           <Sidebar aberto={aberto} fechaGaveta={handleFecharGaveta} />
           <Container component="div" sx={{ flexGrow: 1, p: 3 }} className={"container-application"} style={{marginTop: '20px'}}>
             <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/Universidades">
-                <Universidades />
-              </Route>
-              <Route path="/PainelComparativo">
-                <PainelComparativo />
-              </Route>
-              <Route path="/Parlamentares">
-                <Parlamentares />
-              </Route>
-              <Route path="/SaberMais">
-                <ParaSaberMais />
-              </Route>
-              <Route path="/FonteDasInformacoes">
-                <FonteDasInformacoes />
-              </Route>
+              <Suspense fallback={
+                <Box className='carregando-pagina-app'>
+                  <CircularProgress color="inherit" size={40} style={{marginBottom:"20px"}}/>
+                  <Typography component='h5' variant='h6' style={{}}>Carregando...</Typography>
+                </Box>
+              }>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/Universidades">
+                  <Universidades />
+                </Route>
+                <Route path="/PainelComparativo">
+                  <PainelComparativo />
+                </Route>
+                <Route path="/Parlamentares">
+                  <Parlamentares />
+                </Route>
+                <Route path="/SaberMais">
+                  <ParaSaberMais />
+                </Route>
+                <Route path="/FonteDasInformacoes">
+                  <FonteDasInformacoes />
+                </Route>
+              </Suspense>
             </Switch>
           </Container>
         </Box>

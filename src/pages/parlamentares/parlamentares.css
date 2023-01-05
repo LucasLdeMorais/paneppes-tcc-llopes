@@ -31,7 +31,7 @@
 }
 
 .painel-lista-emendas-parlamentares {
-    max-height: 500px;
+    max-height: max-content;
 }
 
 .painel-grafico-grande-parlamentares {

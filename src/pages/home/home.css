@@ -19,7 +19,12 @@
     padding: 40px;
 }
 
-.botao-telas-home :hover{
+.carregando-item-home {
+    display: block;
+    color: grey;
+    text-align: center;
+    max-height: 379px;
+    padding: 189px 0 189px 0;
 }
 
 .box-grafico-grande-vazio {

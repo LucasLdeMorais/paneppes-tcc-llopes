@@ -69,8 +69,13 @@ const options = {
 };
 
 const ufEmenda = (emenda, listaUniversidades) => {
-    const universidade = listaUniversidades.find(universidade => universidade.uo === emenda.nroUo);
-    return universidade.uf;
+    try {
+        const universidade = listaUniversidades.find(universidade => universidade.uo === emenda.nroUo);
+        return universidade.uf;
+    } catch(e){
+        console.log(e.message);
+    }
+    
 }
 
 function randomPastelColorRGB(){

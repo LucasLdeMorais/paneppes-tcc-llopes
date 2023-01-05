@@ -97,9 +97,13 @@ export default function GraficoEmendasRegiao({emendasUniversidades, universidade
   const shouldGetDataset = useRef(true);
 
   const regiaoEmenda = (emenda, listaUniversidades) => {
-    const universidade = listaUniversidades.find(universidade => universidade.uo === emenda.nroUo);
-    const regiao = regioes.find(item => item.estados.find(item2 => item2 === universidade.uf));
-    return regiao.nome;
+    try {
+      const universidade = listaUniversidades.find(universidade => universidade.uo === emenda.nroUo);
+      const regiao = regioes.find(item => item.estados.find(item2 => item2 === universidade.uf));
+      return regiao.nome;
+    } catch(e){
+      console.log(e.message);
+    }
   }
 
   /**
