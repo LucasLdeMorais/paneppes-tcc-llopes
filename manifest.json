@@ -1,0 +1,9 @@
+{
+  "short_name": "Painel VisEPIFES",
+  "name": "Painel de Visualisação de Emendas Parlamentares para Instituições Federais de Ensino Superior",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
