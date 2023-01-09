@@ -4,7 +4,7 @@ import { Button, Container, Grid, Icon, Paper, Typography, Box, CircularProgress
 import EmendasPorAno from "../../components/graficos/GraficosGrandes/emendasPorAno/EmendasPorAno";
 import { AccountBalance, CompareArrows, Groups, Warning } from "@mui/icons-material";
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
-import { anos } from "../../constants";
+import { anos } from "../../constants/compartilhado";
 import { useState, useEffect } from 'react';
 import { useListState } from '@mantine/hooks';
 import { useRef } from 'react';

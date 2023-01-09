@@ -6,7 +6,7 @@ import EmendasPorAno from "../../components/graficos/GraficosGrandes/emendasPorA
 import GraficoEmendasAcao from "../../components/graficos/GraficosPequenos/GraficoEmendasAcao/GraficoEmendasAcao";
 import SeletorUniversidades from './../../components/seletorUniversidades/SeletorUniversidades';
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
-import { anos } from "../../constants";
+import { anos } from "../../constants/compartilhado";
 import GraficoEmendasPartido from './../../components/graficos/GraficosPequenos/GraficoEmendasPartido/index';
 import ListaEmendas from "../../components/tabelas/listaEmendas";
 import PainelSemUniversidadeSelecionada from './../../components/PainelComparativo/PainelSemUniversidadeSelecionada/index';

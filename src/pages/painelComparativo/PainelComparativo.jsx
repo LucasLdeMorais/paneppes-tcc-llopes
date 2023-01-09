@@ -2,7 +2,7 @@ import './index.css';
 import { Box, Container } from '@mui/system';
 import { CircularProgress, ClickAwayListener, Grid, Paper, Typography } from '@mui/material';
 import LinhaHorizontal from '../../components/graficos/GraficosGrandes/linhaHorizontal/LinhaHorizontal';
-import { anos } from '../../constants'
+import { anos } from '../../constants/compartilhado'
 import { recuperaEmendasUniversidade, recuperaListaUniversidades } from '../../services/emendasService/'
 import React, { useState, useEffect, useRef } from 'react';
 import { useListState } from '@mantine/hooks';

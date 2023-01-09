@@ -13,7 +13,7 @@ import { ListItemText } from '@mui/material';
 import { ListItemIcon } from '@mui/material';
 import { Square } from '@mui/icons-material';
 import { Typography } from '@mui/material';
-import { regioes } from '../../../../constants';
+import { regioes } from '../../../../constants/compartilhado';
 import { useRef } from 'react';
 import { roundDouble } from '../../../../utils';
 import ChartDataLabels from 'chartjs-plugin-datalabels';

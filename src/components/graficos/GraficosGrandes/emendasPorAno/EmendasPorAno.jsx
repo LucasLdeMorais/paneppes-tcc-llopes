@@ -16,7 +16,7 @@ import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useListState } from '@mantine/hooks';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { anos } from '../../../../constants';
+import { anos } from '../../../../constants/compartilhado';
 
 ChartJS.register(
     CategoryScale,

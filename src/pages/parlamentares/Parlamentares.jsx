@@ -3,7 +3,7 @@ import { Error, Help, NavigateNext, Warning } from '@mui/icons-material'
 import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText, Icon, CircularProgress, IconButton, Tooltip, ClickAwayListener } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
-import { anos } from "../../constants";
+import { anos } from "../../constants/compartilhado";
 import { recuperaEmendasParlamentar, recuperaListaParlamentares } from "../../services/emendasService";
 import SeletorParlamentares from './../../components/seletorParlamentares/SeletorParlamentares';
 import ListaEmendasParlamentar from "../../components/tabelas/tabelaEmendasParlamentar";
