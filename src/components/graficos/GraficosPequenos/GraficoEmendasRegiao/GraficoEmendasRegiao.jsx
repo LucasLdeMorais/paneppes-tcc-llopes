@@ -1,4 +1,3 @@
-// TODO: O objetivo aqui é ter uma gráfico de pizza que mostra quanto do valor pago foi destinado para cada tipo de despesa
 import React, { useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';

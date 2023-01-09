@@ -15,14 +15,8 @@ import { Tooltip } from '@mui/material';
 import { Icon } from '@mui/material';
 import { IconButton } from '@mui/material';
 import { Help, Warning } from '@mui/icons-material';
-  // TODO: Olhar no figma exemplos de dashboard
-  // TODO: Fazer ajustes relacionados ao desempenho da aplicação em redes mais lentas
-  // * CHECK! TODO: Baixar emendas de acordo com as universidades selecionadas 
-  // * CHECK! TODO: Separar emendas obtidas a partir das respectivas universidades
-  //// Documentar todas as funções e só manter o que está sendo utilizado de fato
-  // * CHECK! TODO: Colocar o display de paineis separado
-  // * CHECK! TODO: Seletor de anos por painel com menu dropdown
-  // TODO: Gerar Cor junto com as Emendas da Universidade
+
+// TODO: Gerar Cor junto com as Emendas da Universidade
 
 function PainelComparativo(props) {
   const { history } = props;
@@ -50,25 +44,6 @@ function PainelComparativo(props) {
     }
   }
 
-  async function handleRecuperaEmendasUniversidade(universidade) {
-    try {
-      if (emendas.includes(value => value.sigla === universidade.sigla)) {
-        return
-      }
-      const data = await recuperaEmendasUniversidade(universidade)
-      setEmendas.append(data)
-      return data.emendas
-    } catch(e) {
-      console.log(e.message)
-    }
-  }
-
-  // TODO: Revisar necessidade
-  function handleSetTotalAnosUniversidades(universidades){
-    universidades.forEach(universidade => calculaTotalAnosUniversidade(emendas, universidade, anos))
-  }
-
-  // TODO: Revisar se está certinho
   // * function calculaTotalAnosUniversidade
   /**
    * @param Emendas [..., {
@@ -125,37 +100,6 @@ function PainelComparativo(props) {
       pagoEmendasAno: pagoEmendasAno
     }
   }
-  
-  // * function getTotalAnosUniversidades
-  /**
-   * 
-    @returns  emendasPorAnoUniversidades [
-      {
-        universidade: UFRJ,
-        emendas: [ 2500000, ... ]
-      },
-      {
-        universidade: UFF,
-        emendas: [ 1250000, ... ]
-      },
-      ...
-    ]
-  */
-  function getTotalAnosUniversidades(emendas, universidades, anos) {
-    const emendasPorAnoUniversidades = []
-    if(emendas.length === 0 || universidades.length === 0) {
-      return
-    }
-    universidades.forEach( universidade => {
-      let emendasAnosUniversidade = {
-        universidade: universidade.sigla,
-        emendas: []
-      }
-      emendasAnosUniversidade['emendas'] = calculaTotalAnosUniversidade(emendas, universidade, anos)
-      emendasPorAnoUniversidades.push(emendasAnosUniversidade)
-    })
-    return emendasPorAnoUniversidades
-  }
 
   function handleSetAutocompleteAberto(value) {
     setAutocompleteAberto(value);
@@ -165,7 +109,6 @@ function PainelComparativo(props) {
     setValorAutocomplete(value);
   }
   
-  // TODO: Colocar o dislay de paineis separado
   function adicionarPainel(universidade, emendasUniversidade) {
     const painel = {
         titulo: universidade.sigla,

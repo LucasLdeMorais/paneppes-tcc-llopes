@@ -12,8 +12,7 @@ import {
 import React from 'react';
 import "./linhaHorizontal.css";
 import { Line } from 'react-chartjs-2';
-import { Box, CircularProgress } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useListState } from '@mantine/hooks';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -82,7 +81,6 @@ function LinhaHorizontal({emendasUniversidades, anos, styleBox, styleGrafico}) {
         }
     },[emendasUniversidades])
 
-    // ! Revisar
     // * function getDatasets
     /**
      * @param emendasUniversidades [ ..., {
@@ -117,39 +115,6 @@ function LinhaHorizontal({emendasUniversidades, anos, styleBox, styleGrafico}) {
             })
         })
         setDatasets.setState(datasets)
-    }
-
-    // ! Revisar
-    // * function getDataset
-    /**
-     * @param emendasUniversidades [ ..., {
-     *      universidade: UFRJ
-     *      emendasPorAno: [ ..., 2500000, 1500000 ]
-     *    }
-     *  ]
-     * 
-     * @return [ ...,
-     *  {
-     *    label: UFRJ,
-     *    data: [ ..., 2500000, 1500000 ],
-     *    borderColor: 'rgb('150','150','150')',
-     *    backgroundColor: 'rgba('150', '150', '150', 0.5 )',
-     *    tension: 0.2,
-     *    fill: false
-     *  }
-     * ]
-     */ 
-     function getDataset(universidade) {
-        const colorRgb = randomPastelColorRGB()
-        const color = getRgbString(colorRgb, false)
-        return {
-            label: universidade.siglaUniversidade,
-            data: universidade.pagoEmendasAno,
-            borderColor: color,
-            backgroundColor: color,
-            tension: 0.2,
-            fill: false
-        }
     }
 
     return(<>

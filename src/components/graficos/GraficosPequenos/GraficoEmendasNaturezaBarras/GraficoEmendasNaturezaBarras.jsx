@@ -1,5 +1,4 @@
-// TODO: O objetivo aqui é ter uma gráfico de pizza que mostra quanto do valor pago foi destinado para cada tipo de despesa
-import React, { useState } from 'react';
+import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Box } from '@mui/system';
 import "./index.css";

@@ -1,4 +1,3 @@
-// TODO: O objetivo aqui é ter uma gráfico de pizza que mostra quanto do valor pago foi destinado para cada tipo de despesa
 import React, { useRef, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -10,7 +9,7 @@ import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Square } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { removeItemAll, roundDouble } from '../../../../utils';
+import { roundDouble } from '../../../../utils';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title, ChartDataLabels);
 const options = {
@@ -28,38 +27,6 @@ const options = {
         text: 'Valor de Emendas Pagas por Ação'
     },
     datalabels: {
-      formatter: (value, ctx) => {
-        let dataset = ctx.dataset;
-        let soma = 0;
-        dataset.data.forEach(data => {
-          soma += data;
-        });
-        let percentage = roundDouble(((value / soma) * 100), 2) + '%';
-        return percentage;
-      },
-      font: {
-          weight: 'bold'
-      }
-    }
-  }
-};
-
-const optionsVazio = {
-  indexAxis: 'x',
-  responsive: true,
-  plugins: {
-    legend: {
-        position: 'right',
-        display: false
-    },
-    tooltip: {
-    },
-    title: {
-        display: false,
-        text: 'Valor de Emendas Pagas por Ação'
-    },
-    datalabels: {
-      display: false,
       formatter: (value, ctx) => {
         let dataset = ctx.dataset;
         let soma = 0;

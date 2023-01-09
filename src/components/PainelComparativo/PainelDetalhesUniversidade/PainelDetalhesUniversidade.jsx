@@ -1,6 +1,6 @@
 import "./index.css";
 import React from 'react';
-import { Paper, Typography, Box, IconButton, Tooltip, ClickAwayListener, Icon } from '@mui/material';
+import { Paper, Typography, Box, IconButton, Tooltip, ClickAwayListener } from '@mui/material';
 import Painel from '../../paineis/Painel';
 import GraficoEmendasAcao from '../../graficos/GraficosPequenos/GraficoEmendasAcao/GraficoEmendasAcao';
 import GraficoEmendasPartido from '../../graficos/GraficosPequenos/GraficoEmendasPartido';

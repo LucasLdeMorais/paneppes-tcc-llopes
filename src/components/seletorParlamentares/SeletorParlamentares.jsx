@@ -3,14 +3,12 @@ import { Box } from '@mui/system';
 import "./index.css"
 import { Autocomplete, TextField, CircularProgress, IconButton } from '@mui/material';
 import React from 'react';
-import { Add, DeleteForever, Refresh, Remove } from '@mui/icons-material';
+import { Add, DeleteForever } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { Paper } from '@mui/material';
 
 function SeletorParlamentares({ loadingParlamentares, erroListaParlamentares, temAcoes, removerTudo, listaParlamentares, selecionarParlamentar, valorAutocomplete, autocompleteAberto, setValorAutocomplete, changeAutocompleteAberto}) {
 
-    //const loading = autocompleteAberto && listaParlamentares.length === 0;
-    //const [valorAutocomplete, setValorAutocomplete] = useState({""});
     function onChange(event, newValue) {
         event.preventDefault();
         temAcoes?  setValorAutocomplete(newValue) : selecionarParlamentar(newValue);

@@ -1,7 +1,7 @@
 import "./index.css";
 import { Container, Paper, Typography, Box} from "@mui/material";
 import React from "react";
-import { comoFuncionaEmendasParlamentares, oQueSaoEmendasParlamentares } from "../../mensagens";
+import { comoFuncionaEmendasParlamentares, oQueSaoEmendasParlamentares } from "../../constants/mensagens";
 import CaixaTexto from './../../components/caixaTexto/CaixaTexto';
 import BreadcrumbsWithRouter from "../../components/BreadcrumbsWithRouter";
 import { withRouter } from "react-router-dom";

@@ -12,9 +12,7 @@ import {
 import React from 'react';
 import "./chart.css";
 import { Bar } from 'react-chartjs-2';
-import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useListState } from '@mantine/hooks';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { anos } from '../../../../constants/compartilhado';
 
@@ -72,7 +70,6 @@ function EmendasPorAno({emendasUniversidade, styleBox, styleGrafico}) {
         }
     },[emendasUniversidade])
 
-    // ! Revisar
     // * function getDatasets
     /**
      * @param emendasUniversidades {
@@ -124,14 +121,10 @@ function EmendasPorAno({emendasUniversidade, styleBox, styleGrafico}) {
     }
 
     return(<>
-                <Bar className={"grafico-barras"} style={styleGrafico} data={{
-                    labels: anos,
-                    datasets: datasets
-                }} options={options}/>
-                {/* { datasets.length > 0 ? <Bar className={"grafico-barras"} style={styleGrafico} data={{
-                    labels: anos,
-                    datasets: dados
-                }} options={options}/> : <></>} */}
-         </>)
+        <Bar className={"grafico-barras"} style={styleGrafico} data={{
+            labels: anos,
+            datasets: datasets
+        }} options={options}/>W
+    </>)
 }
 export default EmendasPorAno;

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
   Drawer as MUIDrawer,
   ListItem,
@@ -7,23 +7,16 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
-  Typography,
   Box,
   ClickAwayListener
 } from "@mui/material";
 import { 
-  PermIdentity,
   AttachMoney,
   AccountBalance,
   Analytics,
-  Person,
-  Info,
   Code,
-  CurrencyExchange,
   ChevronLeft,
-  ChevronRight,
   CompareArrows,
-  Help,
   Groups,
   Source
 } from "@mui/icons-material";
@@ -58,13 +51,9 @@ const Sidebar = (props) => {
       onClick: () => history.push("/SaberMais")
     }],
     infoAdicionais: [{
-      text: "Como usar as Ferramentas",
-      icon: <Help />,
-      onClick: () => history.push("/Sobre")
-    },{
-      text: "Fonte das Informações",
+      text: "Fonte dos Dados",
       icon: <Source />,
-      onClick: () => history.push("/FonteDasInformacoes")
+      onClick: () => history.push("/FonteDosDados")
     },{
       text: "Código-fonte",
       icon: <Code />,

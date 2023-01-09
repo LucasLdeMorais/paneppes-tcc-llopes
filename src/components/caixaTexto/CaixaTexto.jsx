@@ -3,7 +3,7 @@ import React from 'react';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
 import { Box } from '@mui/material';
-import { Close, ExpandLess, ExpandMore } from '@mui/icons-material';
+import { Close, ExpandMore } from '@mui/icons-material';
 import { Paper } from '@mui/material';
 
 export default function CaixaTexto({titulo, corpo}) {

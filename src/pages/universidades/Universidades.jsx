@@ -302,15 +302,6 @@ function Universidades(props) {
                         </Paper> 
                     </Grid> : <PainelSemUniversidadeSelecionada tamanho={"medio"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
                 }
-                {/* { 
-                    universidade?  <Grid item xs={12} style={{height: "max-content"}}>
-                        <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content", minHeight: "350px"}}>
-                            <Box style={{height: "max-content", minHeight: "350px"}}>
-                                <GraficoEmendasNaturezaBarras anoSelecionado={anoSelecionado} emendasUniversidade={emendas} ladoLegenda={"bottom"} styleBox={{height: "max-content", minHeight: "650px", overflow: "auto"}} styleGrafico={{height: "850px"}}/>
-                            </Box>
-                        </Paper> 
-                    </Grid> : <PainelSemUniversidadeSelecionada tamanho={"grande"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
-                } */}
                 { universidade? <Grid item xs={12}>
                     <Paper className='painel-lista-emendas-universidades' elevation={2} style={{height: "max-content"}}>
                         <Box className='header-tabela-emendas-universidades'>

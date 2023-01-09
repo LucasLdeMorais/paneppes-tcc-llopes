@@ -1,6 +1,6 @@
 import "./seletorAnos.css";
 import React from "react";
-import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { Paper } from '@mui/material';
 
 const SeletorAnos = ({anos, setAnoSelecionado, anoSelecionado, styleBox, stylePaper, paper}) => {

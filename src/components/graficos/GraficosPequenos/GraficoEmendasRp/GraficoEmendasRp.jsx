@@ -1,4 +1,3 @@
-// TODO: O objetivo aqui é ter uma gráfico de pizza que mostra quanto do valor pago foi destinado para cada tipo de despesa
 import React, { useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
@@ -193,13 +192,11 @@ export default function GraficoEmendasRp({emendasUniversidades, anoSelecionado, 
     <List style={{overflow: "auto", height: "100px", maxHeight: "100px", width: "100%"}}>
       {
         newLeg.map((rp,index) => {
-            if (rp.valor > 0) {   
-              return <ListItem style={{color: rp.cor, paddingBottom: 0}} key={index}>
-                <ListItemText primary={rp.nome} secondary={`R$ ${rp.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-                <ListItemText secondary={`${roundDouble(rp.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
-                <ListItemIcon ><Square style={{color: rp.cor, marginLeft: "15px"}}/></ListItemIcon>
-              </ListItem>
-            }
+          return <ListItem style={{color: rp.cor, paddingBottom: 0}} key={index}>
+              <ListItemText primary={rp.nome} secondary={`R$ ${rp.valor.toLocaleString('pt-BR')}`} primaryTypographyProps={{ style: styleLegendaMainText }} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+              <ListItemText secondary={`${roundDouble(rp.percentual, 2)}%`} secondaryTypographyProps={{ style: {fontSize: "0.7em", color: "dark gray"} }}/>
+              <ListItemIcon ><Square style={{color: rp.cor, marginLeft: "15px"}}/></ListItemIcon>
+            </ListItem>
         })
       }
     </List>

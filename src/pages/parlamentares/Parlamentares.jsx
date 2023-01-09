@@ -1,10 +1,9 @@
 import "./parlamentares.css";
-import { Error, Help, NavigateNext, Warning } from '@mui/icons-material'
-import { Container, Grid, Paper, Autocomplete, TextField, Typography, Link, Breadcrumbs, Box, CardContent, CardActionArea, List, ListItem, ListItemText, Icon, CircularProgress, IconButton, Tooltip, ClickAwayListener } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Help, Warning } from '@mui/icons-material'
+import { Container, Grid, Paper, Typography, Box, Icon, CircularProgress, IconButton, Tooltip, ClickAwayListener } from "@mui/material";
+import React, { useState } from "react";
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants/compartilhado";
-import { recuperaEmendasParlamentar, recuperaListaParlamentares } from "../../services/emendasService";
 import SeletorParlamentares from './../../components/seletorParlamentares/SeletorParlamentares';
 import ListaEmendasParlamentar from "../../components/tabelas/tabelaEmendasParlamentar";
 import { useQuery } from "react-query";
@@ -15,7 +14,6 @@ import { withRouter } from "react-router-dom";
 function Parlamentares(props) {
     const { history } = props;
     const [ parlamentar, setParlamentar ] = useState()
-    const [ listaParlamentares, setListaParlamentares ] = useState([])
     const { isLoading: carregandoParlamentares, isError: temErroParlamentares, error: erroParlamentares, data: dadosParlamentares} = useQuery("recuperaListaParlamentares", 
         async () => { 
             const response = await api.get('/parlamentares');
@@ -33,68 +31,19 @@ function Parlamentares(props) {
     );
     const [ autocompleteAberto, setAutocompleteAberto ] = useState(false)
     const [ anoSelecionado, setAnoSelecionado ] = useState(0)
-    const [ emendas, setEmendas ] = useState([])
-    const [ emendasAno, setEmendasAno ] = useState([])
-    const shouldGetListaParlamentares = useRef(true)
-    const loading = listaParlamentares.length === 0;
-    const [ shouldBeLoadingGrafico, setShouldBeLoadingGrafico ] = useState(false)
     const [ statusAjudaParlamentares, setStatusAjudaParlamentares ] = useState(false)
-
-    async function handleRecuperaListaParlamentares() {
-        try {
-            const data = await recuperaListaParlamentares();
-            if(data){
-                setListaParlamentares(data);
-                shouldGetListaParlamentares.current = false;
-            }
-        } catch (e) {
-            console.log(e.message);
-        }
-    }
-
-    function handleGetEmendasAno(emendas) {
-        let emendasAnoAux = {
-            pago: [],
-            empenhado: []
-        }
-        
-        anos.forEach(ano => {
-            let pagoAno = 0
-            let empenhadoAno = 0
-            emendas.forEach(emenda => {
-                if(emenda.ano === parseInt(ano)){
-                    pagoAno += emenda.pago
-                    empenhadoAno += emenda.empenhado
-                }
-            })
-            emendasAnoAux.pago.push(pagoAno)
-            emendasAnoAux.empenhado.push(empenhadoAno)
-        })
-        setEmendasAno(emendasAnoAux)
-    }
 
     function handleSetAutocompleteAberto(value) {
         setAutocompleteAberto(value);
     }
 
     async function handleSetParlamentar(value) {
-        // setShouldBeLoadingGrafico(true)
         setParlamentar(value);
-        // let emendasParlamentar;
-        // emendasParlamentar = await recuperaEmendasParlamentar(value)
-        // console.log(emendasParlamentar)
-        // setEmendas(emendasParlamentar.emendas)
-        // handleGetEmendasAno(emendasParlamentar.emendas)
-        // setShouldBeLoadingGrafico(false)
     }
 
     function handleSetAnoSelecionado(Ano) {
         console.log(Ano)
         setAnoSelecionado(Ano)
-    }
-
-    function handleRecarregar() {
-        handleRecuperaListaParlamentares()   
     }
 
      const GeraListaEmendas = () => {
@@ -179,33 +128,6 @@ function Parlamentares(props) {
                         <GeraListaEmendas/>
                     </Paper>
                 </Grid>
-                {/* <Grid item xs={8}>
-                    <Paper className='painel' elevation={3}>
-                        <Typography variant="h6" component="h3" style={{marginBottom:10}}>Ranking de Emendas para Parlamentares Federais</Typography>
-                        <List style={{overflowY: "auto", height: '80%', width: "100%"}}>
-                            {[{nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}, 
-                            {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                            {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                            {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                            {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                            {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'},
-                            {nome: 'Jorge', valor: '500.000', motivo: 'Limpeza lorem ipsum dolor sit amet'}].map((emenda, index) => (
-                            <ListItem button style={{cursor: "default"}} key="item exemplo 2">
-                                <ListItemText>{emenda.nome}</ListItemText>
-                                <ListItemText>{emenda.valor}</ListItemText>
-                                <ListItemText>{emenda.motivo}</ListItemText>
-                            </ListItem>
-                            ))}
-                        </List>
-                    </Paper>
-                </Grid>
-                <Grid item xs={4}>
-                    <Paper className='painel' elevation={3}>
-                        <Typography component="h3" variant="h6">Total da Despesa: 11.000.000</Typography>
-                        <Typography component="h3" variant="h6">Total da Emendas: 1.000.000</Typography>
-                        <img style={{height: '75%'}} src="https://d2mvzyuse3lwjc.cloudfront.net/doc/en/UserGuide/images/2D_B_and_W_Pie_Chart/2D_B_W_Pie_Chart_1.png?v=83139"/>
-                    </Paper>
-                </Grid> */}
             </Grid>
         </Container>
     );

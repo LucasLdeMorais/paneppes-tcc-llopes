@@ -12,10 +12,9 @@ import {
 import React from 'react';
 import "./index.css";
 import { Bar } from 'react-chartjs-2';
-import { Box, CircularProgress, ListItemIcon } from '@mui/material';
+import { ListItemIcon } from '@mui/material';
 import { useEffect, useState, useRef } from 'react';
 import { useListState } from '@mantine/hooks';
-import { estados } from '../../../../constants/compartilhado';
 import { ListItem } from '@mui/material';
 import { ListItemText } from '@mui/material';
 import { Square } from '@mui/icons-material';

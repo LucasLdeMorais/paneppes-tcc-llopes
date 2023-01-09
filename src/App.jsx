@@ -11,7 +11,7 @@ const Universidades = lazy(() => import("./pages/universidades/Universidades"));
 const PainelComparativo = lazy(() => import("./pages/painelComparativo/PainelComparativo"));
 const Parlamentares = lazy(() => import("./pages/parlamentares/Parlamentares"));
 const ParaSaberMais = lazy(() => import("./pages/paraSaberMais/ParaSaberMais"));
-const FonteDasInformacoes = lazy(() => import("./pages/fonteDasInformacoes/FonteDasInformacoes"));
+const FonteDosDados = lazy(() => import("./pages/fonteDosDados/FonteDosDados"));
 const Home = lazy(() => import("./pages/home/Home"));
 
 function App() {
@@ -63,8 +63,8 @@ function App() {
                 <Route path="/SaberMais">
                   <ParaSaberMais />
                 </Route>
-                <Route path="/FonteDasInformacoes">
-                  <FonteDasInformacoes />
+                <Route path="/FonteDosDados">
+                  <FonteDosDados />
                 </Route>
               </Suspense>
             </Switch>

@@ -1,14 +1,14 @@
-import "./fonteDasInformacoes.css";
+import "./fonteDosDados.css";
 import { Container, Paper, Typography, Box, Table, TableHead, TableRow, TableCell, TableBody, Link, TableContainer} from "@mui/material";
 import React from "react";
-import { comoFuncionaEmendasParlamentares, oQueSaoEmendasParlamentares } from "../../mensagens";
-import CaixaTexto from './../../components/caixaTexto/CaixaTexto';
+import { comoFuncionaEmendasParlamentares, oQueSaoEmendasParlamentares } from "../../constants/mensagens";
+import CaixaTexto from '../../components/caixaTexto/CaixaTexto';
 import BreadcrumbsWithRouter from "../../components/BreadcrumbsWithRouter";
 import { withRouter } from "react-router-dom";
 
 
 
-const FonteDasInformacoes = (props) => {
+const FonteDosDados = (props) => {
     const history = props;
     const acoes = [
         "20RK",
@@ -65,4 +65,4 @@ const FonteDasInformacoes = (props) => {
     );
 }
 
-export default withRouter(FonteDasInformacoes);
+export default withRouter(FonteDosDados);

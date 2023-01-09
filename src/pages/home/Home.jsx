@@ -6,7 +6,6 @@ import { AccountBalance, CompareArrows, Groups, Warning } from "@mui/icons-mater
 import SeletorAnos from './../../components/seletorAnos/SeletorAnos';
 import { anos } from "../../constants/compartilhado";
 import { useState, useEffect } from 'react';
-import { useListState } from '@mantine/hooks';
 import { useRef } from 'react';
 import { withRouter } from "react-router-dom";
 import BreadcrumbsWithRouter from '../../components/BreadcrumbsWithRouter/BreadcrumbsWithRouter';
@@ -18,9 +17,7 @@ import GraficoEmendasRp from './../../components/graficos/GraficosPequenos/Grafi
 
 function Home(props) {
   const { history } = props;
-  const [newSession, setNewSession] = useState(true);
   const [anoSelecionado, setAnoSelecionado] = useState("2022");
-  //const [emendas, updateEmendas] = useListState();
   const {isLoading: carregandoEmendas, isError: temErroEmendas, error: erroEmendas, data: dadosEmendas} = useQuery("recuperaEmendas", 
     async () => { 
       const response = await api.get('/emendas');
@@ -33,10 +30,8 @@ function Home(props) {
       return response.data;
     }
   );
-  const [listaUniversidades, updateListaUniversidades] = useListState();
   const [emendasAno, setEmendasAno] = useState();
   const shouldGetEmendasAno = useRef(true);
-  const shouldGetUniversidades = useRef(true);
 
 
 
@@ -62,19 +57,6 @@ function Home(props) {
       onClick: () => history.push("/PainelComparativo")
     },
   ]
-  
-  const BotaoRedirecionar = (botao, key) => {
-    return (
-      <Grid item xs={4} key={key}>
-        <Paper className={"paper-botao-telas-home"}>
-          <Button color="primary" variant="contained" className={"botao-telas-home"} onClick={botao.onClick}>
-            <Icon style={{marginRight: "10px"}}>{botao.icone}</Icon>
-            <Typography component='h3' variant='h6'>{botao.texto}</Typography>
-          </Button>
-        </Paper>
-      </Grid>
-    )
-  }
 
   const GeraGraficoEmendasRegiao = () => {
     if(carregandoEmendas || carregandoUniversidades) {
@@ -186,13 +168,6 @@ function Home(props) {
   }
 
   useEffect( () => {
-    let newSession = sessionStorage.getItem("newSession");
-    if (newSession === undefined || newSession=== null) {
-      sessionStorage.setItem("newSession", false);
-    } else {
-      setNewSession(false)
-    }
-
     if(shouldGetEmendasAno.current && dadosEmendas !== undefined ){
       setEmendasAno(reduceEmendasAno(dadosEmendas, anos));
       shouldGetEmendasAno.current = false;
@@ -203,7 +178,7 @@ function Home(props) {
     <Container className='container'>
       <BreadcrumbsWithRouter props={props} links={[{texto:"Principal", endPagina: "/"}]} className={"breadcrumbs"}/>
       <Grid container spacing={2} className='gridPrincipal'>
-        {/* BOTOES */
+        {
           listaBotoes.map( (botao,index) => {
             return <Grid item xs={4} key={index}>
               <Paper className={"paper-botao-telas-home"} elevation={4}>
@@ -215,7 +190,6 @@ function Home(props) {
             </Grid>
           })
         }
-        {/* Graficos */}
         <Grid item xs={12}>
           <Paper className='painel-grafico-grande-home' elevation={3}>
             <Box className='header-painel-grafico-home'>

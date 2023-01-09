@@ -1,11 +1,6 @@
 import React from "react";
 import "./topbar.css";
-import { 
-  Settings, 
-  Menu, 
-  ChevronLeft,
-  ChevronRight
-} from "@mui/icons-material";
+import { Menu } from "@mui/icons-material";
 import { 
   AppBar,
   IconButton, 
@@ -17,9 +12,6 @@ const Topbar = (props) => {
   return (
     <AppBar position="fixed" open={props.aberto}>
       <Toolbar sx={{ pr: '24px' }}>
-        {/* { !props.aberto && <IconButton onClick={props.abreGaveta}>
-          <Menu style={{ color: 'white' }}/>
-        </IconButton>} */}
         <IconButton onClick={(e) => props.abreGaveta(e)}>
           <Menu style={{ color: 'white' }}/>
         </IconButton>
