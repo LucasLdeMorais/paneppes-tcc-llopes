@@ -20,8 +20,10 @@ function Home(props) {
   const [anoSelecionado, setAnoSelecionado] = useState("2022");
   const {isLoading: carregandoEmendas, isError: temErroEmendas, error: erroEmendas, data: dadosEmendas} = useQuery("recuperaEmendas", 
     async () => { 
-      const response = await api.get('/emendas');
-      return response.data;
+      const response1 = await api.get('/emendas?pagina=1&limite=5322');
+      const response2 = await api.get('/emendas?pagina=2&limite=5322');
+      let response = response1.data.emendas.concat(response2.data.emendas);
+      return response;
     }
   );
   const {isLoading: carregandoUniversidades, isError: temErroUniversidades, error: erroUniversidades, data: dadosUniversidades} = useQuery("recuperaListaUniversidades", 
