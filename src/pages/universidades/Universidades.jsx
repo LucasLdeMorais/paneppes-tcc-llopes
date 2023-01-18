@@ -14,6 +14,7 @@ import api from './../../services/api';
 import { withRouter } from "react-router-dom";
 import { useQuery } from 'react-query';
 import BreadcrumbsWithRouter from "../../components/BreadcrumbsWithRouter";
+import GraficoEmendasRp from "../../components/graficos/GraficosPequenos/GraficoEmendasRp";
 
 function Universidades(props) {
     const { history } = props;
@@ -69,6 +70,27 @@ function Universidades(props) {
 
     function handleSetAutocompleteAberto(value) {
         setAutocompleteAberto(value);
+    }
+
+    const GeraGraficoEmendasRp = () => {
+        if(dadosEmendas === undefined){
+            if(carregandoEmendas){
+            return <Box className='box-grafico-grande-vazio-universidades'>
+                <CircularProgress color="inherit" size={40} style={{marginBottom:"20px"}}/>
+                <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
+            </Box>
+            } else if(temErroEmendas) {
+            return <Box className='box-grafico-grande-vazio-universidades'>
+                <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de emendas</Typography>
+            </Box>
+            } else {
+            return <Box className='box-grafico-grande-vazio-universidades'>
+                <Typography component='h5' variant='h6'>Selecione uma universidade</Typography>
+            </Box>
+            }
+        } else {
+            return <GraficoEmendasRp anoSelecionado={anoSelecionado} emendasUniversidades={dadosEmendas} ladoLegenda={"bottom"} styleBox={{width: "100%", marginTop: "15px"}} styleGrafico={{maxHeight: "250px"}}/>
+        }
     }
 
     const GeraGraficoEmendasAcao = () => {
@@ -262,24 +284,24 @@ function Universidades(props) {
                         <GeraGraficoEmendasAno />
                     </Paper>
                 </Grid>
-                { 
-                    universidade?  <Grid item xs={6} style={{height: "max-content"}}>
-                        <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
-                            <Box className='header-painel-grafico-universidades'>
-                                <Typography component='h3' variant='subtitle1' className="titulo-header-painel-grafico-pequeno-universidades">Distribuição de emendas pagas por ação</Typography>
-                                <AjudaPequenos abrir={abrirAjudaAcao} fechar={fecharAjudaAcao} open={statusAjudaAcao}/>
-                            </Box>
-                            <Box className='subtitulo-painel-grafico-grande-universidades'>
-                                <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
-                                    <Warning />
-                                </Icon>
-                                <Typography component='h3' variant='caption' className="subtitulo-header-painel-universidades">Posicione o cursor do mouse sobre as fatias do gráfico para visualizar os valores</Typography>
-                            </Box>
-                            <SeletorAnos paper stylePaper={{width: "97%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
-                            <Box style={{height: "max-content"}}>
-                                <GeraGraficoEmendasAcao />
-                            </Box>
-                        </Paper> 
+                
+                {  universidade?  <Grid item xs={6} style={{height: "max-content"}}>
+                    <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
+                        <Box className='header-painel-grafico-universidades'>
+                            <Typography component='h3' variant='subtitle1' className="titulo-header-painel-grafico-pequeno-universidades">Distribuição de emendas pagas por ação</Typography>
+                            <AjudaPequenos abrir={abrirAjudaAcao} fechar={fecharAjudaAcao} open={statusAjudaAcao}/>
+                        </Box>
+                        <Box className='subtitulo-painel-grafico-grande-universidades'>
+                            <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                                <Warning />
+                            </Icon>
+                            <Typography component='h3' variant='caption' className="subtitulo-header-painel-universidades">Posicione o cursor do mouse sobre as fatias do gráfico para visualizar os valores</Typography>
+                        </Box>
+                        <SeletorAnos paper stylePaper={{width: "97%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+                        <Box style={{height: "max-content"}}>
+                            <GeraGraficoEmendasAcao />
+                        </Box>
+                    </Paper> 
                     </Grid> : <PainelSemUniversidadeSelecionada tamanho={"medio"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
                 }
                 { 
@@ -320,7 +342,28 @@ function Universidades(props) {
                         <SeletorAnos paper stylePaper={{width: "98%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
                         <GeraListaEmendas />
                     </Paper>
-                </Grid> : <PainelSemUniversidadeSelecionada tamanho={"grande"} style={{minHeight: "450px", backgroundColor: "#878787", padding: "20px"}}/>}
+                    </Grid> : <PainelSemUniversidadeSelecionada tamanho={"grande"} style={{minHeight: "450px", backgroundColor: "#878787", padding: "20px"}}/>
+                }
+                {
+                    universidade?  <Grid item xs={6} style={{height: "max-content"}}>
+                        <Paper className='painel-grafico-pequeno-universidades' elevation={2} style={{height: "max-content"}}>
+                            <Box className='header-painel-grafico-universidades'>
+                                <Typography component='h3' variant='subtitle1' className="titulo-header-painel-grafico-pequeno-universidades">Distribuição de emendas pagas por Resultado Primário</Typography>
+                                <AjudaPequenos abrir={abrirAjudaAcao} fechar={fecharAjudaAcao} open={statusAjudaAcao}/>
+                            </Box>
+                            <Box className='subtitulo-painel-grafico-grande-universidades'>
+                                <Icon style={{color: "orange", float: "left", marginLeft:"10px", marginRight:"5px"}}>
+                                    <Warning />
+                                </Icon>
+                                <Typography component='h3' variant='caption' className="subtitulo-header-painel-universidades">Posicione o cursor do mouse sobre as fatias do gráfico para visualizar os valores</Typography>
+                            </Box>
+                            <SeletorAnos paper stylePaper={{width: "97%", margin: "9px", marginBottom: "4apx"}} styleBox={{width: "100%"}} anos={anos} anoSelecionado={anoSelecionado} setAnoSelecionado={handleSetAnoSelecionado}/>
+                            <Box style={{height: "max-content"}}>
+                                <GeraGraficoEmendasRp />
+                            </Box>
+                        </Paper> 
+                    </Grid> : <PainelSemUniversidadeSelecionada tamanho={"medio"} style={{minHeight: "350px", backgroundColor: "#878787", padding: "20px"}}/>
+                }
             </Grid>
         </Container>
     );

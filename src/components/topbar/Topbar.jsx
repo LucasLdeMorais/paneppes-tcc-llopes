@@ -3,6 +3,7 @@ import "./topbar.css";
 import { Menu } from "@mui/icons-material";
 import { 
   AppBar,
+  Box,
   IconButton, 
   Toolbar,
   Typography
@@ -15,16 +16,28 @@ const Topbar = (props) => {
         <IconButton onClick={(e) => props.abreGaveta(e)}>
           <Menu style={{ color: 'white' }}/>
         </IconButton>
-        <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-              style={{ marginLeft: '10px' }}
-            >
-              Painel VisEPES
-            </Typography>
+        <Box>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+            style={{ marginLeft: '10px', float: 'left' }}
+          >
+            PANEPPES
+          </Typography>
+          <Typography
+            component="sub"
+            variant="subtitle1"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+            style={{ marginLeft: '10px', float: 'left', marginTop: '3px' }}
+          >
+            Painel de Análise das Emendas Parlamentares Pagas ao Ensino Superior
+          </Typography>
+        </Box>
       </Toolbar>
     </AppBar>
   );

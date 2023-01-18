@@ -20,8 +20,8 @@ function Home(props) {
   const [anoSelecionado, setAnoSelecionado] = useState("2022");
   const {isLoading: carregandoEmendas, isError: temErroEmendas, error: erroEmendas, data: dadosEmendas} = useQuery("recuperaEmendas", 
     async () => { 
-      const response1 = await api.get('/emendas?pagina=1&limite=5322');
-      const response2 = await api.get('/emendas?pagina=2&limite=5322');
+      const response1 = await api.get('/emendas?pagina=1&limite=9241');
+      const response2 = await api.get('/emendas?pagina=2&limite=9241');
       let response = response1.data.emendas.concat(response2.data.emendas);
       return response;
     }
@@ -67,11 +67,11 @@ function Home(props) {
         <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
       </Box>
     } else if (temErroEmendas) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='box-grafico-pequeno-vazio'>
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de emendas</Typography>
       </Box>
     } else if (temErroUniversidades) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='box-grafico-pequeno-vazio'>
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de universidades</Typography>
       </Box>
     } else {
@@ -86,11 +86,11 @@ function Home(props) {
         <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
       </Box>
     } else if (temErroEmendas) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='box-grafico-pequeno-vazio'>
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de emendas</Typography>
       </Box>
     } else if (temErroUniversidades) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='box-grafico-pequeno-vazio'>
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de universidades</Typography>
       </Box>
     } else {
@@ -105,7 +105,7 @@ function Home(props) {
         <Typography component='h5' variant='h6' style={{}}>Carregando emendas...</Typography>
       </Box>
     } else if (temErroEmendas) {
-      return <Box className='box-tabela-vazia'>
+      return <Box className='box-grafico-pequeno-vazio'>
         <Typography component='h5' variant='h6' style={{color: "red"}}>Erro ao baixar dados de emendas</Typography>
       </Box>
     } else {

@@ -20,12 +20,21 @@ const ParaSaberMais = (props) => {
                 <Typography component='h3' variant='h6' style={{marginBottom: "10px"}} >Emendas Parlamentares</Typography>
                 <CaixaTexto titulo={"O que são"} corpo={
                   <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>
-                    A emenda ao orçamento é um instrumento que permite a deputados e senadores realizarem alterações no Projeto de Lei Orçamentária Anual - o PLOA. Trata-se de um mecanismo que permite que estes parlamentares possam opinar e reivindicar reajustes orçamentários em função de seus compromissos políticos.
+                    De acordo com o <a href="https://www12.senado.leg.br/noticias/glossario-legislativo/emendas-ao-orcamento">Glossário Legislativo</a> (2022), disponível no portal oficial do Senado, a emenda ao orçamento é um instrumento que permite a deputados e senadores realizarem correções sobre o PLOA (Senado, 2022). Trata-se de um mecanismo que permite que estes parlamentares possam opinar e reivindicar reajustes orçamentários em função de suas promessas e objetivos políticos (Senado, 2022).
                   </Typography> 
                 }/>
-                <CaixaTexto titulo={"Como funcionam"} corpo={comoFuncionaEmendasParlamentares}/>
-                <CaixaTexto titulo={"Tipos de Emendas"} corpo={<>
-                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Existem quatro tipos de emendas ao orçamento federal: individuais, de bancada, de comissão e de relator.</Typography> 
+                <CaixaTexto titulo={"Como funcionam"} corpo={<Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>{comoFuncionaEmendasParlamentares}</Typography>}/>
+                <CaixaTexto titulo={"Tipos de Emendas (Natureza do Reajuste)"} corpo={<>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas parlamentares são, essencialmente correções sugeridas ao Projeto de Lei Orçamentária Anual (PLOA). Estas correções estão sujeitas às regras aplicavéis ao tipo de reajuste sugerido. São 3 tipos de reajuste:</Typography> 
+                    <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de apropriação:</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas de apropriação sugerem o aumento de dotação em programação existente no PLOA ou inclusão de nova programação e,como fonte de recursos, a anulação de dotações da Reserva de Recursos ou de outras definidas no Parecer Preliminar (Manual de Emendas Orçamento da União para 2023, Congresso Nacional, 2022).</Typography>
+                    <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de remanejamento:</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas de remanejamento sugerem aumento de dotação em programação existente no PLOA ou inclusão de nova programação e, como fonte exclusiva de recursos, a anulação de dotações constantes do projeto de lei, exceto as da Reserva de Contingência (Manual de Emendas Orçamento da União para 2023, Congresso Nacional, 2022).</Typography>
+                    <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de cancelamento:</Typography>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas de cancelamento sugerem a redução de dotações do projeto, em outras palavras, cancelamento de dotações (Manual de Emendas Orçamento da União para 2023, Congresso Nacional, 2022).</Typography>
+                </>}/>
+                <CaixaTexto titulo={"Tipos de Emendas (Autoria)"} corpo={<>
+                    <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Existem quatro tipos de emendas parlamentares ao orçamento federal no que diz respeito à autoria destas emendas: individuais, de bancada, de comissão e de relator.</Typography> 
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas individuais:</Typography>
                     <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>Emendas individuais são de autoria individual - tal como o nome sugere - de cada parlamentar, que pode sugerir até vinte e cinco emendas ao PLOA e estas devem seguir as exigências dispostas na Lei de Diretrizes Orçamentárias - a LDO (<i>Resolução 1/06 do Congresso Nacional, 2006</i>).</Typography>
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas de Bancada:</Typography>
@@ -35,9 +44,6 @@ const ParaSaberMais = (props) => {
                     <Typography component='p' variant="h6" style={{marginTop: "10px"}}>Emendas da Relator:</Typography> 
                     <Typography className={"corpo-caixa-texto"} component='p' variant="body1" textAlign={"justify"}>As emendas da relator - ou de relatoria - são emendas sugeridas pelo relator geral escolhido anualmente dentre o corpo de deputados e senadores da câmara.</Typography>
                 </>}/>
-                <Typography component='h3' variant='h6' style={{marginBottom: "10px"}} >Orçamento das Universidades Federais</Typography>
-                <CaixaTexto titulo={"Como é feito"} corpo={oQueSaoEmendasParlamentares}/>
-                <CaixaTexto titulo={"Papel das Emendas no Orçamento das Universidades"} corpo={comoFuncionaEmendasParlamentares}/>
             </Box>
         </Paper>
     </Container>

@@ -1,6 +1,6 @@
 {
-  "short_name": "Painel VisEPIFES",
-  "name": "Painel de Visualisação de Emendas Parlamentares para Instituições Federais de Ensino Superior",
+  "short_name": "PANEPPES",
+  "name": "Painel de Análise das Emendas Parlamentares Pagas ao Ensino Superior",
   "icons": [],
   "start_url": ".",
   "display": "standalone",

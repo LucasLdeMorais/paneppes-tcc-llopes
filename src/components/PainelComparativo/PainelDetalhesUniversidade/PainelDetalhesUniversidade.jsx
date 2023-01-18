@@ -45,6 +45,17 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
         }
     }, 0)
 
+    const totalLiquidado = emendasUniversidade.reduce((acc, obj) => {
+        if (anoSelecionado) {
+            if(obj.ano === parseInt(anoSelecionado)){
+                return acc + obj.liquidado
+            }
+            return acc
+        } else {
+            return acc + obj.liquidado
+        }
+    }, 0)
+
 
     const totalEmpenhado = emendasUniversidade.reduce((acc, obj) => {
         if (anoSelecionado) {
@@ -98,6 +109,9 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
                         <Typography variant="subtitle1" style={{}}><b>Total empenhado{anoSelecionado? ` ${anoSelecionado}`:""}:</b> {`R$ ${totalEmpenhado.toLocaleString()}`}</Typography>
                     </Paper>
                     <Paper elevation={2} style={{padding: "10px", width: "max-content", display: "inline-block", marginLeft: "15px"}}>
+                        <Typography variant="subtitle1" style={{}}><b>Total Liquidado{anoSelecionado? ` ${anoSelecionado}`:""}:</b> {`R$ ${totalLiquidado.toLocaleString()}`}</Typography>
+                    </Paper>
+                    <Paper elevation={2} style={{padding: "10px", width: "max-content", display: "inline-block", marginLeft: "15px"}}>
                         <Typography variant="subtitle1" style={{}}><b>Total pago{anoSelecionado? ` ${anoSelecionado}`:""}:</b> {`R$ ${totalPago.toLocaleString()}`}</Typography>
                     </Paper>
                 </Box>
@@ -108,7 +122,7 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
                 <Box id={"tabela-painel-detalhes"}>
                     {
                         emendasUniversidade.filter(obj => obj.pago > 0).length > 0?
-                            <BotaoLista/> : <Typography style={{width: "100%", textAlign: 'center', display: "block"}}>Sem emendas pagas</Typography>
+                            <BotaoLista/> : <Typography style={{width: "100%", textAlign: 'center', display: "block"}}>Sem registro de emendas</Typography>
                     }
                     {
                         listaAberta? <ListaEmendas dadosEmendas={emendasUniversidade} anoSelecionado={anoSelecionado}/> : <></>

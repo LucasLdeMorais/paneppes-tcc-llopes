@@ -195,11 +195,11 @@ export default function GraficoEmendasPartido({emendasUniversidade, anoSeleciona
     </List>
   </Box>
   }
-  return <Box className='container-grafico-emendas-acao' style={styleBox}>
+  return <Box className='container-grafico-partido' style={styleBox}>
     { 
       titulo && <Typography variant="subtitle1" component="h4" className={"titulo-grafico"} >{titulo}</Typography>
     }
-    <Box className='box-tabela-vazia'>
+    <Box className='box-grafico-partido-vazio'>
       <Typography component='h5' variant='h6' style={{}}>Sem registros</Typography>
     </Box>
   </Box>

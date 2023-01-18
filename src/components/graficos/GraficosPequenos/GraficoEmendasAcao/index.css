@@ -9,3 +9,11 @@
     max-height: 350px;
     max-width: 430px
 }
+
+.box-grafico-acao-vazio {
+    display: block;
+    color: grey;
+    text-align: center;
+    max-height: 379px;
+    padding: 80px 0 50px 0;
+}

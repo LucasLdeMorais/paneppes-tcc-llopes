@@ -124,7 +124,7 @@ function EmendasPorAno({emendasUniversidade, styleBox, styleGrafico}) {
         <Bar className={"grafico-barras"} style={styleGrafico} data={{
             labels: anos,
             datasets: datasets
-        }} options={options}/>W
+        }} options={options}/>
     </>)
 }
 export default EmendasPorAno;

@@ -35,6 +35,14 @@
     padding: 120px 0 120px 0;
 }
 
+.box-grafico-pequeno-vazio {
+    display: block;
+    color: grey;
+    text-align: center;
+    max-height: 379px;
+    padding: 189px 0 189px 0;
+}
+
 .box-grafico-grande-carregando {
     display: block;
     color: grey;
