@@ -27,6 +27,18 @@ const options = {
     tooltip: {
         position: 'nearest'
     },
+    scales:{
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            userCallback: function(value, index, values) {
+                return value.toLocaleString('pt-BR');
+            }
+          }
+        }
+      ]
+    },
     title: {
         display: false,
         text: 'Valor de Emendas Pagas por Partido',
@@ -39,6 +51,9 @@ const options = {
           soma += data;
         });
         let percentage = roundDouble(((value / soma) * 100), 2) + '%';
+        if (percentage === "0%") {
+          return null;
+        }
         return percentage;
       },
       font: {
@@ -86,9 +101,10 @@ export default function GraficoEmendasPartido({emendasUniversidade, anoSeleciona
     emendasUniversidade.forEach((obj) => {
       const confereAnoSelecionado = anoSelecionado !== 0 && `${obj.ano}` === anoSelecionado;
 
-      if (anoSelecionado === 0 || confereAnoSelecionado) {
+      if ((anoSelecionado === 0 || confereAnoSelecionado) && obj.rp === "6 - Emendas Individuais") {
         //* insere os valores na primeira vez e define as cores
         if(!pagoPartido.labels.find(item => item === obj.partido)) {
+          
           const colorRgb = randomPastelColorRGB();
 
           pagoPartido.labels.push(obj.partido);
@@ -110,18 +126,6 @@ export default function GraficoEmendasPartido({emendasUniversidade, anoSeleciona
         }
       }
     });
-    
-    if (!(pagoPartido.data.length === pagoPartido.data.filter(item => item === 0).length)){
-      let i = 0;
-      while (i < pagoPartido.data.length) {
-        if (pagoPartido.data[i] === 0) {
-          pagoPartido.data.splice(i, 1);
-          pagoPartido.labels.splice(i, 1);
-        } else {
-          ++i;
-        }
-      }
-    }
 
     // * Seta o valor acumulado na legenda
     let total = 0;

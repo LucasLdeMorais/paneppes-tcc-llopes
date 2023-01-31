@@ -55,7 +55,6 @@ function Universidades(props) {
             let liquidadoAno = 0;
             emendas.forEach(emenda => {
                 if(emenda.ano === parseInt(ano)){
-                    debugger
                     empenhadoAno += emenda.empenhado;
                     liquidadoAno += emenda.liquidado;
                     pagoAno += emenda.pago;
@@ -224,8 +223,9 @@ function Universidades(props) {
                 <Tooltip arrow PopperProps={{disablePortal: true}} disableFocusListener disableHoverListener disableTouchListener open={open} onClose={fechar} title={<React.Fragment>
                     <Typography color="inherit">Como utilizar:</Typography>
                     <Typography variant='subtitle2' color="inherit">Selecionar Universidade:</Typography>
-                    {"Selecione uma universidade na barra de seleção acima para que os gráficos mostrem os dados referentes à universidade selecionada."}<hr/>
-                    <a href="/ParaSaberMais" style={{color: "white"}}>{'Link para guia completo'}</a>
+                    {"Selecione uma universidade na barra de seleção acima para que os gráficos mostrem os dados referentes à universidade selecionada."}
+                    {/* <hr/>
+                    <a href="/ParaSaberMais" style={{color: "white"}}>{'Link para guia completo'}</a> */}
                 </React.Fragment>} placement='right'>
                     <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
                 </Tooltip>
@@ -240,8 +240,8 @@ function Universidades(props) {
                     <Typography color="inherit">Como utilizar:</Typography>
                     <Typography variant='subtitle2' color="inherit">Selecionar Ano:</Typography>
                     {"Selecione um ano na barra de seleção abaixo para que os gráficos mostrem os dados referentes a emendas pagas no ano selecionado."}
-                    <hr/>
-                    <a href="/ParaSaberMais" style={{color: "white"}}>{'Link para guia completo'}</a>
+                    {/* <hr/>
+                    <a href="/ParaSaberMais" style={{color: "white"}}>{'Link para guia completo'}</a> */}
                 </React.Fragment>} placement='right'>
                     <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
                 </Tooltip>
@@ -255,8 +255,8 @@ function Universidades(props) {
                 <Tooltip arrow PopperProps={{disablePortal: true}} disableFocusListener disableHoverListener disableTouchListener open={open} onClose={fechar} title={<React.Fragment>
                     <Typography color="inherit">Como utilizar:</Typography>
                     <Typography variant='subtitle2' color="inherit">Selecionar Ano:</Typography>
-                    {"Selecione um ano na barra de seleção abaixo para que os gráficos mostrem os dados referentes a emendas pagas no ano selecionado."}<hr/>
-                    <a href="/ParaSaberMais" style={{color: "white"}}>{'Link para guia completo'}</a>
+                    {"Selecione um ano na barra de seleção abaixo para que os gráficos mostrem os dados referentes a emendas pagas no ano selecionado."}{/* <hr/>
+                    <a href="/ParaSaberMais" style={{color: "white"}}>{'Link para guia completo'}</a> */}
                 </React.Fragment>} placement='right'>
                     <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
                 </Tooltip>

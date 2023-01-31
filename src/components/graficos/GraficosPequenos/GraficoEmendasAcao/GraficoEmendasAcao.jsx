@@ -22,6 +22,18 @@ const options = {
     },
     tooltip: {
     },
+    scales:{
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            userCallback: function(value, index, values) {
+                return value.toLocaleString('pt-BR');
+            }
+          }
+        }
+      ]
+    },
     title: {
         display: false,
         text: 'Valor de Emendas Pagas por Ação'
@@ -34,6 +46,9 @@ const options = {
           soma += data;
         });
         let percentage = roundDouble(((value / soma) * 100), 2) + '%';
+        if (percentage === "0%") {
+          return null;
+        }
         return percentage;
       },
       font: {
@@ -106,19 +121,9 @@ export default function GraficoEmendasAcao({emendasUniversidade, styleBox, style
       }
     });
     
-    if (!(pagoAcao.data.length === pagoAcao.data.filter(item => item === 0).length)){
-      let i = 0;
-      while (i < pagoAcao.data.length) {
-        if (pagoAcao.data[i] === 0) {
-          pagoAcao.data.splice(i, 1);
-          pagoAcao.labels.splice(i, 1);
-        } else {
-          ++i;
-        }
-      }
-    }
-    // * Seta o valor acumulado na legenda
     
+    // * Seta o valor acumulado na legenda
+
     let total = 0;
     if (pagoAcao.data.length > 0){
         total = pagoAcao.data.reduce((acc,valor) => {

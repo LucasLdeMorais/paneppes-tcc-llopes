@@ -41,6 +41,9 @@ const options = {
           soma += data;
         });
         let percentage = roundDouble(((value / soma) * 100), 2) + '%';
+        if (percentage === "0%") {
+          return null;
+        }
         return percentage;
       },
       font: {
@@ -138,17 +141,6 @@ export default function GraficoEmendasRp({emendasUniversidades, anoSelecionado, 
       }
     });
 
-    if (!(pagoRp.data.length === pagoRp.data.filter(item => item === 0).length)){
-      let i = 0;
-      while (i < pagoRp.data.length) {
-        if (pagoRp.data[i] === 0) {
-          pagoRp.data.splice(i, 1);
-          pagoRp.labels.splice(i, 1);
-        } else {
-          ++i;
-        }
-      }
-    }
     // * Seta o valor acumulado na legenda
     const total = pagoRp.data.reduce((acc,valor) => {
       return acc += valor
