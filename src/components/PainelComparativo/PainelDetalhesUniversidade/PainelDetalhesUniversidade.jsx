@@ -89,8 +89,8 @@ const PainelDetalhesUniversidade = ({titulo, handleRemover, indice, emendasUnive
                 {"Para Remover, desça a tela até o painel da espectiva universidade e clique no símbolo \"x\" no cabeçalho (em azul)."}
                 <Typography variant='subtitle2' color="inherit">Abrir Tabela de Emendas da Universidade:</Typography>
                 {"Clique no botão escrito \"Abrir tabela de emendas\" logo abaixo dos gráficos de pizza. Para fechar, bastar clicar no botão novamente."}
-                <hr/>
-                <u>{'Link para guia completo'}</u>
+                {/* <hr/>
+                <u>{'Link para guia completo'}</u> */}
             </React.Fragment>} placement='right'>
                 <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
             </Tooltip>

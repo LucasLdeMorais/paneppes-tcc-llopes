@@ -87,8 +87,8 @@ function Parlamentares(props) {
                 {"Selecione um parlamentar na barra de seleção acima para que a tabela mostre os registros de emendas parlamentares direcionadas a instituições de ensino superior federais, feitas pelo autor selecionado."}
                 <Typography variant='subtitle2' color="inherit">Selecionar Ano:</Typography>
                 {"Selecione um ano na barra de seleção abaixo para que os gráficos mostrem os dados referentes a emendas pagas no ano selecionado."}
-                <hr/>
-                <u>{'Link para guia completo'}</u>
+                {/* <hr/>
+                <u>{'Link para guia completo'}</u> */}
             </React.Fragment>} placement='right'>
                 <IconButton onClick={open? fechar:abrir}><Help style={{color: "white"}} /></IconButton>
             </Tooltip>
