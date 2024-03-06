@@ -93,11 +93,9 @@ export default function GraficoEmendasRp({emendasUniversidades, anoSelecionado, 
   const [labels, updateLabels] = useListState([]);
   const [datasets, updateDatasets] = useListState([]);
   const [legenda, setLegenda] = useListState([]);
-  const [anoAnterior, setAno] = useState(-1);
-  const shouldGetDataset = useRef(true);
+  const [ano, setAno] = useState(-1);
 
   /**
-   * ! Ver por que está dando ERRO
    * @param {Array<EmendaUniversidade>} emendasUniversidades 
    * @param {String<Ano>} anoSelecionado
    * @returns {{Array<String>,Array<Integer>}} emendasUo
@@ -140,11 +138,13 @@ export default function GraficoEmendasRp({emendasUniversidades, anoSelecionado, 
         }
       }
     });
-
+    let total = 0
     // * Seta o valor acumulado na legenda
-    const total = pagoRp.data.reduce((acc,valor) => {
-      return acc += valor
-    })
+    if (pagoRp.data.length > 0){
+      total = pagoRp.data.reduce((acc,valor) => {
+        return acc += valor
+      })
+    }
     localLegenda.forEach((item,index) => {
       item.valor = pagoRp.data[index];
       item.percentual = (100 * item.valor) / total;
@@ -166,14 +166,8 @@ export default function GraficoEmendasRp({emendasUniversidades, anoSelecionado, 
   }
 
   useEffect(() => {
-    if(shouldGetDataset.current){
-      setAno(anoSelecionado);
-      getEmendasRp(emendasUniversidades, anoSelecionado);
-      shouldGetDataset.current = false;
-    } else if (anoSelecionado !== anoAnterior){
-      setAno(anoSelecionado);
-      getEmendasRp(emendasUniversidades, anoSelecionado);
-    }
+    setAno(anoSelecionado);
+    getEmendasRp(emendasUniversidades, anoSelecionado);
   }, [emendasUniversidades, anoSelecionado]);
 
   let newLeg = legenda.sort((a,b) => b.valor - a.valor );
@@ -193,12 +187,8 @@ export default function GraficoEmendasRp({emendasUniversidades, anoSelecionado, 
       }
     </List>
   </Box> : <Box className='container-grafico-rp' style={styleBox}>
-    <Pie data={{labels: ["Sem registros"], datasets: [{
-        label: "# Pago em R$",
-        data: [1],
-        backgroundColor: "rgb(175, 174, 174, 0.5)",
-        borderColors: "rgb(175, 174, 174)",
-        borderWidth: 1
-    }]}} options={optionsVazio} style={styleGrafico}/>
+    <div class="box-grafico-acao-vazio MuiBox-root css-0">
+      <h5 class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root">Sem registros</h5>
+    </div>
   </Box>
 }
